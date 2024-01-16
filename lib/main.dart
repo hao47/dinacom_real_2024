@@ -1,6 +1,7 @@
 
 import 'package:dinacom_2024/UI/auth/login/login_provider.dart';
 import 'package:dinacom_2024/UI/auth/register/regist_provider.dart';
+import 'package:dinacom_2024/teset.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,7 +20,6 @@ void main() async {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(
       create: (context) => LoginProvider(),
-
     ),
     ChangeNotifierProvider(
       create: (context) => RegistProvider(),
@@ -101,6 +101,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: UrlRoutes.initial,
       routes: appRoutes,
+
+
 
       // home: MainScreen(),
     );

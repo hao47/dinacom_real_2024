@@ -13,14 +13,9 @@ import '../../../validator/Validator.dart';
 import '../../widget/custom_textfield.dart';
 import '../../widget/loading_animation.dart';
 
-class LoginPageView extends StatefulWidget {
+class LoginPageView extends StatelessWidget {
   LoginPageView({super.key});
 
-  @override
-  State<LoginPageView> createState() => _LoginPageViewState();
-}
-
-class _LoginPageViewState extends State<LoginPageView> {
   TextEditingController _emailController = TextEditingController();
 
   TextEditingController _passwordController = TextEditingController();

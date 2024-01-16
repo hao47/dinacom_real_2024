@@ -139,6 +139,7 @@ class _RegistPageViewState extends State<RegistPageView> {
                               Provider.of<RegistProvider>(
                                   context, listen: false).regist(
                                   context, _emailController.text,_usernameController.text,_passwordController.text,_tanggaLahirController.text,"Kudus");
+
                             }
                           },
                           child: const Text('Daftar'),

@@ -11,6 +11,17 @@ import '../../../common/navigate.dart';
 
 class LoginProvider extends ChangeNotifier {
   final ValueNotifier<bool> isLoad = ValueNotifier<bool>(false);
+
+
+  String text = 'daffa';
+
+
+  mydekaprovider(String text){
+    this.text = text;
+    notifyListeners();
+
+  }
+
   late final SharedPreferences prefs;
   login(BuildContext context, String username, String password) async {
 
