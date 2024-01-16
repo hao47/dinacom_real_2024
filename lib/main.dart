@@ -1,13 +1,10 @@
-
 import 'package:dinacom_2024/UI/auth/login/login_provider.dart';
 import 'package:dinacom_2024/UI/auth/register/regist_provider.dart';
-import 'package:dinacom_2024/teset.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
-
 import 'UI/bottom_navigation/bottom_navigation.dart';
 import 'common/routes/routes.dart';
 import 'common/theme/app_theme_data.dart';
@@ -15,22 +12,19 @@ import 'common/theme/color_value.dart';
 import 'constants/url_routes.dart';
 
 void main() async {
-
-
-  runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(
-      create: (context) => LoginProvider(),
-    ),
-    ChangeNotifierProvider(
-      create: (context) => RegistProvider(),
-
-    ),
-  ],
-  child: const MyApp(),));
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (context) => LoginProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => RegistProvider(),
+      ),
+    ],
+    child: const MyApp(),
+  ));
   deviceOrientation();
 }
-
-
 
 void deviceOrientation() {
   SystemChrome.setPreferredOrientations([
@@ -46,8 +40,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Lofy',
       theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             onPrimary: Colors.white,
@@ -63,13 +57,11 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-
         textTheme: TextTheme(
           headline1: GoogleFonts.poppins(
             color: Colors.black,
             fontSize: 24,
             fontWeight: FontWeight.w700,
-
           ),
           headline2: GoogleFonts.poppins(
             color: Colors.black,
@@ -101,8 +93,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: UrlRoutes.initial,
       routes: appRoutes,
-
-
 
       // home: MainScreen(),
     );
