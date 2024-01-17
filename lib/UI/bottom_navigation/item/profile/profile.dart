@@ -24,24 +24,7 @@ class Profile extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              height: MediaQuery.of(context).size.height / 2.2,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(begin: Alignment.topRight, stops: [
-                  0.1,
-                  0.8
-                ], colors: [
-                  Colors.black.withOpacity(.2),
-                  Colors.white.withOpacity(.0)
-                ]),
-                image: DecorationImage(
-                  image: AssetImage("assets/images/bg-profile.png"),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              child: ProfileBioData(),
-            ),
+            ProfileBioData(),
             ProfilePost()
           ],
         ),
