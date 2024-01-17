@@ -47,6 +47,7 @@ dependencies:
   provider:
   lottie:
   csc_picker:
+  font_awesome_flutter:
 
 dev_dependencies:
   flutter_test:
