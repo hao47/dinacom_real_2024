@@ -3,12 +3,20 @@ import 'package:dinacom_2024/UI/widget/role.dart';
 import 'package:dinacom_2024/common/app_theme.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:flutter/material.dart';
-
+import 'package:dinacom_2024/data/model/profile_model.dart';
 class ProfileBioData extends StatelessWidget {
-  const ProfileBioData({super.key});
+
+  ProfileModel profileModel;
+
+
+   ProfileBioData({super.key,required this.profileModel});
 
   @override
   Widget build(BuildContext context) {
+
+    var tahun =  profileModel.tanggalLahir.year.toString();
+    var bulan =  profileModel.tanggalLahir.month.toString();
+    var hari =  profileModel.tanggalLahir.day.toString();
     return Column(
       children: [
         SizedBox(height: 10),
@@ -65,7 +73,7 @@ class ProfileBioData extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      'Nyoman Deka',
+                      profileModel.username,
                       style: CommonAppTheme.textTheme(context)
                           .headline1!
                           .copyWith(fontSize: 20),
@@ -77,7 +85,7 @@ class ProfileBioData extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20),
                           color: ColorValue.secondaryColor),
                       child: Text(
-                        "Masyarakat",
+                        profileModel.role,
                         style: CommonAppTheme.textTheme(context)
                             .bodyText1!
                             .copyWith(
@@ -112,7 +120,7 @@ class ProfileBioData extends StatelessWidget {
                         ),
                         SizedBox(width: 3),
                         Text(
-                          '12 Desember 1998',
+                         '$tahun - $bulan - $hari',
                           style: CommonAppTheme.textTheme(context)
                               .bodyText1!
                               .copyWith(fontSize: 10),
@@ -130,7 +138,7 @@ class ProfileBioData extends StatelessWidget {
                         ),
                         SizedBox(width: 3),
                         Text(
-                          'Bogor, Jawa Barat',
+                          profileModel.daerah,
                           style: CommonAppTheme.textTheme(context)
                               .bodyText1!
                               .copyWith(fontSize: 10),

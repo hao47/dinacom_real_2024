@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:dinacom_2024/UI/bottom_navigation/bottom_navigation.dart';
 import 'package:dinacom_2024/constants/url_routes.dart';
 import 'package:dinacom_2024/validator/Validator.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,12 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
 
     checkTokenShared();
-    Timer(const Duration(seconds: 3), () => isHasToken ? Navigate.navigatorReplacement(context, UrlRoutes.home) : Navigate.navigatorReplacement(context, UrlRoutes.auth_page));
+    Timer(const Duration(seconds: 3), () => isHasToken ?
+
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return MainScreen();
+    },))
+        : Navigate.navigatorReplacement(context, UrlRoutes.auth_page));
 
 
   }
@@ -37,10 +43,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
     String? token = prefs.getString('token');
 
-    print(token);
-    if( token != "" || token != null ){
+    if( token != "" && token != null ){
 
+      print(token);
       bool isTokenValid = await Validator.isTokenStillValid(token!);
+      print(isTokenValid);
       isHasToken = isTokenValid;
     }
 

@@ -23,7 +23,6 @@ class _VerifPageState extends State<VerifPage> {
 
   Future _checkEmailVerified() async {
 
-    Provider.of<VerifProvider>(context, listen: false).verif(context, "daffarobani551@gmail.com");
 
     var check = await Provider.of<VerifProvider>(context, listen: false).verif(context, "daffarobani551@gmail.com");
 

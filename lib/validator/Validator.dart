@@ -24,7 +24,9 @@ class Validator {
   static String? nameValidator(value) {
     return value.toString().length <= 3 ? 'Nama tidak valid' : null;
   }
-
+  static String? dateValidator(value) {
+    return value.toString().length <= 3 ? 'Tanggal tidak valid' : null;
+  }
 
   static String? emailValidator(value) {
     bool emailValid = RegExp(
@@ -56,7 +58,7 @@ class Validator {
 
   static Future<bool> isTokenStillValid(String token) async {
 
-    final response = await http.get(Uri.parse("http://10.0.2.2:8080/api/ping"),
+    final response = await http.get(Uri.parse("http://10.0.2.2:8080/api/secured/ping"),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': '$token',
