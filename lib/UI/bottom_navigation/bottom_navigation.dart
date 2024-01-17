@@ -1,11 +1,11 @@
-import 'package:dinacom_2024/UI/bottom_navigation/item/beranda/beranda.dart';
-import 'package:dinacom_2024/UI/bottom_navigation/item/profile/profile.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 
+import 'item/beranda/beranda.dart';
 import 'item/berita/berita.dart';
 import 'item/poran/poran.dart';
+import 'item/profile/profile.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
