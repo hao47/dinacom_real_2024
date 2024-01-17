@@ -1,17 +1,18 @@
-import 'package:dinacom_2024/UI/instansi/profile_biodata.dart';
-import 'package:dinacom_2024/UI/instansi/profile_post.dart';
+import 'package:dinacom_2024/UI/instansi_profile/profile_biodata.dart';
+import 'package:dinacom_2024/UI/instansi_profile/profile_post.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:flutter/material.dart';
 
-class Profile extends StatelessWidget {
-  const Profile({super.key});
+class ProfileInstansi extends StatelessWidget {
+  const ProfileInstansi({super.key});
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(
+        toolbarHeight: 75,
+        leading: const Icon(
           Icons.arrow_back_ios_new,
           color: Colors.black,
         ),
@@ -27,21 +28,28 @@ class Profile extends StatelessWidget {
               height: MediaQuery.of(context).size.height / 2.2,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                gradient: LinearGradient(begin: Alignment.topRight, stops: [
-                  0.1,
-                  0.8
-                ], colors: [
-                  Colors.black.withOpacity(.2),
-                  Colors.white.withOpacity(.0)
-                ]),
-                image: DecorationImage(
+                gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  stops: const [0.1, 0.8],
+                  colors: [
+                    Colors.black.withOpacity(.2),
+                    Colors.white.withOpacity(.0)
+                  ],
+                ),
+                image: const DecorationImage(
                   image: AssetImage("assets/images/bg-profile.png"),
                   fit: BoxFit.cover,
                 ),
+                border: const Border(
+                  bottom: BorderSide(
+                    color: ColorValue.VeryLightGrey,
+                    width: 1.5,
+                  ),
+                ),
               ),
-              child: ProfileBioData(),
+              child: const ProfileBioData(),
             ),
-            ProfilePost()
+            const ProfilePost()
           ],
         ),
       ),

@@ -40,7 +40,6 @@ void deviceOrientation() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -100,11 +99,6 @@ class MyApp extends StatelessWidget {
       initialRoute: UrlRoutes.profile,
       routes: appRoutes,
 
-      // home: ProfileTab(),
-
-      // home: VerifPage(),
-
-      // home: MainScreen(),
     );
   }
 }

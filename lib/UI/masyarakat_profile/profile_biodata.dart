@@ -8,7 +8,8 @@ class ProfileBioData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(padding: const EdgeInsets.only(top: 10, bottom: 20),
+    return Container(
+      padding: const EdgeInsets.only(top: 10, bottom: 20),
       decoration: const BoxDecoration(
         border: Border(
           bottom: BorderSide(
@@ -21,42 +22,18 @@ class ProfileBioData extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                width: 70,
-                height: 70,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(
-                      "https://images.pexels.com/photos/3307758/pexels-photo-3307758.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=250",
-                    ),
-                  ),
+          Container(
+            width: 70,
+            height: 70,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: NetworkImage(
+                  "https://images.pexels.com/photos/3307758/pexels-photo-3307758.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=250",
                 ),
               ),
-              const SizedBox(height: 10),
-              InkWell(
-                onTap: () {},
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 3),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: ColorValue.secondaryColor),
-                  child: Text(
-                    "Setelan",
-                    style: CommonAppTheme.textTheme(context)
-                        .bodyText1!
-                        .copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w900,
-                            fontSize: 10),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
           const SizedBox(width: 20),
           Column(
@@ -73,7 +50,7 @@ class ProfileBioData extends StatelessWidget {
                         .copyWith(fontSize: 20),
                   ),
                   const SizedBox(width: 10),
-                  const Role(name: "Masyarakat"),
+                  const Role(name: "Masyarakt"),
                 ],
               ),
               Container(
