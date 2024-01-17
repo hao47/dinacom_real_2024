@@ -39,8 +39,9 @@ class ProfileModel {
   DateTime timeout;
   bool isActive;
   DateTime createdAt;
-  List<dynamic> post;
+  List<Post> post;
   String jwtToken;
+  String bio;
 
   ProfileModel({
     required this.id,
@@ -59,6 +60,8 @@ class ProfileModel {
     required this.createdAt,
     required this.post,
     required this.jwtToken,
+
+    required this.bio,
   });
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) => ProfileModel(
@@ -76,8 +79,10 @@ class ProfileModel {
     timeout: DateTime.parse(json["Timeout"]),
     isActive: json["IsActive"],
     createdAt: DateTime.parse(json["CreatedAt"]),
-    post: List<dynamic>.from(json["Post"].map((x) => x)),
+
+    post: List<Post>.from(json["Post"].map((x) => Post.fromJson(x))),
     jwtToken: json["jwt_token"],
+    bio: json["bio"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -97,5 +102,48 @@ class ProfileModel {
     "CreatedAt": createdAt.toIso8601String(),
     "Post": List<dynamic>.from(post.map((x) => x)),
     "jwt_token": jwtToken,
+  };
+}
+class Post {
+  int id;
+  DateTime createdAt;
+  DateTime updatedAt;
+  dynamic deletedAt;
+  int userId;
+  String content;
+  String gambar;
+  String ditujukan;
+
+  Post({
+    required this.id,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.deletedAt,
+    required this.userId,
+    required this.content,
+    required this.gambar,
+    required this.ditujukan,
+  });
+
+  factory Post.fromJson(Map<String, dynamic> json) => Post(
+    id: json["ID"],
+    createdAt: DateTime.parse(json["CreatedAt"]),
+    updatedAt: DateTime.parse(json["UpdatedAt"]),
+    deletedAt: json["DeletedAt"],
+    userId: json["UserID"],
+    content: json["Content"],
+    gambar: json["Gambar"],
+    ditujukan: json["Ditujukan"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "ID": id,
+    "CreatedAt": createdAt.toIso8601String(),
+    "UpdatedAt": updatedAt.toIso8601String(),
+    "DeletedAt": deletedAt,
+    "UserID": userId,
+    "Content": content,
+    "Gambar": gambar,
+    "Ditujukan": ditujukan,
   };
 }

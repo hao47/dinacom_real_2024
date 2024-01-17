@@ -11,7 +11,7 @@ class ProfilePost extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        PoranCard(),
+        // PoranCard(),
       ],
     );
   }
