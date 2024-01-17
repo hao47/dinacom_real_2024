@@ -8,4 +8,5 @@ class UrlRoutes {
   static const verif = "/verif";
 
   static const test = "/test";
+  static const test1 = "/test1";
 }

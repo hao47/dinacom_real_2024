@@ -96,7 +96,7 @@ class MyApp extends StatelessWidget {
       ),
 
       debugShowCheckedModeBanner: false,
-      initialRoute: UrlRoutes.profile,
+      initialRoute: UrlRoutes.test1,
       routes: appRoutes,
 
     );
