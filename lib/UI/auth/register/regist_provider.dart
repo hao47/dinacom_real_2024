@@ -47,24 +47,15 @@ class RegistProvider extends ChangeNotifier {
 
         print(jsonResponse);
 
-        //     await prefs.setString("username", username);
-        //     this.message.value = message;
-        //     successfulRegist.value = true;
         isLoad.value = false;
         notifyListeners();
-        //     print("INI UDAH MASUK KE LOGIN HEHEHE");
-        //     Get.offNamed("/menu");
 
-        Navigate.navigatorReplacement(context, UrlRoutes.auth_page);
+        Navigate.navigatorNamed(context, UrlRoutes.verif);
       } else {
 
         print(jsonResponse);
         isLoad.value = false;
         notifyListeners();
-        // this.message.value = message;
-        // successfulLogin.value = false;
-        // isLoading.value = false;
-        // print("INI SALAH KAMU NI GIMANA");
       }
     } else {
       print(response.body);

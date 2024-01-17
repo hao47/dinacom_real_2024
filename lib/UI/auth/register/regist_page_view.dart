@@ -33,6 +33,8 @@ class _RegistPageViewState extends State<RegistPageView> {
         .size
         .width;
     return SafeArea(
+
+
       child: Padding(
           padding: EdgeInsets.only(
               bottom: MediaQuery
@@ -202,6 +204,23 @@ class _RegistPageViewState extends State<RegistPageView> {
   _selectDate() async {
     DateTime? _picked = await showDatePicker(context: context,
         initialDate: DateTime.now(),
+        builder: (context, child) {
+          return Theme(
+            data: Theme.of(context).copyWith(
+              colorScheme: ColorScheme.light(
+                primary: Colors.white, // <-- SEE HERE
+                onPrimary: Colors.black, // <-- SEE HERE
+                onSurface: Colors.blueAccent, // <-- SEE HERE
+              ),
+              textButtonTheme: TextButtonThemeData(
+                style: TextButton.styleFrom(
+                  primary: Colors.red, // button text color
+                ),
+              ),
+            ),
+            child: child!,
+          );
+        },
         firstDate: DateTime(2000),
         lastDate: DateTime(2100));
 
