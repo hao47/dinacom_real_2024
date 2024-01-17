@@ -14,7 +14,7 @@ class ProfilePost extends StatelessWidget {
       padding: EdgeInsets.only(top: 10),
       child: Column(
         children: [
-          PoranCard(),
+          // PoranCard(),
         ],
       ),
 
