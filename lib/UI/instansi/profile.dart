@@ -3,8 +3,8 @@ import 'package:dinacom_2024/UI/instansi/profile_post.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:flutter/material.dart';
 
-class Profile extends StatelessWidget {
-  const Profile({super.key});
+class ProfileInstansi extends StatelessWidget {
+  const ProfileInstansi({super.key});
 
   @override
   Widget build(BuildContext context) {

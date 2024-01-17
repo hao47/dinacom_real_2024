@@ -10,6 +10,12 @@ import 'package:http/http.dart' as http;
 import '../../../common/navigate.dart';
 
 class RegistProvider extends ChangeNotifier {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController tanggaLahirController = TextEditingController();
+  TextEditingController daerahController = TextEditingController();
+  TextEditingController bioController = TextEditingController();
 
 
 
@@ -17,7 +23,9 @@ class RegistProvider extends ChangeNotifier {
 
 
 
-  regist(BuildContext context, String email, String username,String password, String tanggal_lahir,String daerah) async {
+  regist(BuildContext context,String daerah) async {
+
+    print("a");
 
     isLoad.value = true;
     notifyListeners();
@@ -28,11 +36,12 @@ class RegistProvider extends ChangeNotifier {
         },
         body: jsonEncode({
 
-          'email': email,
-          'username': username,
-          'password': password,
-          'tanggal_lahir': tanggal_lahir,
-          'daerah': "Kudus",
+          'email': emailController.text ?? "",
+          'username':  usernameController.text ?? "",
+          'password': passwordController.text ?? "",
+          'tanggal_lahir': tanggaLahirController.text ?? "",
+          'daerah': daerah ?? "",
+          'bio':bioController.text ?? ""
 
         })
     );

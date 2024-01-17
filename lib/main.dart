@@ -2,6 +2,7 @@ import 'package:dinacom_2024/UI/auth/login/login_provider.dart';
 import 'package:dinacom_2024/UI/auth/register/regist_provider.dart';
 import 'package:dinacom_2024/UI/auth/verif/verificationpage.dart';
 import 'package:dinacom_2024/UI/auth/verif/verifprovider.dart';
+import 'package:dinacom_2024/UI/bottom_navigation/item/profile/profile_provider.dart';
 import 'package:dinacom_2024/teset.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -26,6 +27,9 @@ void main() async {
       ),
       ChangeNotifierProvider(
         create: (context) => VerifProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => ProfileProvider(),
       ),
     ],
     child: const MyApp(),
@@ -98,12 +102,13 @@ class MyApp extends StatelessWidget {
       ),
 
       debugShowCheckedModeBanner: false,
-      // initialRoute: UrlRoutes.profile,
-      // routes: appRoutes,
+      initialRoute: UrlRoutes.initial,
+      routes: appRoutes,
 
       // home: ProfileTab(),
 
-      home: Profile(),
+      // home: Profile(),
+      // home: MainScreen(),
       // home: VerifPage(),
 
       // home: MainScreen(),

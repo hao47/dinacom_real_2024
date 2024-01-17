@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:dinacom_2024/UI/bottom_navigation/bottom_navigation.dart';
 import 'package:dinacom_2024/constants/url_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -56,7 +57,9 @@ class LoginProvider extends ChangeNotifier {
       //     print("INI UDAH MASUK KE LOGIN HEHEHE");
       //     Get.offNamed("/menu");
           
-          Navigate.navigatorReplacement(context, UrlRoutes.home);
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return MainScreen();
+          },));
         } else {
 
           print(jsonResponse);

@@ -2,7 +2,7 @@ import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:dinacom_2024/data/model/profile_model.dart';
 import 'package:flutter/material.dart';
 
-Widget buildBioRow(ProfileModel bio, BuildContext context) {
+Widget buildBioRow(ProfileModelTemporary bio, BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
