@@ -29,7 +29,7 @@ class Profile extends StatelessWidget {
                 return Column(
                   children: [
                     ProfileBioData(profileModel: state.categoryResult),
-                    ProfilePost()
+                    ProfilePost(profileModel: state.categoryResult,)
                   ],
                 );
               } else if (state.state == ResultState.noData) {

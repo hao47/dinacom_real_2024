@@ -89,7 +89,7 @@ class ProfileBioData extends StatelessWidget {
                 margin: const EdgeInsets.only(top: 3),
                 width: 250,
                 child: Text(
-                  'halo gais ini aplikasi kapan jadinya ya...',
+                  profileModel.bio,
                   maxLines: 2,
                   style: CommonAppTheme.textTheme(context)
                       .bodyText1!
