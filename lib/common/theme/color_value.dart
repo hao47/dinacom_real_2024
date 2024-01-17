@@ -8,6 +8,8 @@ class ColorValue {
   static const Color greyBorderColor = Color(0XFFECEEF2);
   static const Color greenColor = Color(0XFF67D4CA);
   static const Color redColor = Color(0XFFF28080);
+
+  static const Color light = Color(0xffebf0ff);
 }
 
 class ColorValueDark {

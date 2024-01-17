@@ -1,5 +1,8 @@
 import 'package:dinacom_2024/UI/auth/login/login_provider.dart';
 import 'package:dinacom_2024/UI/auth/register/regist_provider.dart';
+import 'package:dinacom_2024/UI/auth/verif/verificationpage.dart';
+import 'package:dinacom_2024/UI/auth/verif/verifprovider.dart';
+import 'package:dinacom_2024/teset.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,6 +22,9 @@ void main() async {
       ),
       ChangeNotifierProvider(
         create: (context) => RegistProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => VerifProvider(),
       ),
     ],
     child: const MyApp(),
@@ -91,8 +97,12 @@ class MyApp extends StatelessWidget {
       ),
 
       debugShowCheckedModeBanner: false,
-      initialRoute: UrlRoutes.initial,
+      initialRoute: UrlRoutes.profile,
       routes: appRoutes,
+
+      // home: ProfileTab(),
+
+      // home: VerifPage(),
 
       // home: MainScreen(),
     );
