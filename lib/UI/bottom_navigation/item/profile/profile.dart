@@ -14,84 +14,92 @@ class Profile extends StatelessWidget {
 
 
 
+
   @override
   Widget build(BuildContext context) {
-
-    final textTheme = Theme.of(context).textTheme;
+    final textTheme = Theme
+        .of(context)
+        .textTheme;
     return DefaultTabController(
       length: 2, // Number of tabs
       child: Scaffold(
 
-        appBar: AppBar(
-          toolbarHeight: 35,
-          automaticallyImplyLeading: false,
-        ),
-body:Consumer<ProfileProvider>(
+          appBar: AppBar(
+            toolbarHeight: 35,
+            automaticallyImplyLeading: false,
+          ),
+          body: Consumer<ProfileProvider>(
             builder: (context, state, _) {
               if (state.state == ResultState.loading) {
-               return Text("");
+                return Text("");
               } else if (state.state == ResultState.hasData) {
                 return Column(
-          children: [
-            ProfileBioData(),
-            Expanded(
-              child: DefaultTabController(
-                length: 2,
-                child: Column(
                   children: [
-                    TabBar(
-                      padding: const EdgeInsets.only(top: 10, bottom: 5),
-                      dividerColor: Colors.transparent,
-                      indicator: const BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            color: ColorValue.BaseBlue,
-                            width: 3,
-                          ),
-                        ),
-                      ),
-                      unselectedLabelStyle: CommonAppTheme.textTheme(context)
-                          .bodyText1!
-                          .copyWith(
-                        fontWeight: FontWeight.w900,
-                        fontSize: 16,
-                      ),
-                      unselectedLabelColor: ColorValue.LightGrey,
-                      labelStyle: CommonAppTheme.textTheme(context)
-                          .bodyText1!
-                          .copyWith(
-                        fontWeight: FontWeight.w900,
-                        fontSize: 16,
-                      ),
-                      labelColor: ColorValue.BaseBlack,
-                      tabs: const [
-                        Tab(
-                          text: 'Poran',
-                        ),
-                        Tab(
-                          text: 'Repost',
-                        ),
-                      ],
-                    ),
+                    ProfileBioData(profileModel: state.categoryResult),
                     Expanded(
-                      child: SingleChildScrollView(
-                        child: SizedBox(
-                          height: MediaQuery.of(context).size.height,
-                          child: const TabBarView(
-                            children: [
-                              ProfilePost(),
-                              ProfilePost(),
-                            ],
-                          ),
+                      child: DefaultTabController(
+                        length: 2,
+                        child: Column(
+                          children: [
+                            TabBar(
+                              padding: const EdgeInsets.only(
+                                  top: 10, bottom: 5),
+                              dividerColor: Colors.transparent,
+                              indicator: const BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: ColorValue.BaseBlue,
+                                    width: 3,
+                                  ),
+                                ),
+                              ),
+                              unselectedLabelStyle: CommonAppTheme
+                                  .textTheme(context)
+                                  .bodyText1!
+                                  .copyWith(
+                                fontWeight: FontWeight.w900,
+                                fontSize: 16,
+                              ),
+                              unselectedLabelColor: ColorValue.LightGrey,
+                              labelStyle: CommonAppTheme
+                                  .textTheme(context)
+                                  .bodyText1!
+                                  .copyWith(
+                                fontWeight: FontWeight.w900,
+                                fontSize: 16,
+                              ),
+                              labelColor: ColorValue.BaseBlack,
+                              tabs: const [
+                                Tab(
+                                  text: 'Poran',
+                                ),
+                                Tab(
+                                  text: 'Repost',
+                                ),
+                              ],
+                            ),
+                            Expanded(
+                              child: SingleChildScrollView(
+                                child: SizedBox(
+                                  height: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height,
+                                  child:  TabBarView(
+                                    children: [
+                                      ProfilePost(profileModel: state.categoryResult),
+                                      ProfilePost(profileModel: state.categoryResult),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   ],
-                ),
-              ),
-            ),
-          ],
-);
+                );
               } else if (state.state == ResultState.noData) {
                 return Center(
                   child: Material(
@@ -113,7 +121,6 @@ body:Consumer<ProfileProvider>(
               }
             },
           )
-        ),
       ),
     );
   }
