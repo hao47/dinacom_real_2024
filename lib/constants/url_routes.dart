@@ -6,4 +6,6 @@ class UrlRoutes {
   static const auth_page = "/auth_page";
   static const profile = "/profile";
   static const verif = "/verif";
+
+  static const test = "/test";
 }

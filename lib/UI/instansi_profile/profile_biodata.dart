@@ -1,4 +1,4 @@
-import 'package:dinacom_2024/UI/bottom_navigation/item/profile/widget/buildIBioInstansi.dart';
+import 'package:dinacom_2024/UI/instansi_profile/widget/buildIBioInstansi.dart';
 import 'package:dinacom_2024/UI/widget/role.dart';
 import 'package:dinacom_2024/common/app_theme.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
@@ -13,7 +13,7 @@ class ProfileBioData extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SizedBox(height: 10),
+        const SizedBox(height: 5),
         Center(
           child: Stack(
             children: [
@@ -26,10 +26,10 @@ class ProfileBioData extends StatelessWidget {
                           spreadRadius: 2,
                           blurRadius: 10,
                           color: Colors.black.withOpacity(0.1),
-                          offset: Offset(0, 10))
+                          offset: const Offset(0, 10))
                     ],
                     shape: BoxShape.circle,
-                    image: DecorationImage(
+                    image: const DecorationImage(
                         fit: BoxFit.cover,
                         image: NetworkImage(
                           "https://images.pexels.com/photos/3307758/pexels-photo-3307758.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=250",
@@ -41,11 +41,11 @@ class ProfileBioData extends StatelessWidget {
                   child: Container(
                     height: 30,
                     width: 30,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       color: ColorValue.BaseBlue,
                     ),
-                    child: Icon(
+                    child: const Icon(
                       Icons.notifications,
                       color: Colors.white,
                       size: 20,
@@ -54,7 +54,7 @@ class ProfileBioData extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
           spacing: 10,
@@ -79,9 +79,9 @@ class ProfileBioData extends StatelessWidget {
               .copyWith(color: Colors.black, fontSize: 14.5),
           textAlign: TextAlign.center,
         ),
-        SizedBox(height: 5),
-        Role(),
-        SizedBox(height: 20),
+        const SizedBox(height: 5),
+        const Role(name: "Instansi"),
+        const SizedBox(height: 20),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: bios.map((bio) => buildBioRow(bio, context)).toList(),

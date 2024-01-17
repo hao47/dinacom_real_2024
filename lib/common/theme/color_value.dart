@@ -14,7 +14,7 @@ class ColorValue {
   static const Color BaseBlack = Color(0xff111111);
   static const Color BaseGrey = Color(0xff333333);
   static const Color LightGrey = Color(0xff666666);
-  static const Color VeryLightGrey = Color(0xffCCCCCC);
+  static const Color VeryLightGrey = Color(0xffEBEBEB);
   static const Color VeryLightBlue = Color(0xffEFF7FF);
 }
 
