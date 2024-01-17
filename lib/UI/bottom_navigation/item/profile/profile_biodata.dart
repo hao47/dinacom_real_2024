@@ -2,12 +2,19 @@ import 'package:dinacom_2024/UI/widget/role.dart';
 import 'package:dinacom_2024/common/app_theme.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:flutter/material.dart';
-
+import 'package:dinacom_2024/data/model/profile_model.dart';
 class ProfileBioData extends StatelessWidget {
-  const ProfileBioData({super.key});
+
+  ProfileModel profileModel;
+
+
+   ProfileBioData({super.key,required this.profileModel});
 
   @override
   Widget build(BuildContext context) {
+    var tahun =  profileModel.tanggalLahir.year.toString();
+    var bulan =  profileModel.tanggalLahir.month.toString();
+    var hari =  profileModel.tanggalLahir.day.toString();
     return Container(padding: const EdgeInsets.only(top: 10, bottom: 20),
       decoration: const BoxDecoration(
         border: Border(
@@ -33,6 +40,7 @@ class ProfileBioData extends StatelessWidget {
                     fit: BoxFit.cover,
                     image: NetworkImage(
                       "https://images.pexels.com/photos/3307758/pexels-photo-3307758.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=250",
+
                     ),
                   ),
                 ),
@@ -55,6 +63,7 @@ class ProfileBioData extends StatelessWidget {
                             fontSize: 10),
                   ),
                 ),
+
               ),
             ],
           ),
@@ -67,20 +76,20 @@ class ProfileBioData extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'Nyoman Deka',
+                    profileModel.username,
                     style: CommonAppTheme.textTheme(context)
                         .headline1!
                         .copyWith(fontSize: 20),
                   ),
                   const SizedBox(width: 10),
-                  const Role(name: "Masyarakat"),
+                   Role(name: profileModel.role),
                 ],
               ),
               Container(
                 margin: const EdgeInsets.only(top: 3),
                 width: 250,
                 child: Text(
-                  'halo gais ini aplikasi kapan jadinya ya...',
+                  profileModel.bio,
                   maxLines: 2,
                   style: CommonAppTheme.textTheme(context)
                       .bodyText1!
@@ -101,13 +110,14 @@ class ProfileBioData extends StatelessWidget {
                       ),
                       const SizedBox(width: 3),
                       Text(
-                        '12 Desember 1998',
+                          '$tahun - $bulan - $hari',
                         style: CommonAppTheme.textTheme(context)
                             .bodyText1!
                             .copyWith(fontSize: 10),
                       ),
                     ],
                   ),
+
                   const SizedBox(width: 10),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -119,7 +129,7 @@ class ProfileBioData extends StatelessWidget {
                       ),
                       const SizedBox(width: 3),
                       Text(
-                        'Bogor, Jawa Barat',
+                       profileModel.daerah,
                         style: CommonAppTheme.textTheme(context)
                             .bodyText1!
                             .copyWith(fontSize: 10),

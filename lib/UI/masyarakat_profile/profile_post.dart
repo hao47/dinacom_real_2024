@@ -7,6 +7,7 @@ class ProfilePost extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return const Padding(
       padding: EdgeInsets.only(top: 10),
       child: Column(
@@ -14,6 +15,7 @@ class ProfilePost extends StatelessWidget {
           PoranCard(),
         ],
       ),
+
     );
   }
 }

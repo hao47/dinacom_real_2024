@@ -48,6 +48,7 @@ dependencies:
   lottie:
   csc_picker:
   font_awesome_flutter:
+  timeago:
 
 dev_dependencies:
   flutter_test:

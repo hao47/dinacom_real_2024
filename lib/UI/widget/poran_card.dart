@@ -3,12 +3,35 @@ import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:dinacom_2024/data/model/profile_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import 'package:intl/intl.dart';
+import 'package:timeago/timeago.dart' as timeago;
 class PoranCard extends StatelessWidget {
-  const PoranCard({super.key});
 
+
+
+  ProfileModel profileModel;
+  PoranCard({super.key,required this.profileModel});
   @override
   Widget build(BuildContext context) {
+
+    timeago.setLocaleMessages('id', timeago.IdMessages());
+
+    // Waktu sekarang dengan zona waktu Indonesia (WIB)
+    DateTime now = DateTime.now().toLocal();
+
+    // Waktu dari string input dengan zona waktu Indonesia (WIB)
+
+    DateTime inputDate = profileModel.createdAt.toLocal();
+
+    // Hitung selisih waktu
+    Duration difference = now.difference(inputDate);
+
+    // Format tanggal dan waktu menggunakan intl package
+    String formattedDate = DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(inputDate);
+
+    // Format waktu relatif menggunakan timeago package
+    String timeAgo = timeago.format(now.subtract(difference), locale: 'id');
+
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 30),
       decoration: BoxDecoration(
@@ -26,6 +49,7 @@ class PoranCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -81,7 +105,7 @@ class PoranCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          'Kota Kudus',
+                          profileModel.username,
                           style: CommonAppTheme.textTheme(context)
                               .headline1!
                               .copyWith(fontSize: 20),
@@ -94,7 +118,7 @@ class PoranCard extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20),
                               color: ColorValue.secondaryColor),
                           child: Text(
-                            "Instansi",
+                            profileModel.role,
                             style: CommonAppTheme.textTheme(context)
                                 .bodyText1!
                                 .copyWith(
@@ -111,7 +135,7 @@ class PoranCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Text('10 jam yang lalu'),
+                    Text(timeAgo),
                   ],
                 ),
               ],
@@ -120,7 +144,7 @@ class PoranCard extends StatelessWidget {
               height: 10,
             ),
             Text(
-              'Haiii kawan kawan Gonnect gimana nih kabar kalian? kabar mindus sih baik nih. Kalian pada gasabar ga sih dengan perkembangan IKN?  kalo mindus udah gasabar bangett nunguin IKN gimana kedepanya btw kalian udah pada tau belum apa itu IKN? kalau ada yang belum tau yuk simak link dibawah ini!!',
+              profileModel.post[0].content,
               maxLines: 5,
               style: CommonAppTheme.textTheme(context).bodyText1!.copyWith(
                     color: Colors.black,

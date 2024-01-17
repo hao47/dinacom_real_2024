@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:dinacom_2024/UI/bottom_navigation/bottom_navigation.dart';
 import 'package:dinacom_2024/constants/url_routes.dart';
 import 'package:dinacom_2024/validator/Validator.dart';
 import 'package:flutter/material.dart';
@@ -19,28 +20,34 @@ class _SplashScreenState extends State<SplashScreen> {
   late final SharedPreferences prefs;
   bool isHasToken = false;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //
-  //   checkTokenShared();
-  //   Timer(const Duration(seconds: 3), () => isHasToken ? Navigate.navigatorReplacement(context, UrlRoutes.home) : Navigate.navigatorReplacement(context, UrlRoutes.auth_page));
-  //
-  //
-  // }
+  @override
+  void initState() {
+    super.initState();
+
+    checkTokenShared();
+    Timer(const Duration(seconds: 3), () => isHasToken ?
+
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return MainScreen();
+    },))
+        : Navigate.navigatorReplacement(context, UrlRoutes.auth_page));
+
+
+  }
 
   void checkTokenShared() async{
 
     prefs = await SharedPreferences.getInstance();
 
-    // prefs.setString("token","");
+    prefs.setString("token","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRhZmZhIiwiZW1haWwiOiJkYWZmYXJvYmFuaTU1MUBnbWFpbC5jb20iLCJleHAiOjE3MDU2MTQ0Nzh9.OjGkU2OwenmqVaf0qVm6dIOSoZc-_gOt7w_ToqY2ROo");
 
     String? token = prefs.getString('token');
 
-    print(token);
-    if( token != "" || token != null ){
+    if( token != "" && token != null ){
 
+      print(token);
       bool isTokenValid = await Validator.isTokenStillValid(token!);
+      print(isTokenValid);
       isHasToken = isTokenValid;
     }
 
