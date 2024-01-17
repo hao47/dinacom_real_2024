@@ -11,6 +11,7 @@ class Profile extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         leading: Icon(
           Icons.arrow_back_ios_new,
           color: Colors.black,

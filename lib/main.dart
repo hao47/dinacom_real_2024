@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 import 'UI/bottom_navigation/bottom_navigation.dart';
+import 'UI/bottom_navigation/item/profile/profile.dart';
 import 'common/routes/routes.dart';
 import 'common/theme/app_theme_data.dart';
 import 'common/theme/color_value.dart';
@@ -97,11 +98,12 @@ class MyApp extends StatelessWidget {
       ),
 
       debugShowCheckedModeBanner: false,
-      initialRoute: UrlRoutes.initial,
-      routes: appRoutes,
+      // initialRoute: UrlRoutes.profile,
+      // routes: appRoutes,
 
       // home: ProfileTab(),
 
+      home: Profile(),
       // home: VerifPage(),
 
       // home: MainScreen(),
