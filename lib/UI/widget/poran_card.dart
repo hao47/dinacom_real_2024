@@ -33,7 +33,7 @@ class PoranCard extends StatelessWidget {
     String timeAgo = timeago.format(now.subtract(difference), locale: 'id');
 
     return Container(
-      margin: EdgeInsets.all(30),
+      margin: EdgeInsets.symmetric(horizontal: 30),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16.0),
         color: ColorValue.VeryLightBlue,

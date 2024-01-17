@@ -9,10 +9,15 @@ class ProfilePost extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        // PoranCard(),
-      ],
+
+    return const Padding(
+      padding: EdgeInsets.only(top: 10),
+      child: Column(
+        children: [
+          PoranCard(),
+        ],
+      ),
+
     );
   }
 }

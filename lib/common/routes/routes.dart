@@ -19,5 +19,6 @@ var appRoutes = {
   UrlRoutes.profile: (context) => Profile(),
   UrlRoutes.verif: (context) => VerifPage(),
 
-  UrlRoutes.test: (context) => ProfileMasyarakat()
+  UrlRoutes.test: (context) => ProfileMasyarakat(),
+  UrlRoutes.test1: (context) => ProfileInstansi(),
 };

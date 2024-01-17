@@ -50,7 +50,7 @@ class ProfileBioData extends StatelessWidget {
                         .copyWith(fontSize: 20),
                   ),
                   const SizedBox(width: 10),
-                  const Role(name: "Masyarakt"),
+                  const Role(name: "Masyarakat"),
                 ],
               ),
               Container(
