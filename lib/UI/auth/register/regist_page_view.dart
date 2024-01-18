@@ -11,150 +11,139 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 class RegistPageView extends StatefulWidget {
   @override
   State<RegistPageView> createState() => _RegistPageViewState();
 }
 
 class _RegistPageViewState extends State<RegistPageView> {
-
-
   final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
-
-    final textTheme = Theme
-        .of(context)
-        .textTheme;
-    double screenWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
+    final textTheme = Theme.of(context).textTheme;
+    double screenWidth = MediaQuery.of(context).size.width;
     return SafeArea(
-
-
       child: Padding(
-          padding: EdgeInsets.only(
-              bottom: MediaQuery
-                  .of(context)
-                  .viewInsets
-                  .bottom),
-
+          padding:
+              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
           child: Form(
             key: _formKey,
             child: Container(
-                padding: EdgeInsets.only(top: 40, right: 20, left: 20),
+                padding: const EdgeInsets.only(top: 40, right: 20, left: 20),
                 width: screenWidth,
-                height: 500,
-                decoration: BoxDecoration(
-
+                height: 600,
+                decoration: const BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(25))
-                ),
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(25))),
                 child: Stack(
                   children: [
                     SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Text("Selamat datang kembali!",
-                            style: textTheme.headline1!.copyWith(
-                                fontSize: 23
-                            ),
+                          Text(
+                            "Selamat datang kembali!",
+                            style: textTheme.headline1!.copyWith(fontSize: 23),
                           ),
                           Text(
                             "Lengkapi profil Anda dan dapatkan akses ke Go-Connect gratis!",
                             style: textTheme.bodyText1!.copyWith(
-                                fontSize: 12.5,
-                                color: Color(0xff333333)
-                            ),
-
-
+                                fontSize: 12.5, color: const Color(0xff333333)),
                           ),
-
-                          SizedBox(
-                            height: 20,
-                          ),
+                          const SizedBox(height: 20),
                           CustomTextFormField(
                             label: 'Email',
-                            controller: Provider.of<RegistProvider>(
-                                context, listen: false).emailController,
+                            controller: Provider.of<RegistProvider>(context,
+                                    listen: false)
+                                .emailController,
                             textInputType: TextInputType.emailAddress,
                             borderRadius: 15,
-                            validator: (value) => Validator.emailValidator(value),
+                            validator: (value) =>
+                                Validator.emailValidator(value),
                           ),
-                          SizedBox(
-                            height: 12.5,
-                          ),
+                          const SizedBox(height: 12.5),
                           CustomTextFormField(
-                            label: 'Username',
-                            controller: Provider.of<RegistProvider>(
-                                context, listen: false).usernameController,
-                            textInputType: TextInputType.name,
-                            borderRadius: 15,
-                            validator: (value) => Validator.nameValidator(value)
-                          ),
-
-                          SizedBox(
-                            height: 12.5,
-                          ),
+                              label: 'Username',
+                              controller: Provider.of<RegistProvider>(context,
+                                      listen: false)
+                                  .usernameController,
+                              textInputType: TextInputType.name,
+                              borderRadius: 15,
+                              validator: (value) =>
+                                  Validator.nameValidator(value)),
+                          const SizedBox(height: 12.5),
                           CustomTextFormField(
                             label: 'Password',
-                            controller: Provider.of<RegistProvider>(
-                                context, listen: false).passwordController,
+                            controller: Provider.of<RegistProvider>(context,
+                                    listen: false)
+                                .passwordController,
                             isPassword: true,
                             borderRadius: 15,
                             validator: (value) =>
-                            Validator.passwordValidator(value),
+                                Validator.passwordValidator(value),
                           ),
-                          SizedBox(
-                            height:12.5,
+                          const SizedBox(height: 12.5),
+                          CustomTextFormField(
+                            label: 'Confirm Password',
+                            controller: Provider.of<RegistProvider>(context,
+                                listen: false)
+                                .confirmPasswordController,
+                            isPassword: true,
+                            borderRadius: 15,
+                            validator: (value) =>
+                                Validator.passwordValidator(value),
                           ),
-
-
+                          const SizedBox(height: 12.5),
                           Row(
                             children: [
-
-
-
-
-                              Text("By registering, you are agreeing with our Terms \n of Use and Privacy Policy",style: CommonAppTheme.textTheme(context).bodyText1!.copyWith(
-                                color: ColorValue.LightGrey
-
-                              ),)
+                              Checkbox(
+                                value: Provider.of<RegistProvider>(context)
+                                    .isCheckedTerms,
+                                onChanged: (newBool) {
+                                  Provider.of<RegistProvider>(context,
+                                          listen: false)
+                                      .toggleTerms();
+                                },
+                                activeColor: ColorValue.BaseBlue,
+                                isError: Provider.of<RegistProvider>(context).checkError,
+                              ),
+                              Text(
+                                "By registering, you are agreeing with our Terms \nof Use and Privacy Policy",
+                                style: CommonAppTheme.textTheme(context)
+                                    .bodyText1!
+                                    .copyWith(color: ColorValue.LightGrey),
+                                textAlign: TextAlign.left,
+                              )
                             ],
                           ),
-
-                          SizedBox(
-                            height: 14,
-                          ),
-
+                          const SizedBox(height: 14),
                           ElevatedButton(
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
-
                                 // print(Provider.of<RegistProvider>(
                                 //     context, listen: false).emailController.text);
-
-
-                               Navigator.push(context,  MaterialPageRoute(
-                                 builder: (context) {
-                                   return RegistLengkap();
-                                 },
-                               ));
-
-
+                                if (Provider.of<RegistProvider>(context, listen: false).confirmPasswordController.text != Provider.of<RegistProvider>(context, listen: false).passwordController.text) {
+                                  return;
+                                }
+                                if (!Provider.of<RegistProvider>(context, listen: false).isCheckedTerms) {
+                                  Provider.of<RegistProvider>(context, listen: false).errorTerms();
+                                  return;
+                                }
+                                Navigator.push(context, MaterialPageRoute(
+                                  builder: (context) {
+                                    return const RegistLengkap();
+                                  },
+                                ));
                                 // Provider.of<RegistProvider>(
                                 //     context, listen: false).regist(
                                 //     context, _emailController.text,_usernameController.text,_passwordController.text,_tanggaLahirController.text,"Kudus");
-
                               }
                             },
                             child: const Text('Next'),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 7,
                           ),
                           RichText(
@@ -163,53 +152,45 @@ class _RegistPageViewState extends State<RegistPageView> {
                               text: "Sudah punya akun? ",
                               style: textTheme.bodyText1!.copyWith(
                                   fontSize: 15,
-                                  color: Color(0xff666666),
-                                  fontWeight: FontWeight.normal
-                              ),
+                                  color: const Color(0xff666666),
+                                  fontWeight: FontWeight.normal),
                               children: <TextSpan>[
                                 TextSpan(
                                   text: 'Masuk',
                                   style: textTheme.headline1!.copyWith(
                                       fontSize: 15,
                                       color: ColorValue.secondaryColor,
-
-                                      fontWeight: FontWeight.normal
-                                  ),
-                                  recognizer: TapGestureRecognizer()..onTap = () {
-                                    Navigator.pop(context);
-                                    showModalBottomSheet(
-
-                                      isScrollControlled: true,
-                                      context: context, builder: (context) {
-                                      return LoginPageView();
-                                    },);
-                                  },
-
+                                      fontWeight: FontWeight.normal),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      Navigator.pop(context);
+                                      showModalBottomSheet(
+                                        isScrollControlled: true,
+                                        context: context,
+                                        builder: (context) {
+                                          return LoginPageView();
+                                        },
+                                      );
+                                    },
                                 ),
                               ],
                             ),
                           ),
-
                         ],
                       ),
                     ),
                     ValueListenableBuilder<bool>(
-                      valueListenable: Provider
-                          .of<LoginProvider>(context, listen: true)
-                          .isLoad,
-                      builder: (context, value, _) =>
-                          Visibility(
-                            visible: value,
-                            child: const LoadingAnimation(),
-                          ),
+                      valueListenable:
+                          Provider.of<LoginProvider>(context, listen: true)
+                              .isLoad,
+                      builder: (context, value, _) => Visibility(
+                        visible: value,
+                        child: const LoadingAnimation(),
+                      ),
                     ),
                   ],
-                )
-            ),
-          )
-      ),
+                )),
+          )),
     );
   }
-
 }
-

@@ -20,18 +20,11 @@ class AuthPageView extends StatelessWidget {
     return Scaffold(
         body: SingleChildScrollView(
           child: Column(
-
-              // runSpacing: 60,
-              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // Spacer(),
                 AuthBanner(),
                 ChatContent(),
                 SizedBox(height: 60,),
                 AuthButton(),
-
-
-
               ]),
         ));
   }

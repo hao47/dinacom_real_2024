@@ -24,10 +24,8 @@ class ChatContent extends StatelessWidget {
 }
 
 class ChatContainer extends StatelessWidget {
-
   String text;
   bool typeChat;
-
 
   ChatContainer({super.key,required this.text,required this.typeChat});
 
