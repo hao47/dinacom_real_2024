@@ -49,6 +49,9 @@ dependencies:
   csc_picker:
   font_awesome_flutter:
   timeago:
+  dio:
+  image_picker:
+  permission_handler: ^11.0.1
 
 dev_dependencies:
   flutter_test:

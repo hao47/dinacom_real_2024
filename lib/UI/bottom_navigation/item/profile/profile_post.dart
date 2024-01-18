@@ -12,11 +12,11 @@ class ProfilePost extends StatelessWidget {
 
     return  Padding(
       padding: EdgeInsets.only(top: 10),
-      child: Column(
-        children: [
-      PoranCard(profileModel: profileModel,),
-        ],
-      ),
+      child: ListView.builder(
+        itemCount: profileModel.post.length,
+        itemBuilder: (context, index) {
+        return PoranCard(profileModel: profileModel,);
+      },)
 
     );
   }

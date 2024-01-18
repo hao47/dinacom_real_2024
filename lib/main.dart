@@ -2,6 +2,8 @@ import 'package:dinacom_2024/UI/auth/login/login_provider.dart';
 import 'package:dinacom_2024/UI/auth/register/regist_provider.dart';
 import 'package:dinacom_2024/UI/auth/verif/verificationpage.dart';
 import 'package:dinacom_2024/UI/auth/verif/verifprovider.dart';
+import 'package:dinacom_2024/UI/bottom_navigation/item/lapor/laport.dart';
+import 'package:dinacom_2024/UI/bottom_navigation/item/poran/poran_provider.dart';
 import 'package:dinacom_2024/UI/bottom_navigation/item/profile/profile_provider.dart';
 import 'package:dinacom_2024/teset.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +32,9 @@ void main() async {
       ),
       ChangeNotifierProvider(
         create: (context) => ProfileProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => PoranProvider(),
       ),
     ],
     child: const MyApp(),
@@ -100,9 +105,11 @@ class MyApp extends StatelessWidget {
         ),
       ),
 
-      debugShowCheckedModeBanner: false,
+      // debugShowCheckedModeBanner: false,
       initialRoute: UrlRoutes.initial,
       routes: appRoutes,
+
+      // home: Lapor(),
 
       // home: ProfileTab(),
 

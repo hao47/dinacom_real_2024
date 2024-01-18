@@ -1,3 +1,4 @@
+import 'package:dinacom_2024/UI/bottom_navigation/item/lapor/laport.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
@@ -81,8 +82,28 @@ class _MainScreenState extends State<MainScreen> {
           ),
           child: FloatingActionButton(
             onPressed: () {
-              // Add your onPressed functionality here
+              Navigator.of(context).push(PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) {
+                  return Lapor();
+                },
+                transitionDuration: Duration(milliseconds: 1000),
+                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                  const begin = Offset(0.0, 1.0);
+                  const end = Offset.zero;
+                  const curve = Curves.easeInOut;
+                  const duration = Duration(milliseconds: 500); // Durasi transisi dalam milidetik, disesuaikan dengan kebutuhan Anda
+
+                  var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                  var offsetAnimation = animation.drive(tween);
+
+                  return SlideTransition(
+                    position: offsetAnimation,
+                    child: child,
+                  );
+                },
+              ));
             },
+            // child: Icon(Icons.add),
             backgroundColor: Colors.transparent,
             elevation: 0,
             child: const Icon(Icons.add,color: Colors.white,size: 40),
