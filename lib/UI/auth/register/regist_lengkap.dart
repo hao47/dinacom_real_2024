@@ -22,12 +22,21 @@ class _RegistLengkapState extends State<RegistLengkap> {
   String address = "";
 
   final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 75,
+        leading: const Icon(
+          Icons.arrow_back_ios_new,
+          color: Colors.black,
+        ),
+      ),
       body: Center(
           child: Container(
-        padding: EdgeInsets.only(top: 40, right: 20, left: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Form(
           key: _formKey,
           child: SingleChildScrollView(
@@ -48,46 +57,40 @@ class _RegistLengkapState extends State<RegistLengkap> {
                           .bodyText1!
                           .copyWith(fontSize: 12, color: ColorValue.LightGrey),
                     ),
-                    SizedBox(
-                      height: 60,
-                    ),
                     Container(
                       height: 115,
                       width: 115,
+                      margin: const EdgeInsets.symmetric(vertical: 75),
                       decoration: BoxDecoration(
-                          color: Colors.grey, borderRadius: BorderRadius.circular(100)),
-                    ),
-                    SizedBox(
-                      height: 30,
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(100)),
+                      child: const Icon(Icons.camera_alt,
+                          color: ColorValue.VeryLightGrey, size: 35),
                     ),
                     CustomTextFormField(
                       label: 'Bio',
-                      controller: Provider.of<RegistProvider>(context, listen: false)
-                          .bioController,
+                      controller:
+                          Provider.of<RegistProvider>(context, listen: false)
+                              .bioController,
                       textInputType: TextInputType.text,
                       borderRadius: 15,
                       // validator: (value) => Validator.nameValidator(value),
                     ),
-                    SizedBox(
-                      height: 12.5,
-                    ),
+                    const SizedBox(height: 12.5),
                     CustomTextFormField(
                         label: 'Tanggal Lahir',
-                        controller: Provider.of<RegistProvider>(
-                            context, listen: false).tanggaLahirController,
+                        controller:
+                            Provider.of<RegistProvider>(context, listen: false)
+                                .tanggaLahirController,
                         textInputType: TextInputType.emailAddress,
                         borderRadius: 15,
                         readOnly: true,
                         onTap: () {
                           _selectDate();
                         },
-                        validator: (value) => Validator.dateValidator(value)
-                    ),
-                    SizedBox(
-                      height: 12.5,
-                    ),
+                        validator: (value) => Validator.dateValidator(value)),
+                    const SizedBox(height: 12.5),
                     CSCPicker(
-
                       ///Enable disable state dropdown [OPTIONAL PARAMETER]
                       showStates: true,
 
@@ -99,18 +102,19 @@ class _RegistLengkapState extends State<RegistLengkap> {
 
                       ///Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER] (USE with disabledDropdownDecoration)
                       dropdownDecoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                          borderRadius: const BorderRadius.all(Radius.circular(15)),
                           color: Colors.white,
                           border: Border.all(
                             width: 1.5,
-                            color: Color(0xff666666),
+                            color: const Color(0xff666666),
                           )),
 
                       ///Disabled Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER]  (USE with disabled dropdownDecoration)
                       disabledDropdownDecoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          borderRadius: const BorderRadius.all(Radius.circular(10)),
                           color: Colors.grey.shade300,
-                          border: Border.all(color: Colors.grey.shade300, width: 1)),
+                          border: Border.all(
+                              color: Colors.grey.shade300, width: 1)),
 
                       ///placeholders for dropdown search field
                       countrySearchPlaceholder: "Country",
@@ -126,25 +130,25 @@ class _RegistLengkapState extends State<RegistLengkap> {
                       ///defaultCountry: CscCountry.India,
 
                       ///Country Filter [OPTIONAL PARAMETER]
-                      countryFilter: [CscCountry.Indonesia],
+                      countryFilter: const [CscCountry.Indonesia],
 
                       ///Disable country dropdown (Note: use it with default country)
                       //disableCountry: true,
 
                       ///selected item style [OPTIONAL PARAMETER]
-                      selectedItemStyle: TextStyle(
+                      selectedItemStyle: const TextStyle(
                         color: Colors.black,
                         fontSize: 14,
                       ),
 
                       ///DropdownDialog Heading style [OPTIONAL PARAMETER]
-                      dropdownHeadingStyle: TextStyle(
+                      dropdownHeadingStyle: const TextStyle(
                           color: Colors.black,
                           fontSize: 17,
                           fontWeight: FontWeight.bold),
 
                       ///DropdownDialog Item style [OPTIONAL PARAMETER]
-                      dropdownItemStyle: TextStyle(
+                      dropdownItemStyle: const TextStyle(
                         color: Colors.black,
                         fontSize: 14,
                       ),
@@ -182,22 +186,14 @@ class _RegistLengkapState extends State<RegistLengkap> {
                       ///Show only specific countries using country filter
                       // countryFilter: ["United States", "Canada", "Mexico"],
                     ),
-
-                    SizedBox(
-
-                      height: 60,
-                    ),
-
+                    const SizedBox(height: 60),
                     ElevatedButton(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-
-
                           address = "$cityValue, $stateValue, $countryValue";
 
-                          Provider.of<RegistProvider>(
-                              context, listen: false).regist(context,address);
-
+                          Provider.of<RegistProvider>(context, listen: false)
+                              .regist(context, address);
                         }
                       },
                       child: const Text('Next'),
@@ -205,14 +201,12 @@ class _RegistLengkapState extends State<RegistLengkap> {
                   ],
                 ),
                 ValueListenableBuilder<bool>(
-                  valueListenable: Provider
-                      .of<RegistProvider>(context, listen: true)
-                      .isLoad,
-                  builder: (context, value, _) =>
-                      Visibility(
-                        visible: value,
-                        child: const LoadingAnimation(),
-                      ),
+                  valueListenable:
+                      Provider.of<RegistProvider>(context, listen: true).isLoad,
+                  builder: (context, value, _) => Visibility(
+                    visible: value,
+                    child: const LoadingAnimation(),
+                  ),
                 ),
               ],
             ),
@@ -223,12 +217,13 @@ class _RegistLengkapState extends State<RegistLengkap> {
   }
 
   _selectDate() async {
-    DateTime? _picked = await showDatePicker(context: context,
+    DateTime? _picked = await showDatePicker(
+        context: context,
         initialDate: DateTime.now(),
         builder: (context, child) {
           return Theme(
             data: Theme.of(context).copyWith(
-              colorScheme: ColorScheme.light(
+              colorScheme: const ColorScheme.light(
                 primary: Colors.white, // <-- SEE HERE
                 onPrimary: Colors.black, // <-- SEE HERE
                 onSurface: Colors.blueAccent, // <-- SEE HERE
@@ -245,12 +240,12 @@ class _RegistLengkapState extends State<RegistLengkap> {
         firstDate: DateTime(2000),
         lastDate: DateTime(2100));
 
-    if(_picked != null){
+    if (_picked != null) {
       setState(() {
-        Provider.of<RegistProvider>(
-            context, listen: false).tanggaLahirController.text = _picked.toString().split(" ")[0];
+        Provider.of<RegistProvider>(context, listen: false)
+            .tanggaLahirController
+            .text = _picked.toString().split(" ")[0];
       });
     }
-
   }
 }

@@ -13,19 +13,28 @@ class RegistProvider extends ChangeNotifier {
   TextEditingController emailController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
   TextEditingController tanggaLahirController = TextEditingController();
   TextEditingController daerahController = TextEditingController();
   TextEditingController bioController = TextEditingController();
 
+  bool isCheckedTerms = false;
+  bool checkError = false;
 
+  void toggleTerms() {
+    isCheckedTerms = !isCheckedTerms;
+    checkError = false;
+    notifyListeners();
+  }
+
+  void errorTerms() {
+    checkError = true;
+    notifyListeners();
+  }
 
   final ValueNotifier<bool> isLoad = ValueNotifier<bool>(false);
 
-
-
   regist(BuildContext context,String daerah) async {
-
-    print("a");
 
     isLoad.value = true;
     notifyListeners();

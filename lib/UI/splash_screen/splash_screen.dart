@@ -20,20 +20,20 @@ class _SplashScreenState extends State<SplashScreen> {
   late final SharedPreferences prefs;
   bool isHasToken = false;
 
-  @override
-  void initState() {
-    super.initState();
-
-    checkTokenShared();
-    Timer(const Duration(seconds: 3), () => isHasToken ?
-
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return MainScreen();
-    },))
-        : Navigate.navigatorReplacement(context, UrlRoutes.auth_page));
-
-
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //
+  //   checkTokenShared();
+  //   Timer(const Duration(seconds: 3), () => isHasToken ?
+  //
+  //   Navigator.push(context, MaterialPageRoute(builder: (context) {
+  //     return MainScreen();
+  //   },))
+  //       : Navigate.navigatorReplacement(context, UrlRoutes.auth_page));
+  //
+  //
+  // }
 
   void checkTokenShared() async{
 

@@ -17,15 +17,12 @@ class AuthButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Stack(
         children: [
           Wrap(
             runSpacing: 9,
             children: [
-              // RegistPageView(),
-              // LoginPageView(),
-
               ElevatedButton(
                   onPressed: () {
                     showModalBottomSheet(
@@ -36,14 +33,14 @@ class AuthButton extends StatelessWidget {
                       },
                     );
                   },
-                  child: Text("Daftar")),
+                  child: const Text("Daftar")),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     onPrimary: Colors.black,
                     primary: Colors.white,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
-                        side: BorderSide(color: Colors.black, width: 1)),
+                        side: const BorderSide(color: Colors.black, width: 1)),
                     textStyle: GoogleFonts.poppins(
                       color: Colors.white,
                       fontSize: 17.5,
@@ -59,7 +56,7 @@ class AuthButton extends StatelessWidget {
                       },
                     );
                   },
-                  child: Text("Masuk"))
+                  child: const Text("Masuk"))
             ],
           ),
         ],
