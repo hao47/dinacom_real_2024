@@ -105,7 +105,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
 
-      // debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false,
       initialRoute: UrlRoutes.initial,
       routes: appRoutes,
 

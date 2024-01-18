@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:dinacom_2024/UI/bottom_navigation/bottom_navigation.dart';
 import 'package:dinacom_2024/UI/bottom_navigation/item/lapor/image_upload_service.dart';
+import 'package:dinacom_2024/UI/bottom_navigation/item/poran/poran_provider.dart';
 import 'package:dinacom_2024/common/app_theme.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +18,7 @@ class Lapor extends StatefulWidget {
 }
 
 class _LaporState extends State<Lapor> {
-   ImageUploadService uploadService = ImageUploadService();
+   PoranProvider uploadService = PoranProvider();
 
    XFile? pickedFile;
 
@@ -31,7 +33,9 @@ class _LaporState extends State<Lapor> {
     return  Scaffold(
       appBar: AppBar(
         leading: IconButton(onPressed: () {
-          Navigator.pop(context);
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return MainScreen();
+          },));
         }, icon: Icon(Icons.close,)),
 
 

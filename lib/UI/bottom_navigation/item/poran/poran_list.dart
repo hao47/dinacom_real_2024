@@ -2,6 +2,7 @@ import 'package:dinacom_2024/UI/widget/poran_card.dart';
 import 'package:dinacom_2024/common/app_theme.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:dinacom_2024/data/model/poran_all_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -202,33 +203,35 @@ class PoranCardItem extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            Row(
-              children: [
-                Row(
-                  children: [
-                    Icon(
-                      Icons.chat_bubble_outline,
-                      color: ColorValue.LightGrey,
-                      size: 20,
-                    ),
-                    SizedBox(width: 5),
-                    // Text('154', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: ColorValue.LightGrey))
-                  ],
-                ),
-                SizedBox(width: 10),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.send_rounded,
-                      color: ColorValue.LightGrey,
-                      size: 20,
-                    ),
-                    SizedBox(width: 5),
-                    // Text('154', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: ColorValue.LightGrey))
-                  ],
-                ),
-              ],
-            )
+            // Row(
+            //   children: [
+            //     Row(
+            //       children: [
+            //         Icon(
+            //           Icons.chat_bubble_outline,
+            //           color: ColorValue.LightGrey,
+            //           size: 20,
+            //         ),
+            //         SizedBox(width: 5),
+            //         // Text('154', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: ColorValue.LightGrey))
+            //       ],
+            //     ),
+            //     SizedBox(width: 10),
+            //     Row(
+            //       children: [
+            //         Icon(
+            //           Icons.send_rounded,
+            //           color: ColorValue.LightGrey,
+            //           size: 20,
+            //         ),
+            //         SizedBox(width: 5),
+            //         // Text('154', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: ColorValue.LightGrey))
+            //       ],
+            //     ),
+            //   ],
+            // )
+
+
           ],
         ),
       ),
