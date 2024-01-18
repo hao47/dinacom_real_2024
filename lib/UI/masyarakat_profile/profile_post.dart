@@ -1,4 +1,4 @@
-import 'package:dinacom_2024/UI/widget/poran_card.dart';
+
 import 'package:flutter/material.dart';
 
 

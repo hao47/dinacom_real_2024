@@ -1,5 +1,6 @@
-import 'package:dinacom_2024/UI/bottom_navigation/item/profile/profile_biodata.dart';
-import 'package:dinacom_2024/UI/bottom_navigation/item/profile/profile_post.dart';
+import 'package:dinacom_2024/UI/bottom_navigation/item/profile/wdiget/profile_biodata.dart';
+import 'package:dinacom_2024/UI/bottom_navigation/item/profile/wdiget/profile_poran_list.dart';
+import 'package:dinacom_2024/UI/bottom_navigation/item/profile/wdiget/profileporan.dart';
 
 import 'package:dinacom_2024/common/app_theme.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
@@ -85,8 +86,10 @@ class Profile extends StatelessWidget {
                                       .height,
                                   child:  TabBarView(
                                     children: [
-                                      ProfilePost(profileModel: state.categoryResult),
-                                      ProfilePost(profileModel: state.categoryResult),
+
+                                      ProfilePoranList(poranAllModel: state.poranModel,),
+                                      ProfilePoranList(poranAllModel: state.poranModel,)
+
                                     ],
                                   ),
                                 ),

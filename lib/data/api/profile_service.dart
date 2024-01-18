@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:dinacom_2024/UI/bottom_navigation/item/profile/profile.dart';
+import 'package:dinacom_2024/data/model/poran_all_model.dart';
+import 'package:dinacom_2024/data/model/poran_all_model.dart';
 import 'package:dinacom_2024/data/model/profile_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -14,20 +16,41 @@ class ProfileService{
 
 
     final response =
-    await http.post(Uri.parse("http://10.0.2.2:8080/api/secured/profile"),
+    await http.get(Uri.parse("http://10.0.2.2:8080/api/secured/profile"),
         headers: <String, String>{
           'Content-Type': 'application/json',
           'Authorization': '$token',
         },
-        body: jsonEncode({
-          'jwt_token': '$token',
-        }));
+       );
 
     // print(response.body);
 
 
     if (response.statusCode == 200) {
       return ProfileModel.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('ada yang salah');
+    }
+  }
+
+  Future<PoranAllModel> getporanprofile() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? token = pref.getString('token');
+
+
+    final response =
+    await http.get(Uri.parse("http://10.0.2.2:8080/api/secured/user_posts"),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': '$token',
+      },
+    );
+
+    // print(response.body);
+
+
+    if (response.statusCode == 200) {
+      return PoranAllModel.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('ada yang salah');
     }

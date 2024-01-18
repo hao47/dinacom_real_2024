@@ -5,6 +5,7 @@ import 'package:dinacom_2024/UI/auth/verif/verifprovider.dart';
 import 'package:dinacom_2024/UI/bottom_navigation/item/lapor/laport.dart';
 import 'package:dinacom_2024/UI/bottom_navigation/item/poran/poran_provider.dart';
 import 'package:dinacom_2024/UI/bottom_navigation/item/profile/profile_provider.dart';
+import 'package:dinacom_2024/UI/widget/favorite_provider.dart';
 import 'package:dinacom_2024/teset.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -35,6 +36,8 @@ void main() async {
       ),
       ChangeNotifierProvider(
         create: (context) => PoranProvider(),
+      ), ChangeNotifierProvider(
+        create: (context) => FavoriteProvider(),
       ),
     ],
     child: const MyApp(),
@@ -109,15 +112,7 @@ class MyApp extends StatelessWidget {
       initialRoute: UrlRoutes.initial,
       routes: appRoutes,
 
-      // home: Lapor(),
 
-      // home: ProfileTab(),
-
-      // home: Profile(),
-      // home: MainScreen(),
-      // home: VerifPage(),
-
-      // home: MainScreen(),
 
     );
   }

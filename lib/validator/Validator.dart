@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 
+import 'dart:convert';
 class Validator {
   static Widget checkIconTexFormField(bool? str,String? user) {
     if (str == true) {
@@ -26,6 +27,25 @@ class Validator {
   }
   static String? dateValidator(value) {
     return value.toString().length <= 3 ? 'Tanggal tidak valid' : null;
+  }
+
+ static Map<String, dynamic>? decodeJwtClaims(String jwtToken) {
+    try {
+      List<String> parts = jwtToken.split('.');
+
+      if (parts.length != 3) {
+        // Invalid JWT format
+        return null;
+      }
+
+      String payload = utf8.decode(base64Url.decode(parts[1]));
+      Map<String, dynamic> decodedClaims = json.decode(payload);
+
+      return decodedClaims;
+    } catch (e) {
+      // Handle decoding errors
+      return null;
+    }
   }
 
   static String? emailValidator(value) {

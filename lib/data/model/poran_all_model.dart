@@ -6,6 +6,7 @@ import 'dart:convert';
 
 PoranAllModel poranAllModelFromJson(String str) => PoranAllModel.fromJson(json.decode(str));
 
+String poranAllModelToJson(PoranAllModel data) => json.encode(data.toJson());
 
 class PoranAllModel {
   List<Response> response;
@@ -21,7 +22,10 @@ class PoranAllModel {
     status: json["status"],
   );
 
-
+  Map<String, dynamic> toJson() => {
+    "response": List<dynamic>.from(response.map((x) => x.toJson())),
+    "status": status,
+  };
 }
 
 class Response {
@@ -31,6 +35,7 @@ class Response {
   String ditujukan;
   Author author;
   int authorId;
+  int likeJumlah;
   DateTime createdAt;
   DateTime updatedAt;
 
@@ -41,6 +46,7 @@ class Response {
     required this.ditujukan,
     required this.author,
     required this.authorId,
+    required this.likeJumlah,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -52,10 +58,22 @@ class Response {
     ditujukan: json["ditujukan"],
     author: Author.fromJson(json["author"]),
     authorId: json["author_id"],
+    likeJumlah: json["like_jumlah"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
   );
 
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "content": content,
+    "gambar": gambar,
+    "ditujukan": ditujukan,
+    "author": author.toJson(),
+    "author_id": authorId,
+    "like_jumlah": likeJumlah,
+    "created_at": createdAt.toIso8601String(),
+    "updated_at": updatedAt.toIso8601String(),
+  };
 }
 
 class Author {
@@ -111,5 +129,21 @@ class Author {
     bio: json["bio"],
   );
 
-
+  Map<String, dynamic> toJson() => {
+    "ID": id,
+    "UpdatedAt": updatedAt.toIso8601String(),
+    "DeletedAt": deletedAt,
+    "username": username,
+    "email": email,
+    "password": password,
+    "photo_profile": photoProfile,
+    "tanggal_lahir": "${tanggalLahir.year.toString().padLeft(4, '0')}-${tanggalLahir.month.toString().padLeft(2, '0')}-${tanggalLahir.day.toString().padLeft(2, '0')}",
+    "daerah": daerah,
+    "role": role,
+    "VerHash": verHash,
+    "Timeout": timeout.toIso8601String(),
+    "IsActive": isActive,
+    "CreatedAt": createdAt.toIso8601String(),
+    "bio": bio,
+  };
 }

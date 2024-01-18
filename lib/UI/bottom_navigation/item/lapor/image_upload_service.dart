@@ -2,17 +2,17 @@ import 'dart:io';
 import 'package:dinacom_2024/UI/bottom_navigation/item/poran/poran_provider.dart';
 import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:math';
 import 'package:permission_handler/permission_handler.dart';
-
+import 'dart:math';
 import 'dart:convert';
+
 
 // String generateRandomString(int length) {
 //   final random = Random();
 //   const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
 //   return List.generate(length, (index) => chars[random.nextInt(chars.length)]).join();
 // }
-//
+
 // class ImageUploadService{
 //   String randomString = generateRandomString(10);
 //   Future<void> uploadImage(XFile? pickedfile) async{
@@ -38,7 +38,7 @@ import 'dart:convert';
 //
 //         // print(response.data);
 //         if(response.statusCode == 201){
-//           PoranProvider();
+//
 //           print(response.data);
 //         }else{
 //           print("gagal");

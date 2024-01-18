@@ -1,13 +1,14 @@
 import 'dart:io';
 
-import 'package:dinacom_2024/UI/bottom_navigation/bottom_navigation.dart';
 import 'package:dinacom_2024/UI/bottom_navigation/item/lapor/image_upload_service.dart';
 import 'package:dinacom_2024/UI/bottom_navigation/item/poran/poran_provider.dart';
 import 'package:dinacom_2024/common/app_theme.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
 
 
 class Lapor extends StatefulWidget {
@@ -33,9 +34,10 @@ class _LaporState extends State<Lapor> {
     return  Scaffold(
       appBar: AppBar(
         leading: IconButton(onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return MainScreen();
-          },));
+
+          Provider.of<PoranProvider>(context, listen: false).profile();
+
+          Navigator.pop(context);
         }, icon: Icon(Icons.close,)),
 
 

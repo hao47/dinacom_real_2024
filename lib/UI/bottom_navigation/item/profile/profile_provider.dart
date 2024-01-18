@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:dinacom_2024/UI/bottom_navigation/item/profile/profile.dart';
 import 'package:dinacom_2024/data/api/profile_service.dart';
+import 'package:dinacom_2024/data/model/poran_all_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:dinacom_2024/constants/url_routes.dart';
 import 'package:dinacom_2024/data/model/profile_model.dart';
@@ -24,6 +25,7 @@ class ProfileProvider extends ChangeNotifier {
 
 
   late ProfileModel _profileModel;
+  late PoranAllModel _poranModel;
 
   late ResultState _state;
   String _message = '';
@@ -31,12 +33,14 @@ class ProfileProvider extends ChangeNotifier {
   String get message => _message;
 
   ProfileModel get categoryResult => _profileModel;
+  PoranAllModel get poranModel => _poranModel;
 
   ResultState get state => _state;
 
 
   ProfileProvider(){
     profile();
+    getporanprofile();
   }
 
   Future<dynamic> profile() async {
@@ -44,7 +48,7 @@ class ProfileProvider extends ChangeNotifier {
       _state = ResultState.loading;
       notifyListeners();
       final profile = await profileService.getprofile();
-      if (profile.id == 0) {
+      if (profile.responseProfile.id == 0) {
         _state = ResultState.noData;
         notifyListeners();
         return _message = 'Empty Data';
@@ -54,7 +58,30 @@ class ProfileProvider extends ChangeNotifier {
         return _profileModel = profile;
       }
     } catch (e) {
-      print(e.runtimeType );
+      print(e);
+      _state = ResultState.error;
+      notifyListeners();
+      return _message = "ada yang salah";
+    }
+  }
+
+
+  Future<dynamic> getporanprofile() async {
+    try {
+      _state = ResultState.loading;
+      notifyListeners();
+      final profile = await profileService.getporanprofile();
+      if (profile.response.isEmpty) {
+        _state = ResultState.noData;
+        notifyListeners();
+        return _message = 'Empty Data';
+      } else {
+        _state = ResultState.hasData;
+        notifyListeners();
+        return _poranModel = profile;
+      }
+    } catch (e) {
+      print(e);
       _state = ResultState.error;
       notifyListeners();
       return _message = "ada yang salah";

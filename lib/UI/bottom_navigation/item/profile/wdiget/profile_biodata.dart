@@ -12,9 +12,9 @@ class ProfileBioData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var tahun =  profileModel.tanggalLahir.year.toString();
-    var bulan =  profileModel.tanggalLahir.month.toString();
-    var hari =  profileModel.tanggalLahir.day.toString();
+    var tahun =  profileModel.responseProfile.tanggalLahir.year.toString();
+    var bulan =  profileModel.responseProfile.tanggalLahir.month.toString();
+    var hari =  profileModel.responseProfile.tanggalLahir.day.toString();
     return Container(padding: const EdgeInsets.only(top: 10, bottom: 20),
       decoration: const BoxDecoration(
         border: Border(
@@ -34,13 +34,12 @@ class ProfileBioData extends StatelessWidget {
               Container(
                 width: 70,
                 height: 70,
-                decoration: const BoxDecoration(
+                decoration:  BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
                     fit: BoxFit.cover,
                     image: NetworkImage(
-                      "https://images.pexels.com/photos/3307758/pexels-photo-3307758.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=250",
-
+                      profileModel.responseProfile.photoProfile
                     ),
                   ),
                 ),
@@ -76,20 +75,20 @@ class ProfileBioData extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    profileModel.username,
+                    profileModel.responseProfile.username,
                     style: CommonAppTheme.textTheme(context)
                         .headline1!
                         .copyWith(fontSize: 20),
                   ),
                   const SizedBox(width: 10),
-                   Role(name: profileModel.role),
+                   Role(name: profileModel.responseProfile.role),
                 ],
               ),
               Container(
                 margin: const EdgeInsets.only(top: 3),
                 width: 250,
                 child: Text(
-                  profileModel.bio,
+                  profileModel.responseProfile.bio,
                   maxLines: 2,
                   style: CommonAppTheme.textTheme(context)
                       .bodyText1!
@@ -129,7 +128,7 @@ class ProfileBioData extends StatelessWidget {
                       ),
                       const SizedBox(width: 3),
                       Text(
-                       profileModel.daerah,
+                       profileModel.responseProfile.daerah,
                         style: CommonAppTheme.textTheme(context)
                             .bodyText1!
                             .copyWith(fontSize: 10),
