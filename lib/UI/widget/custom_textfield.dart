@@ -49,7 +49,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       style: textTheme.bodyText1!.copyWith(
         color:  Colors.black,
       ),
-
+      cursorColor: ColorValue.BaseBlue,
       readOnly: widget.readOnly,
       decoration: InputDecoration(
         border: OutlineInputBorder(
@@ -68,7 +68,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(widget.borderRadius),
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             width: 2,
             color: ColorValue.secondaryColor,
           ),

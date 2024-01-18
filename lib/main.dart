@@ -101,7 +101,7 @@ class MyApp extends StatelessWidget {
       ),
 
       debugShowCheckedModeBanner: false,
-      initialRoute: UrlRoutes.initial,
+      initialRoute: UrlRoutes.test,
       routes: appRoutes,
 
       // home: ProfileTab(),
