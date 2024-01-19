@@ -1,62 +1,69 @@
 import 'dart:io';
 
 import 'package:dinacom_2024/UI/bottom_navigation/item/lapor/image_upload_service.dart';
+import 'package:dinacom_2024/UI/bottom_navigation/item/lapor/widget/dropdown.dart';
+import 'package:dinacom_2024/UI/bottom_navigation/item/poran/poran_provider.dart';
 import 'package:dinacom_2024/UI/bottom_navigation/item/poran/poran_provider.dart';
 import 'package:dinacom_2024/common/app_theme.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter_quill/quill_delta.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter_quill/flutter_quill.dart';
 import 'package:provider/provider.dart';
 
-
 class Lapor extends StatefulWidget {
-   Lapor({super.key});
+  Lapor({super.key});
 
   @override
   State<Lapor> createState() => _LaporState();
 }
 
 class _LaporState extends State<Lapor> {
-   PoranProvider uploadService = PoranProvider();
+  PoranProvider uploadService = PoranProvider();
 
-   XFile? pickedFile;
+  XFile? pickedFile;
 
-   TextEditingController _ditujukancontroller = TextEditingController();
+  TextEditingController _ditujukancontroller = TextEditingController();
+  TextEditingController _contentcontroller = TextEditingController();
 
-   TextEditingController _contentcontroller = TextEditingController();
-
-   final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
+  QuillController _controller = QuillController.basic();
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: () {
+        toolbarHeight: 75,
+        leading: IconButton(
+          onPressed: () {
+            Provider.of<PoranProvider>(context, listen: false).profile();
 
-          Provider.of<PoranProvider>(context, listen: false).profile();
-
-          Navigator.pop(context);
-        }, icon: Icon(Icons.close,)),
-
-
+            Navigator.pop(context);
+          },
+          icon: const Icon(
+            Icons.close_rounded,
+            color: Colors.black,
+            size: 30,
+          ),
+        ),
         actions: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: TextButton(
               onPressed: () {
+                if (pickedFile != null) {
 
-                if(pickedFile != null){
 
-                  uploadService.uploadImage(pickedFile);
+                  final doc = _controller.document.toPlainText();
 
+                  uploadService.uploadImage(pickedFile,doc);
                 }
               },
-              child: Text("unggah",style: CommonAppTheme.textTheme(context).headline1!.copyWith(
-                color: ColorValue.secondaryColor,
-                fontSize: 16
-              )),
+              child: Text("Unggah",
+                  style: CommonAppTheme.textTheme(context).headline1!.copyWith(
+                      color: ColorValue.secondaryColor, fontSize: 16)),
             ),
           )
         ],
@@ -65,100 +72,102 @@ class _LaporState extends State<Lapor> {
         key: _formKey,
         child: Column(
           children: [
-            TextFormField(
-              controller: _ditujukancontroller,
+            DropdownDitujukan(),
+            Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(left: 25, right: 15),
+                    width: 35,
+                    height: 35,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: ColorValue.BaseGrey,
+                    ),
+                  ),
+                  Expanded(
+                    child: QuillEditor.basic(
+                      configurations: QuillEditorConfigurations(
+                        placeholder: "Ketik Sesuatu di sini",
+                        controller: _controller,
+                        readOnly: false,
+                        sharedConfigurations: const QuillSharedConfigurations(
+                          locale: Locale('de'),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
-            TextFormField(
-              controller: _contentcontroller,
-            ),
-
+            SizedBox(height: 10,),
             Visibility(
               visible: pickedFile != null,
               child: pickedFile != null
                   ? Image.file(File(pickedFile!.path), height: 200)
                   : Container(),
             ),
-
+            Expanded(child: Container()),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 10),
+              child: QuillToolbar.simple(
+                configurations: QuillSimpleToolbarConfigurations(
+                  controller: _controller,
+                  multiRowsDisplay: false,
+                ),
+              ),
+            )
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async{
+      floatingActionButton: Container(
+        margin: EdgeInsets.only(bottom: 30.0),
+        width: 50,
+        height: 50,
+        child: FloatingActionButton(
+          onPressed: () async {
+            if (_formKey.currentState!.validate()) {
 
-      if (_formKey.currentState!.validate()) {
+              // print(doc.toPlainText());
 
-
-
-        checkPermissions();
-
-
-      }
-        },
-        tooltip: 'Increment',
-        child: const Icon(Icons.image),
+              checkPermissions();
+            }
+          },
+          tooltip: 'Increment',
+          backgroundColor: ColorValue.BaseBlue,
+          shape: RoundedRectangleBorder(
+            borderRadius:
+            BorderRadius.circular(50.0), // Adjust the radius as needed
+          ),
+          child: const Icon(
+            Icons.image_rounded,
+            color: ColorValue.VeryLightGrey,
+            size: 25,
+          ),
+        ),
       ),
     );
   }
 
-   checkPermissions() async {
-     Map<Permission, PermissionStatus> statuses = await [
-       Permission.camera,
-       Permission.storage,
-     ].request();
+  checkPermissions() async {
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.camera,
+      Permission.storage,
+    ].request();
 
-     if (statuses[Permission.camera] != PermissionStatus.granted &&
-         statuses[Permission.storage] != PermissionStatus.granted) {
-       return;
-     }
+    if (statuses[Permission.camera] != PermissionStatus.granted &&
+        statuses[Permission.storage] != PermissionStatus.granted) {
+      return;
+    }
 
-     pickedImage();
+    pickedImage();
+  }
 
-   }
-
-   pickedImage() async {
-     final picker = ImagePicker();
-     pickedFile = await picker.pickImage(source: ImageSource.gallery);
-     setState(() {});
-   }
-}
-
-class DropdownExample extends StatefulWidget {
-  @override
-  _DropdownExampleState createState() => _DropdownExampleState();
-}
-
-class _DropdownExampleState extends State<DropdownExample> {
-  String selectedValue = 'Option 1'; // Initial selected value
-
-  // List of dropdown items
-  List<String> dropdownItems = ['Option 1', 'Option 2', 'Option 3', 'Option 4'];
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text('Selected Value: $selectedValue'),
-        SizedBox(height: 20),
-        DropdownButton<String>(
-          value: selectedValue,
-          icon: Icon(Icons.arrow_drop_down),
-          iconSize: 24,
-          elevation: 16,
-          style: TextStyle(color: Colors.black),
-          onChanged: (String? newValue) {
-            setState(() {
-              selectedValue = newValue!;
-            });
-          },
-          items: dropdownItems.map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
-        ),
-      ],
-    );
+  pickedImage() async {
+    final picker = ImagePicker();
+    pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    setState(() {});
   }
 }

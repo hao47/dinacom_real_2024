@@ -88,7 +88,7 @@ class ProfileBioData extends StatelessWidget {
                 margin: const EdgeInsets.only(top: 3),
                 width: 250,
                 child: Text(
-                  profileModel.responseProfile.bio,
+                  profileModel.responseProfile.bio == ""?"belum di sertakan":profileModel.responseProfile.bio,
                   maxLines: 2,
                   style: CommonAppTheme.textTheme(context)
                       .bodyText1!
@@ -128,7 +128,9 @@ class ProfileBioData extends StatelessWidget {
                       ),
                       const SizedBox(width: 3),
                       Text(
-                       profileModel.responseProfile.daerah,
+
+                        profileModel.responseProfile.daerah == ", , " ?"belum di sertakan": profileModel.responseProfile.daerah,
+                        // profileModel.responseProfile.daerah,
                         style: CommonAppTheme.textTheme(context)
                             .bodyText1!
                             .copyWith(fontSize: 10),

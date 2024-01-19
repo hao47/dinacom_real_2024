@@ -142,34 +142,4 @@ class _LoginPageViewState extends State<LoginPageView> {
     );
   }
 
-  _selectDate() async {
-    DateTime? _picked = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        builder: (context, child) {
-          return Theme(
-            data: Theme.of(context).copyWith(
-              colorScheme: const ColorScheme.light(
-                primary: Colors.white, // <-- SEE HERE
-                onPrimary: Colors.black, // <-- SEE HERE
-                onSurface: Colors.blueAccent, // <-- SEE HERE
-              ),
-              textButtonTheme: TextButtonThemeData(
-                style: TextButton.styleFrom(
-                  primary: Colors.red, // button text color
-                ),
-              ),
-            ),
-            child: child!,
-          );
-        },
-        firstDate: DateTime(2000),
-        lastDate: DateTime(2100));
-
-    if (_picked != null) {
-      setState(() {
-        _tanggaLahirController.text = _picked.toString().split(" ")[0];
-      });
-    }
-  }
 }

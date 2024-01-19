@@ -4,6 +4,7 @@ import 'package:dinacom_2024/UI/bottom_navigation/item/profile/profile.dart';
 import 'package:dinacom_2024/data/api/like_service.dart';
 import 'package:dinacom_2024/data/api/poran_service.dart';
 import 'package:dinacom_2024/data/api/profile_service.dart';
+import 'package:dinacom_2024/data/model/check_like_model.dart';
 import 'package:dinacom_2024/data/model/get_like_model.dart';
 import 'package:dinacom_2024/data/model/poran_all_model.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,6 +20,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
+
+
+// import 'package:flutter_quill/translations.dart' show FlutterQuillLocalizations;
 
 enum ResultState { loading, noData, hasData, error }
 
@@ -56,6 +60,7 @@ class PoranProvider extends ChangeNotifier {
   // PoranProvider(){
   //   profile();
   // }
+
 
   Future<dynamic> profile() async {
     notifyListeners();
@@ -119,7 +124,7 @@ class PoranProvider extends ChangeNotifier {
     }
   }
 
-  dislike(BuildContext context, int id) async {
+  dislike(BuildContext context, int id,int post_id) async {
     // notifyListeners();
 
     print("adwawd");
@@ -128,7 +133,7 @@ class PoranProvider extends ChangeNotifier {
     String? token = pref.getString('token');
 
     final response = await http.delete(
-        Uri.parse("http://10.0.2.2:8080/api/secured/likes/$id"),
+        Uri.parse("http://10.0.2.2:8080/api/secured/likes/$id/$post_id"),
         headers: <String, String>{
           'Content-Type': 'application/json',
           'Authorization': '$token',
@@ -143,26 +148,74 @@ class PoranProvider extends ChangeNotifier {
     }
   }
 
+  CheckLikeModel a = CheckLikeModel(exist: false, responseLike: [], status: 0);
+
+
+  bool check  = false;
+
+  setlike(){
+    check = false;
+    notifyListeners();
+  }
+  unlike(){
+    check = true;
+    notifyListeners();
+  }
+  Future<dynamic>checklike(int post_id) async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? token = pref.getString('token');
+
+    final response = await http.get(
+        Uri.parse("http://10.0.2.2:8080/api/secured/likes/$post_id"),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': '$token',
+        });
+
+
+
+    if (response.statusCode == 200) {
+
+      var responses = jsonDecode(response.body);
+       a = CheckLikeModel.fromJson(responses);
+
+
+
+      if(a.responseLike.isEmpty){
+        notifyListeners();
+        return check = false;
+      }else {
+        notifyListeners();
+        return check = true;
+      }
+
+      // print("halok dek");
+
+      // Provider.of<PoranProvider>(context, listen: false).profile();
+    } else {
+      throw Exception('ada yang salah');
+    }
+  }
   //
   String randomString = generateRandomString(10);
 
-  Future<void> uploadImage(XFile? pickedfile) async {
+  Future<void> uploadImage(XFile? pickedfile,String text) async {
     try {
+
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      String? token = pref.getString('token');
       Dio dio = Dio();
 
       if (pickedfile != null) {
         FormData formData = FormData.fromMap({
           'userFile': await MultipartFile.fromFile(pickedfile.path,
               filename: randomString + ".jpg"),
-          'content':
-              "hawdnawuidnawuidnawuidnawuidawndiuawnduawndianwuidanwudnaiwudnawidnaiwu",
-          'ditujukan': "kepada instasi kudus lol"
+          'content': text,
+          'ditujukan': "kepada instasi kudus"
         });
         //
         dio.options.headers['content-Type'] = 'multipart/form-data';
-        dio.options.headers["authorization"] =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRhZmZhIiwiZW1haWwiOiJkYWZmYXJvYmFuaTU1MUBnbWFpbC5jb20iLCJpZCI6MSwiZXhwIjoxNzA1NjYxOTU0fQ.aamqFwyjMlqiTpl8OC72N0axTw07rh6RBmxsKukcHDs";
-
+        dio.options.headers["authorization"] = token;
         var response = await dio.post('http://10.0.2.2:8080/api/secured/posts',
             data: formData);
 
@@ -177,6 +230,27 @@ class PoranProvider extends ChangeNotifier {
       } else {}
     } catch (error) {
       print(error);
+    }
+  }
+
+
+  deleteporan(int id) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? token = pref.getString('token');
+
+    final response = await http.delete(
+        Uri.parse("http://10.0.2.2:8080/api/secured/posts/$id"),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': '$token',
+        });
+
+    // print(response.body);
+
+    if (response.statusCode == 200) {
+      print("berhasil hapus");
+    } else {
+      throw Exception('ada yang salah');
     }
   }
 }

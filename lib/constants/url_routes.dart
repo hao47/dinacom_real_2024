@@ -9,4 +9,5 @@ class UrlRoutes {
 
   static const test = "/test";
   static const test1 = "/test1";
+  static const detail = "/detail";
 }

@@ -124,18 +124,26 @@ class _RegistPageViewState extends State<RegistPageView> {
                               if (_formKey.currentState!.validate()) {
                                 // print(Provider.of<RegistProvider>(
                                 //     context, listen: false).emailController.text);
-                                if (Provider.of<RegistProvider>(context, listen: false).confirmPasswordController.text != Provider.of<RegistProvider>(context, listen: false).passwordController.text) {
-                                  return;
-                                }
+                                // if (Provider.of<RegistProvider>(context, listen: false).confirmPasswordController.text != Provider.of<RegistProvider>(context, listen: false).passwordController.text) {
+                                //   return;
+                                // }
                                 if (!Provider.of<RegistProvider>(context, listen: false).isCheckedTerms) {
                                   Provider.of<RegistProvider>(context, listen: false).errorTerms();
                                   return;
                                 }
-                                Navigator.push(context, MaterialPageRoute(
-                                  builder: (context) {
-                                    return const RegistLengkap();
-                                  },
-                                ));
+                                //
+
+
+                                if(Provider.of<RegistProvider>(context, listen: false).confirmPasswordController.text ==  Provider.of<RegistProvider>(context, listen: false).passwordController.text){
+                                  Navigator.push(context, MaterialPageRoute(
+                                    builder: (context) {
+                                      return const RegistLengkap();
+                                    },
+                                  ));
+                                }
+
+
+
                                 // Provider.of<RegistProvider>(
                                 //     context, listen: false).regist(
                                 //     context, _emailController.text,_usernameController.text,_passwordController.text,_tanggaLahirController.text,"Kudus");

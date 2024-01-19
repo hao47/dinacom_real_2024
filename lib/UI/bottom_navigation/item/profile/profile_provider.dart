@@ -39,11 +39,10 @@ class ProfileProvider extends ChangeNotifier {
 
 
   ProfileProvider(){
-    profile();
     getporanprofile();
   }
 
-  Future<dynamic> profile() async {
+  Future<dynamic> profilee() async {
     try {
       _state = ResultState.loading;
       notifyListeners();

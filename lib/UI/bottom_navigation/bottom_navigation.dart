@@ -27,18 +27,18 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     items = [
-      NavModel(
-        page: Beranda(),
-        navKey: homeNavKey,
-      ),
+      // NavModel(
+      //   page: Beranda(),
+      //   navKey: homeNavKey,
+      // ),
       NavModel(
         page: Poran(),
         navKey: poranNavKey,
       ),
-      NavModel(
-        page: Berita(),
-        navKey: newsNavKey,
-      ),
+      // NavModel(
+      //   page: Berita(),
+      //   navKey: newsNavKey,
+      // ),
       NavModel(
         page: Profile(),
         navKey: profileNavKey,
@@ -198,24 +198,24 @@ class NavBar extends StatelessWidget {
               pageIndex == 0,
               onTap: () => onTap(0),
             ),
-            navItem(
-              "",
-              Icons.campaign,
-              pageIndex == 1,
-              onTap: () => onTap(1),
-            ),
+            // navItem(
+            //   "",
+            //   Icons.campaign,
+            //   pageIndex == 1,
+            //   onTap: () => onTap(1),
+            // ),
             const SizedBox(width: 80),
-            navItem(
-              "",
-              Icons.newspaper,
-              pageIndex == 2,
-              onTap: () => onTap(2),
-            ),
+            // navItem(
+            //   "",
+            //   Icons.newspaper,
+            //   pageIndex == 2,
+            //   onTap: () => onTap(2),
+            // ),
             navItem(
               "",
               Icons.person,
-              pageIndex == 3,
-              onTap: () => onTap(3),
+              pageIndex == 1,
+              onTap: () => onTap(1),
             ),
           ],
         ),

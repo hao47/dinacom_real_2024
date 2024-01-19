@@ -11,8 +11,20 @@ import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class Profile extends StatelessWidget {
+class Profile extends StatefulWidget {
 
+  @override
+  State<Profile> createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+  void didChangeDependencies() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<ProfileProvider>(context, listen: false).profilee();
+      Provider.of<ProfileProvider>(context, listen: false).getporanprofile();
+    });
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,15 +39,43 @@ class Profile extends StatelessWidget {
             toolbarHeight: 35,
             automaticallyImplyLeading: false,
           ),
-          body: Consumer<ProfileProvider>(
-            builder: (context, state, _) {
-              if (state.state == ResultState.loading) {
-                return Text("");
-              } else if (state.state == ResultState.hasData) {
-                return Column(
-                  children: [
-                    ProfileBioData(profileModel: state.categoryResult),
-                    Expanded(
+          body: Column(
+            children: [
+              Consumer<ProfileProvider>(
+                builder: (context, state, _) {
+                  if (state.state == ResultState.loading) {
+                    return Text("");
+                  } else if (state.state == ResultState.hasData) {
+                    return
+                      ProfileBioData(profileModel: state.categoryResult);
+                  } else if (state.state == ResultState.noData) {
+                    return Center(
+                      child: Material(
+                        child: Text(state.message),
+                      ),
+                    );
+                  } else if (state.state == ResultState.error) {
+                    return Center(
+                      child: Material(
+                        child: Text(state.message),
+                      ),
+                    );
+                  } else {
+                    return const Center(
+                      child: Material(
+                        child: Text(''),
+                      ),
+                    );
+                  }
+                },
+              ),
+
+              Consumer<ProfileProvider>(
+                builder: (context, state, _) {
+                  if (state.state == ResultState.loading) {
+                    return Text("");
+                  } else if (state.state == ResultState.hasData) {
+                    return Expanded(
                       child: DefaultTabController(
                         length: 2,
                         child: Column(
@@ -98,29 +138,33 @@ class Profile extends StatelessWidget {
                           ],
                         ),
                       ),
-                    ),
-                  ],
-                );
-              } else if (state.state == ResultState.noData) {
-                return Center(
-                  child: Material(
-                    child: Text(state.message),
-                  ),
-                );
-              } else if (state.state == ResultState.error) {
-                return Center(
-                  child: Material(
-                    child: Text(state.message),
-                  ),
-                );
-              } else {
-                return const Center(
-                  child: Material(
-                    child: Text(''),
-                  ),
-                );
-              }
-            },
+                    );
+                  } else if (state.state == ResultState.noData) {
+                    return Center(
+                      child: Material(
+                        child: Text(state.message),
+                      ),
+                    );
+                  } else if (state.state == ResultState.error) {
+                    return Center(
+                      child: Material(
+                        child: Text(state.message),
+                      ),
+                    );
+                  } else {
+                    return const Center(
+                      child: Material(
+                        child: Text(''),
+                      ),
+                    );
+                  }
+                },
+              ),
+
+
+
+
+            ],
           )
       ),
     );

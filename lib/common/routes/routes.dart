@@ -4,6 +4,7 @@ import 'package:dinacom_2024/UI/auth/register/regist_page_view.dart';
 import 'package:dinacom_2024/UI/auth/verif/verificationpage.dart';
 import 'package:dinacom_2024/UI/bottom_navigation/item/beranda/beranda.dart';
 import 'package:dinacom_2024/UI/bottom_navigation/item/profile/profile.dart';
+import 'package:dinacom_2024/UI/detail/detail.dart';
 import 'package:dinacom_2024/UI/instansi_profile/profile.dart';
 import 'package:dinacom_2024/UI/masyarakat_profile/profile.dart';
 import 'package:dinacom_2024/UI/splash_screen/splash_screen.dart';
@@ -21,4 +22,5 @@ var appRoutes = {
 
   UrlRoutes.test: (context) => ProfileMasyarakat(),
   UrlRoutes.test1: (context) => ProfileInstansi(),
+  UrlRoutes.detail: (context) => DetailPage(),
 };

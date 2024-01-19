@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:csc_picker/csc_picker.dart';
 import 'package:dinacom_2024/UI/auth/register/regist_provider.dart';
 import 'package:dinacom_2024/UI/widget/custom_textfield.dart';
@@ -5,8 +7,13 @@ import 'package:dinacom_2024/UI/widget/loading_animation.dart';
 import 'package:dinacom_2024/common/app_theme.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:dinacom_2024/validator/Validator.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+
+import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class RegistLengkap extends StatefulWidget {
   const RegistLengkap({super.key});
@@ -21,7 +28,34 @@ class _RegistLengkapState extends State<RegistLengkap> {
   String cityValue = "";
   String address = "";
 
+  var a= [];
+@override
+  void initState() {
+  a = [
+    '2024',
+    '2023',
+    '2022',
+    '2021',
+    '2020',
+    '2019',
+    '2018',
+    '2017',
+    '2016',
+    '2015',
+    '2014',
+    '2013',
+    '2012',
+    '2011',
+    '2010',
+    '2009',
+    '2008'
+  ];
+  super.initState();
+  }
+
   final _formKey = GlobalKey<FormState>();
+
+  XFile? pickedFile;
 
   @override
   Widget build(BuildContext context) {
@@ -57,15 +91,43 @@ class _RegistLengkapState extends State<RegistLengkap> {
                           .bodyText1!
                           .copyWith(fontSize: 12, color: ColorValue.LightGrey),
                     ),
-                    Container(
-                      height: 115,
-                      width: 115,
-                      margin: const EdgeInsets.symmetric(vertical: 75),
-                      decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(100)),
-                      child: const Icon(Icons.camera_alt,
-                          color: ColorValue.VeryLightGrey, size: 35),
+                    Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Container(
+                          
+                          height: 115,
+                          width: 115,
+                          margin: const EdgeInsets.symmetric(vertical: 75),
+                          decoration: BoxDecoration(
+                              color: Colors.grey,
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+
+                              image: pickedFile != null?
+                              FileImage(File(pickedFile!.path))
+                                  : FileImage(File('assets/images/logo.png'))
+                            ),
+                          ),
+
+                        ),
+                        InkWell(
+                          onTap: () {
+
+                            checkPermissions();
+                          },
+                          child: Container(
+                            height: 35,
+                            width: 35,
+                            margin: const EdgeInsets.only(top: 80, left: 70),
+                            decoration: BoxDecoration(
+                                color: Colors.blueAccent,
+                                borderRadius: BorderRadius.circular(100)),
+                            child: Icon(CupertinoIcons.pencil,color: Colors.white),
+                          ),
+                        )
+                      ],
                     ),
                     CustomTextFormField(
                       label: 'Bio',
@@ -91,109 +153,96 @@ class _RegistLengkapState extends State<RegistLengkap> {
                         validator: (value) => Validator.dateValidator(value)),
                     const SizedBox(height: 12.5),
                     CSCPicker(
-                      ///Enable disable state dropdown [OPTIONAL PARAMETER]
                       showStates: true,
-
-                      /// Enable disable city drop down [OPTIONAL PARAMETER]
                       showCities: true,
-
-                      ///Enable (get flag with country name) / Disable (Disable flag) / ShowInDropdownOnly (display flag in dropdown only) [OPTIONAL PARAMETER]
                       flagState: CountryFlag.DISABLE,
-
-                      ///Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER] (USE with disabledDropdownDecoration)
                       dropdownDecoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(Radius.circular(15)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(15)),
                           color: Colors.white,
                           border: Border.all(
                             width: 1.5,
                             color: const Color(0xff666666),
                           )),
-
-                      ///Disabled Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER]  (USE with disabled dropdownDecoration)
                       disabledDropdownDecoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(Radius.circular(10)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10)),
                           color: Colors.grey.shade300,
                           border: Border.all(
                               color: Colors.grey.shade300, width: 1)),
-
-                      ///placeholders for dropdown search field
                       countrySearchPlaceholder: "Country",
                       stateSearchPlaceholder: "State",
                       citySearchPlaceholder: "City",
-
-                      ///labels for dropdown
                       countryDropdownLabel: "Country",
                       stateDropdownLabel: "State",
                       cityDropdownLabel: "City",
-
-                      ///Default Country
-                      ///defaultCountry: CscCountry.India,
-
-                      ///Country Filter [OPTIONAL PARAMETER]
                       countryFilter: const [CscCountry.Indonesia],
-
-                      ///Disable country dropdown (Note: use it with default country)
-                      //disableCountry: true,
-
-                      ///selected item style [OPTIONAL PARAMETER]
                       selectedItemStyle: const TextStyle(
                         color: Colors.black,
                         fontSize: 14,
                       ),
-
-                      ///DropdownDialog Heading style [OPTIONAL PARAMETER]
                       dropdownHeadingStyle: const TextStyle(
                           color: Colors.black,
                           fontSize: 17,
                           fontWeight: FontWeight.bold),
-
-                      ///DropdownDialog Item style [OPTIONAL PARAMETER]
                       dropdownItemStyle: const TextStyle(
                         color: Colors.black,
                         fontSize: 14,
                       ),
-
-                      ///Dialog box radius [OPTIONAL PARAMETER]
                       dropdownDialogRadius: 10.0,
-
-                      ///Search bar radius [OPTIONAL PARAMETER]
                       searchBarRadius: 10.0,
-
-                      ///triggers once country selected in dropdown
                       onCountryChanged: (value) {
                         setState(() {
-                          ///store value in country variable
                           countryValue = value;
                         });
                       },
-
-                      ///triggers once state selected in dropdown
                       onStateChanged: (value) {
                         setState(() {
-                          ///store value in state variable
                           stateValue = value ?? "";
                         });
                       },
-
-                      ///triggers once city selected in dropdown
                       onCityChanged: (value) {
                         setState(() {
-                          ///store value in city variable
                           cityValue = value ?? "";
                         });
                       },
-
-                      ///Show only specific countries using country filter
-                      // countryFilter: ["United States", "Canada", "Mexico"],
                     ),
                     const SizedBox(height: 60),
                     ElevatedButton(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
+
+
+                          String pw = Provider.of<RegistProvider>(context, listen: false).confirmPasswordController.text;
+
                           address = "$cityValue, $stateValue, $countryValue";
 
-                          Provider.of<RegistProvider>(context, listen: false)
-                              .regist(context, address);
+                          String tanggal =  Provider.of<RegistProvider>(context, listen: false)
+                              .tanggaLahirController.text;
+
+                          bool aa = false;
+
+                          for(var data in a){
+                            if(tanggal.contains(data)){
+                              aa= true;
+                            }
+                          }
+
+                          if(aa){
+
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Anda belum berumur 17 tahun ke atas'),
+                              ),
+                            );
+                          }else {
+                            Provider.of<RegistProvider>(context, listen: false)
+                                .regist(context, address,pickedFile,pw);
+
+
+                          }
+
+
                         }
                       },
                       child: const Text('Next'),
@@ -247,5 +296,25 @@ class _RegistLengkapState extends State<RegistLengkap> {
             .text = _picked.toString().split(" ")[0];
       });
     }
+  }
+
+  checkPermissions() async {
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.camera,
+      Permission.storage,
+    ].request();
+
+    if (statuses[Permission.camera] != PermissionStatus.granted &&
+        statuses[Permission.storage] != PermissionStatus.granted) {
+      return;
+    }
+
+    pickedImage();
+  }
+
+  pickedImage() async {
+    final picker = ImagePicker();
+    pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    setState(() {});
   }
 }

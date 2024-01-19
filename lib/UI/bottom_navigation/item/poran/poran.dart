@@ -41,13 +41,13 @@ class _PoranState extends State<Poran> {
             } else if (state.state == ResultState.noData) {
               return Center(
                 child: Material(
-                  child: Text(state.message),
+                  child: Text("Tidak ada Data"),
                 ),
               );
             } else if (state.state == ResultState.error) {
               return Center(
                 child: Material(
-                  child: Text("halo"),
+                  child: Text("Ada yang salah"),
                 ),
               );
             } else {

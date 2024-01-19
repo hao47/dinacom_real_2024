@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class FavoriteProvider extends ChangeNotifier {
-   List<String> _words = [];
+   List<int> _words = [];
 
-  List<String> get words => _words;
+  List<int> get words => _words;
 
-  void toggleFavorite(String word) {
+  void toggleFavorite(int word) {
     final isExist = _words.contains(word);
 
     if (isExist) {
@@ -16,12 +16,12 @@ class FavoriteProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool isExist(String word){
+  bool isExist(int word){
     final isExist  = _words.contains(word);
     return isExist;
   }
 
-  void resetFavorite(String word) {
+  void resetFavorite(int word) {
     _words = [];
     notifyListeners();
   }
