@@ -12,7 +12,6 @@ import 'package:http/http.dart' as http;
 class AuthPageController extends GetxController {
 
   final formKeyRegist = GlobalKey<FormState>();
-  final formKeyLogin = GlobalKey<FormState>();
   final ValueNotifier<bool> isLoad = ValueNotifier<bool>(false);
   TextEditingController emailControllerLogin = TextEditingController();
   TextEditingController passwordControllerLogin = TextEditingController();
@@ -45,14 +44,7 @@ class AuthPageController extends GetxController {
     checkError.value = true;
   }
 
-  @override
-  dispose(){
-    emailControllerLogin.dispose();
-    passwordControllerLogin.dispose();
-    emailControllerLogin.clear();
-    passwordControllerLogin.clear();
-    super.dispose();
-  }
+
 
   selectDate(BuildContext context) async {
     DateTime? _picked = await showDatePicker(

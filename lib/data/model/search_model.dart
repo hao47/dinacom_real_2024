@@ -1,30 +1,30 @@
 // To parse this JSON data, do
 //
-//     final poranAllModel = poranAllModelFromJson(jsonString);
+//     final searchModel = searchModelFromJson(jsonString);
 
 import 'dart:convert';
 
-PoranAllModel poranAllModelFromJson(String str) => PoranAllModel.fromJson(json.decode(str));
+SearchModel searchModelFromJson(String str) => SearchModel.fromJson(json.decode(str));
 
+String searchModelToJson(SearchModel data) => json.encode(data.toJson());
 
-class PoranAllModel {
-  List<ResponseAllModel> responseAllModel;
-  int status;
+class SearchModel {
+  List<Post> posts;
 
-  PoranAllModel({
-    required this.responseAllModel,
-    required this.status,
+  SearchModel({
+    required this.posts,
   });
 
-  factory PoranAllModel.fromJson(Map<String, dynamic> json) => PoranAllModel(
-    responseAllModel: List<ResponseAllModel>.from(json["response_all_model"].map((x) => ResponseAllModel.fromJson(x))),
-    status: json["status"],
+  factory SearchModel.fromJson(Map<String, dynamic> json) => SearchModel(
+    posts: List<Post>.from(json["posts"].map((x) => Post.fromJson(x))),
   );
 
-
+  Map<String, dynamic> toJson() => {
+    "posts": List<dynamic>.from(posts.map((x) => x.toJson())),
+  };
 }
 
-class ResponseAllModel {
+class Post {
   int id;
   String content;
   String gambar;
@@ -36,7 +36,7 @@ class ResponseAllModel {
   DateTime createdAt;
   DateTime updatedAt;
 
-  ResponseAllModel({
+  Post({
     required this.id,
     required this.content,
     required this.gambar,
@@ -49,7 +49,7 @@ class ResponseAllModel {
     required this.updatedAt,
   });
 
-  factory ResponseAllModel.fromJson(Map<String, dynamic> json) => ResponseAllModel(
+  factory Post.fromJson(Map<String, dynamic> json) => Post(
     id: json["id"],
     content: json["content"],
     gambar: json["gambar"],
@@ -62,17 +62,29 @@ class ResponseAllModel {
     updatedAt: DateTime.parse(json["updated_at"]),
   );
 
-
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "content": content,
+    "gambar": gambar,
+    "ditujukan": ditujukan,
+    "author": author.toJson(),
+    "author_id": authorId,
+    "like_jumlah": likeJumlah,
+    "comment_jumlah": commentJumlah,
+    "created_at": createdAt.toIso8601String(),
+    "updated_at": updatedAt.toIso8601String(),
+  };
 }
 
 class Author {
   int id;
   DateTime updatedAt;
+  dynamic deletedAt;
   String username;
   String email;
   String password;
   String photoProfile;
-  DateTime tanggalLahir;
+  String tanggalLahir;
   String daerah;
   String role;
   String verHash;
@@ -84,6 +96,7 @@ class Author {
   Author({
     required this.id,
     required this.updatedAt,
+    required this.deletedAt,
     required this.username,
     required this.email,
     required this.password,
@@ -101,11 +114,12 @@ class Author {
   factory Author.fromJson(Map<String, dynamic> json) => Author(
     id: json["ID"],
     updatedAt: DateTime.parse(json["UpdatedAt"]),
+    deletedAt: json["DeletedAt"],
     username: json["username"],
     email: json["email"],
     password: json["password"],
     photoProfile: json["photo_profile"],
-    tanggalLahir: DateTime.parse(json["tanggal_lahir"]),
+    tanggalLahir: json["tanggal_lahir"],
     daerah: json["daerah"],
     role: json["role"],
     verHash: json["VerHash"],
@@ -115,5 +129,21 @@ class Author {
     bio: json["bio"],
   );
 
-
+  Map<String, dynamic> toJson() => {
+    "ID": id,
+    "UpdatedAt": updatedAt.toIso8601String(),
+    "DeletedAt": deletedAt,
+    "username": username,
+    "email": email,
+    "password": password,
+    "photo_profile": photoProfile,
+    "tanggal_lahir": tanggalLahir,
+    "daerah": daerah,
+    "role": role,
+    "VerHash": verHash,
+    "Timeout": timeout.toIso8601String(),
+    "IsActive": isActive,
+    "CreatedAt": createdAt.toIso8601String(),
+    "bio": bio,
+  };
 }

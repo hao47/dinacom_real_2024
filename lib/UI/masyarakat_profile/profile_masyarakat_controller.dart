@@ -3,6 +3,9 @@ import 'package:dinacom_2024/UI/bottom_navigation/item/poran/poran.dart';
 import 'package:dinacom_2024/UI/bottom_navigation/item/profile/profile.dart';
 import 'package:dinacom_2024/data/api/profile_service.dart';
 import 'package:dinacom_2024/data/model/poran_all_model.dart';
+import 'package:dinacom_2024/data/model/poran_profile_model.dart';
+import 'package:dinacom_2024/data/model/poran_profile_model.dart';
+import 'package:dinacom_2024/data/model/poran_profile_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:dinacom_2024/constants/url_routes.dart';
 import 'package:dinacom_2024/data/model/profile_model.dart';
@@ -48,7 +51,7 @@ class ProfileMasyarakatController extends GetxController {
 //
 //
 //   late ProfileModel _profileModel;
-  Rx<PoranAllModel> _poranModel = PoranAllModel(responseAllModel: [], status: 0).obs;
+  Rx<PoranProfileModel> _poranModel = PoranProfileModel(responseProfileModel: [], status: 0).obs;
 //
 //   late ResultState _state;
 //   String _message = '';
@@ -56,7 +59,7 @@ class ProfileMasyarakatController extends GetxController {
 //   String get message => _message;
 //
 //   ProfileModel get categoryResult => _profileModel;
-  Rx<PoranAllModel> get poranModel => _poranModel;
+  Rx<PoranProfileModel> get poranModel => _poranModel;
 //
 //   ResultState get state => _state;
 //
@@ -112,7 +115,7 @@ class ProfileMasyarakatController extends GetxController {
 
       // print(profile.response.length.toString());
 
-      if (profile.responseAllModel.isEmpty) {
+      if (profile.responseProfileModel.isEmpty) {
         _statep.value = ResultState.noData;
 
         return _message.value = 'Empty Data';

@@ -181,12 +181,24 @@ class Poran extends StatelessWidget {
                       child: CircularProgressIndicator(),
                     );
                   } else if (controller.state.value == ResultState.hasData) {
-                    print(controller.profileModel.value.responseAllModel.length);
+
+
+                    if(controller.profileModel.value.responseAllModel.length != 0){
+
+                      print("masokkkkkkkkkkkkkkkkkkk");
+                      return PoranList(
+                          poranAllModel: controller.profileModel.value,
+                          newContext: newContext);
+                    }else {
+                      return Container();
+                    }
+
+
+
+                    // print(controller.profileModel.value.responseAllModel.length);
                     //
                     // return Container();
-                    return PoranList(
-                        poranAllModel: controller.profileModel.value,
-                        newContext: newContext);
+
                   } else if (controller.state.value == ResultState.noData) {
                     return Center(
                       child: Material(

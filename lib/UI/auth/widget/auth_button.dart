@@ -12,13 +12,13 @@ import '../../widget/custom_textfield.dart';
 import '../../widget/loading_animation.dart';
 import '../register/regist_page_view.dart';
 
-class AuthButton extends GetView<AuthPageController> {
+class AuthButton extends StatelessWidget {
   const AuthButton({super.key});
 
   @override
   Widget build(BuildContext context) {
 
-    Get.put(AuthPageController());
+    // Get.put(AuthPageController());
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Stack(
@@ -28,13 +28,15 @@ class AuthButton extends GetView<AuthPageController> {
             children: [
               ElevatedButton(
                   onPressed: () {
-                    showModalBottomSheet(
-                      isScrollControlled: true,
-                      context: context,
-                      builder: (context) {
-                        return RegistPageView();
-                      },
+                    Get.bottomSheet(
 
+                      isScrollControlled: true,
+                      RegistPageView(),
+                      backgroundColor: Colors.white,
+                      elevation: 0,
+                      // shape: RoundedRectangleBorder(
+                      //   borderRadius: BorderRadius.circular(10),
+                      // ),
                     );
                   },
                   child: const Text("Daftar")),
@@ -52,12 +54,23 @@ class AuthButton extends GetView<AuthPageController> {
                     ),
                   ),
                   onPressed: () {
-                    showModalBottomSheet(
+                    // showModalBottomSheet(
+                    //
+                    //   useSafeArea: true,
+                    //   isScrollControlled: true,
+                    //   context: context,
+                    //   builder: (context) => LoginPageView(),
+                    // );
+
+                    Get.bottomSheet(
+
                       isScrollControlled: true,
-                      context: context,
-                      builder: (context) {
-                        return LoginPageView();
-                      },
+                      LoginPageView(),
+                      backgroundColor: Colors.white,
+                      elevation: 0,
+                      // shape: RoundedRectangleBorder(
+                      //   borderRadius: BorderRadius.circular(10),
+                      // ),
                     );
                   },
                   child: const Text("Masuk"))

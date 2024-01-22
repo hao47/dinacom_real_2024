@@ -1,5 +1,6 @@
 import 'package:dinacom_2024/UI/auth/auth_page_binding.dart';
 import 'package:dinacom_2024/UI/auth/auth_page_view.dart';
+import 'package:dinacom_2024/UI/auth/login/login_binding.dart';
 import 'package:dinacom_2024/UI/auth/login/login_page_view.dart';
 import 'package:dinacom_2024/UI/auth/register/regist_page_view.dart';
 import 'package:dinacom_2024/UI/auth/verif/verif_binding.dart';
@@ -87,6 +88,13 @@ List<GetPage> routes = [
 
     // binding: SettingBinding(),
   ),
+  // GetPage(
+  //   name: '/login',
+  //   page: () => LoginPageView(),
+  //   binding: LoginPageBinding()
+  //
+  //   // binding: SettingBinding(),
+  // ),
   // GetPage(
   //   name: '/detail',
   //   page: () => const DetailPageView(),

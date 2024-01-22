@@ -14,13 +14,14 @@ import 'package:provider/provider.dart';
 
 import '../../../../common/enums/status.dart';
 
-class Profile extends StatelessWidget {
+class Profile extends GetView<ProfileController> {
   // void didChangeDependencies() {
 
-  final ProfileController controller = Get.put(ProfileController());
+  // final ProfileController controller =);
 
   @override
   Widget build(BuildContext context) {
+    Get.put(ProfileController());
     final textTheme = Theme.of(context).textTheme;
     return DefaultTabController(
       length: 2, // Number of tabs
@@ -131,13 +132,17 @@ class Profile extends StatelessWidget {
                                             .size
                                             .height,
                                         child:  TabBarView(
+
                                           children: [
 
-                                            ProfilePoranList(poranAllModel: controller.poranModel.value,),
-                                            Text("haLO"),
-                                            // Text("haLO"),
+                                            // ProfilePoranList(poranAllModel: controller.poranModel.value,),
+                                            // ProfilePoranList(poranAllModel: controller.poranModel.value,),
+                                            // Text(controller.poranModel.value.responseAllModel[0].gambar),
+                                            // Text(controller.poranModel.value.response.length.toString()),
+                                            // // Text("haLO"),
 
-                                            // ProfilePoranList(poranAllModel: controller.poranModel.value,)
+                                            ProfilePoranList(poranAllModel: controller.poranModel.value,),
+                                            ProfilePoranList(poranAllModel: controller.poranModel.value,)
 
                                           ],
                                         ),
