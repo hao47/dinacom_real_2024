@@ -12,6 +12,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 
 class Lapor extends StatefulWidget {
   Lapor({super.key});
@@ -21,7 +22,7 @@ class Lapor extends StatefulWidget {
 }
 
 class _LaporState extends State<Lapor> {
-  PoranProvider uploadService = PoranProvider();
+  ImageUploadService uploadService = ImageUploadService();
 
   XFile? pickedFile;
 
@@ -38,7 +39,9 @@ class _LaporState extends State<Lapor> {
         toolbarHeight: 75,
         leading: IconButton(
           onPressed: () {
-            Provider.of<PoranProvider>(context, listen: false).profile();
+            // Provider.of<PoranProvider>(context, listen: false).profile();
+
+            Get.put(PoranController()).profile();
 
             Navigator.pop(context);
           },
@@ -54,7 +57,6 @@ class _LaporState extends State<Lapor> {
             child: TextButton(
               onPressed: () {
                 if (pickedFile != null) {
-
 
                   final doc = _controller.document.toPlainText();
 
@@ -131,7 +133,7 @@ class _LaporState extends State<Lapor> {
             if (_formKey.currentState!.validate()) {
 
               // print(doc.toPlainText());
-
+              // print(Provider.of<PoranProvider>(context,listen: false).instasi);
               checkPermissions();
             }
           },

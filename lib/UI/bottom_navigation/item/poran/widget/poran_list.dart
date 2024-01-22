@@ -5,17 +5,23 @@ import 'package:flutter/material.dart';
 
 class PoranList extends StatelessWidget {
   PoranAllModel poranAllModel;
+BuildContext? newContext;
+  // newContext: newContext
 
-  PoranList({super.key, required this.poranAllModel});
+
+  PoranList({super.key, required this.poranAllModel,this.newContext});
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: poranAllModel.response.length,
+      physics: NeverScrollableScrollPhysics(),
+      padding: EdgeInsets.symmetric(vertical: 0),
+      shrinkWrap: true,
+      itemCount: poranAllModel.responseAllModel.length,
       itemBuilder: (context, index) {
-        var result = poranAllModel.response[index];
+        var result = poranAllModel.responseAllModel[index];
 
-        return PoranCardItem(response: result);
+        return PoranCardItem(response: result,newContext: newContext);
       },
     );
   }

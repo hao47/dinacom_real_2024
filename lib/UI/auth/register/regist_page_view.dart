@@ -1,7 +1,6 @@
+import 'package:dinacom_2024/UI/auth/auth_page_controller.dart';
 import 'package:dinacom_2024/UI/auth/login/login_page_view.dart';
-import 'package:dinacom_2024/UI/auth/login/login_provider.dart';
 import 'package:dinacom_2024/UI/auth/register/regist_lengkap.dart';
-import 'package:dinacom_2024/UI/auth/register/regist_provider.dart';
 import 'package:dinacom_2024/UI/widget/custom_textfield.dart';
 import 'package:dinacom_2024/UI/widget/loading_animation.dart';
 import 'package:dinacom_2024/common/app_theme.dart';
@@ -9,16 +8,10 @@ import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:dinacom_2024/validator/Validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-class RegistPageView extends StatefulWidget {
-  @override
-  State<RegistPageView> createState() => _RegistPageViewState();
-}
-
-class _RegistPageViewState extends State<RegistPageView> {
-  final _formKey = GlobalKey<FormState>();
-
+class RegistPageView extends GetView<AuthPageController> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -28,7 +21,7 @@ class _RegistPageViewState extends State<RegistPageView> {
           padding:
               EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
           child: Form(
-            key: _formKey,
+            key: controller.formKeyRegist,
             child: Container(
                 padding: const EdgeInsets.only(top: 40, right: 20, left: 20),
                 width: screenWidth,
@@ -55,9 +48,7 @@ class _RegistPageViewState extends State<RegistPageView> {
                           const SizedBox(height: 20),
                           CustomTextFormField(
                             label: 'Email',
-                            controller: Provider.of<RegistProvider>(context,
-                                    listen: false)
-                                .emailController,
+                            controller: controller.emailControllerRegist,
                             textInputType: TextInputType.emailAddress,
                             borderRadius: 15,
                             validator: (value) =>
@@ -66,9 +57,7 @@ class _RegistPageViewState extends State<RegistPageView> {
                           const SizedBox(height: 12.5),
                           CustomTextFormField(
                               label: 'Username',
-                              controller: Provider.of<RegistProvider>(context,
-                                      listen: false)
-                                  .usernameController,
+                              controller: controller.usernameController,
                               textInputType: TextInputType.name,
                               borderRadius: 15,
                               validator: (value) =>
@@ -76,9 +65,7 @@ class _RegistPageViewState extends State<RegistPageView> {
                           const SizedBox(height: 12.5),
                           CustomTextFormField(
                             label: 'Password',
-                            controller: Provider.of<RegistProvider>(context,
-                                    listen: false)
-                                .passwordController,
+                            controller: controller.passwordControllerRegist,
                             isPassword: true,
                             borderRadius: 15,
                             validator: (value) =>
@@ -87,27 +74,24 @@ class _RegistPageViewState extends State<RegistPageView> {
                           const SizedBox(height: 12.5),
                           CustomTextFormField(
                             label: 'Confirm Password',
-                            controller: Provider.of<RegistProvider>(context,
-                                listen: false)
-                                .confirmPasswordController,
+                            controller: controller.confirmPasswordController,
                             isPassword: true,
                             borderRadius: 15,
                             validator: (value) =>
-                                Validator.passwordValidator(value),
+                                Validator.confirmPasswordValidator(value!,controller.passwordControllerRegist.text),
                           ),
                           const SizedBox(height: 12.5),
                           Row(
                             children: [
-                              Checkbox(
-                                value: Provider.of<RegistProvider>(context)
-                                    .isCheckedTerms,
-                                onChanged: (newBool) {
-                                  Provider.of<RegistProvider>(context,
-                                          listen: false)
-                                      .toggleTerms();
-                                },
-                                activeColor: ColorValue.BaseBlue,
-                                isError: Provider.of<RegistProvider>(context).checkError,
+                              Obx(
+                                () => Checkbox(
+                                  value: controller.isCheckedTerms.value,
+                                  onChanged: (newBool) {
+                                    controller.toggleTerms();
+                                  },
+                                  activeColor: ColorValue.BaseBlue,
+                                  isError: controller.checkError.value,
+                                ),
                               ),
                               Text(
                                 "By registering, you are agreeing with our Terms \nof Use and Privacy Policy",
@@ -121,32 +105,27 @@ class _RegistPageViewState extends State<RegistPageView> {
                           const SizedBox(height: 14),
                           ElevatedButton(
                             onPressed: () async {
-                              if (_formKey.currentState!.validate()) {
+                              if (controller.formKeyRegist.currentState!
+                                  .validate()) {
                                 // print(Provider.of<RegistProvider>(
                                 //     context, listen: false).emailController.text);
-                                // if (Provider.of<RegistProvider>(context, listen: false).confirmPasswordController.text != Provider.of<RegistProvider>(context, listen: false).passwordController.text) {
+                                // if (controller.confirmPasswordController.text != controller.passwordController.text) {
                                 //   return;
                                 // }
-                                if (!Provider.of<RegistProvider>(context, listen: false).isCheckedTerms) {
-                                  Provider.of<RegistProvider>(context, listen: false).errorTerms();
+                                if (!controller.isCheckedTerms.value) {
+                                  controller.errorTerms();
                                   return;
                                 }
                                 //
-
-
-                                if(Provider.of<RegistProvider>(context, listen: false).confirmPasswordController.text ==  Provider.of<RegistProvider>(context, listen: false).passwordController.text){
-                                  Navigator.push(context, MaterialPageRoute(
-                                    builder: (context) {
-                                      return const RegistLengkap();
-                                    },
-                                  ));
-                                }
-
-
+                                Navigator.push(context, MaterialPageRoute(
+                                  builder: (context) {
+                                    return RegistLengkap();
+                                  },
+                                ));
 
                                 // Provider.of<RegistProvider>(
                                 //     context, listen: false).regist(
-                                //     context, _emailController.text,_usernameController.text,_passwordController.text,_tanggaLahirController.text,"Kudus");
+                                //     context, controller.formKeyRegistntroller.text,controller.formKeyRegisteController.text,controller.formKeyRegistdController.text,_tanggaLahirController.text,"Kudus");
                               }
                             },
                             child: const Text('Next'),
@@ -188,9 +167,7 @@ class _RegistPageViewState extends State<RegistPageView> {
                       ),
                     ),
                     ValueListenableBuilder<bool>(
-                      valueListenable:
-                          Provider.of<LoginProvider>(context, listen: true)
-                              .isLoad,
+                      valueListenable: controller.isLoad,
                       builder: (context, value, _) => Visibility(
                         visible: value,
                         child: const LoadingAnimation(),

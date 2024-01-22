@@ -9,26 +9,26 @@ PoranAllModel poranAllModelFromJson(String str) => PoranAllModel.fromJson(json.d
 String poranAllModelToJson(PoranAllModel data) => json.encode(data.toJson());
 
 class PoranAllModel {
-  List<Response> response;
+  List<ResponseAllModel> responseAllModel;
   int status;
 
   PoranAllModel({
-    required this.response,
+    required this.responseAllModel,
     required this.status,
   });
 
   factory PoranAllModel.fromJson(Map<String, dynamic> json) => PoranAllModel(
-    response: List<Response>.from(json["response"].map((x) => Response.fromJson(x))),
+    responseAllModel: List<ResponseAllModel>.from(json["response_all_model"].map((x) => ResponseAllModel.fromJson(x))),
     status: json["status"],
   );
 
   Map<String, dynamic> toJson() => {
-    "response": List<dynamic>.from(response.map((x) => x.toJson())),
+    "response_all_model": List<dynamic>.from(responseAllModel.map((x) => x.toJson())),
     "status": status,
   };
 }
 
-class Response {
+class ResponseAllModel {
   int id;
   String content;
   String gambar;
@@ -36,10 +36,11 @@ class Response {
   Author author;
   int authorId;
   int likeJumlah;
+  int commentJumlah;
   DateTime createdAt;
   DateTime updatedAt;
 
-  Response({
+  ResponseAllModel({
     required this.id,
     required this.content,
     required this.gambar,
@@ -47,11 +48,12 @@ class Response {
     required this.author,
     required this.authorId,
     required this.likeJumlah,
+    required this.commentJumlah,
     required this.createdAt,
     required this.updatedAt,
   });
 
-  factory Response.fromJson(Map<String, dynamic> json) => Response(
+  factory ResponseAllModel.fromJson(Map<String, dynamic> json) => ResponseAllModel(
     id: json["id"],
     content: json["content"],
     gambar: json["gambar"],
@@ -59,6 +61,7 @@ class Response {
     author: Author.fromJson(json["author"]),
     authorId: json["author_id"],
     likeJumlah: json["like_jumlah"],
+    commentJumlah: json["comment_jumlah"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
   );
@@ -71,6 +74,7 @@ class Response {
     "author": author.toJson(),
     "author_id": authorId,
     "like_jumlah": likeJumlah,
+    "comment_jumlah": commentJumlah,
     "created_at": createdAt.toIso8601String(),
     "updated_at": updatedAt.toIso8601String(),
   };

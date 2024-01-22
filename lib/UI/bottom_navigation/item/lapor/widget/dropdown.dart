@@ -1,6 +1,9 @@
+import 'package:dinacom_2024/UI/bottom_navigation/item/poran/poran_provider.dart';
 import 'package:dinacom_2024/common/app_theme.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DropdownDitujukan extends StatefulWidget {
   @override
@@ -8,9 +11,8 @@ class DropdownDitujukan extends StatefulWidget {
 }
 
 class _DropdownDitujukanState extends State<DropdownDitujukan> {
-  String selectedValue = 'Option 1';
+  String selectedValue = '';
 
-  List<String> dropdownItems = ['Option 1', 'Option 2', 'Option 3', 'Option 4'];
 
   @override
   Widget build(BuildContext context) {
@@ -18,42 +20,48 @@ class _DropdownDitujukanState extends State<DropdownDitujukan> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          margin: const EdgeInsets.only(right: 25, left: 25, top: 15),
-          width: MediaQuery.sizeOf(context).width,
-          child: DropdownButtonFormField(
-            decoration: InputDecoration(
-              contentPadding:
-              EdgeInsets.symmetric(vertical: 12, horizontal: 20),
-              enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(width: 2, color: ColorValue.BaseBlue)),
-              focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(width: 2, color: ColorValue.BaseBlue)),
-            ),
-            value: selectedValue,
-            icon: const Icon(Icons.arrow_drop_down),
-            iconSize: 24,
-            elevation: 16,
-            style: const TextStyle(color: Colors.black),
-            onChanged: (String? newValue) {
-              setState(() {
-                selectedValue = newValue!;
-              });
-            },
-            items: dropdownItems.map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(
-                  value,
-                  style: CommonAppTheme.textTheme(context).displayLarge!.copyWith(
-                    color: ColorValue.BaseGrey,
-                    fontSize: 14,
-                  ),
+            margin: const EdgeInsets.only(top: 15,left: 20,right: 20),
+            // width: MediaQuery.sizeOf(context).width,
+            child: DropdownSearch<String>(
+              items: ["Instasi Kudus", "Instasi Jeparan", "Instasi Bali", 'Instasi Surabayan'],
+              popupProps: PopupProps.dialog(
+                showSelectedItems: true,
+                containerBuilder: (context, popupWidget) {
+                  return Container(
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: popupWidget
+                  );
+                },
+              ),
+              dropdownDecoratorProps: DropDownDecoratorProps(
+                baseStyle: CommonAppTheme.textTheme(context)
+                    .bodyText1!
+                    .copyWith(
+                    color: ColorValue.BaseBlack,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w900),
+                dropdownSearchDecoration: InputDecoration(
+                  contentPadding:
+                  EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide:
+                      BorderSide(width: 2, color: ColorValue.BaseBlue)),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide:
+                      BorderSide(width: 2, color: ColorValue.BaseBlue)),
                 ),
-              );
-            }).toList(),
-          ),
+              ),
+              onChanged: (value) {
+                // Provider.of<PoranProvider>(context,listen: false).setinstasi(value!);
+              },
+              selectedItem: "Instasi Kudus",
+            )
         ),
       ],
     );

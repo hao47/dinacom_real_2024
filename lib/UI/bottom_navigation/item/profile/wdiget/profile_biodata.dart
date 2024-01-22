@@ -3,6 +3,7 @@ import 'package:dinacom_2024/common/app_theme.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:flutter/material.dart';
 import 'package:dinacom_2024/data/model/profile_model.dart';
+import 'package:get/get.dart';
 class ProfileBioData extends StatelessWidget {
 
   ProfileModel profileModel;
@@ -12,10 +13,13 @@ class ProfileBioData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var tahun =  profileModel.responseProfile.tanggalLahir.year.toString();
-    var bulan =  profileModel.responseProfile.tanggalLahir.month.toString();
-    var hari =  profileModel.responseProfile.tanggalLahir.day.toString();
-    return Container(padding: const EdgeInsets.only(top: 10, bottom: 20),
+    var tahun =  profileModel.responseProfile!.tanggalLahir.year.toString();
+    var bulan =  profileModel.responseProfile!.tanggalLahir.month.toString();
+    var hari =  profileModel.responseProfile!.tanggalLahir.day.toString();
+    return Container(
+      
+      padding: EdgeInsets.all(15),
+      
       decoration: const BoxDecoration(
         border: Border(
           bottom: BorderSide(
@@ -25,7 +29,7 @@ class ProfileBioData extends StatelessWidget {
         ),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        // mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Column(
@@ -39,14 +43,17 @@ class ProfileBioData extends StatelessWidget {
                   image: DecorationImage(
                     fit: BoxFit.cover,
                     image: NetworkImage(
-                      profileModel.responseProfile.photoProfile
+                      profileModel.responseProfile!.photoProfile
                     ),
                   ),
                 ),
               ),
               const SizedBox(height: 10),
               InkWell(
-                onTap: () {},
+                onTap: () {
+
+                  Get.toNamed('/setting');
+                },
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 3),
                   decoration: BoxDecoration(
@@ -75,20 +82,20 @@ class ProfileBioData extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    profileModel.responseProfile.username,
+                    profileModel.responseProfile!.username,
                     style: CommonAppTheme.textTheme(context)
                         .headline1!
                         .copyWith(fontSize: 20),
                   ),
                   const SizedBox(width: 10),
-                   Role(name: profileModel.responseProfile.role),
+                   Role(name: profileModel.responseProfile!.role),
                 ],
               ),
               Container(
                 margin: const EdgeInsets.only(top: 3),
                 width: 250,
                 child: Text(
-                  profileModel.responseProfile.bio == ""?"belum di sertakan":profileModel.responseProfile.bio,
+                  profileModel.responseProfile!.bio == ""?"belum di sertakan":profileModel.responseProfile!.bio,
                   maxLines: 2,
                   style: CommonAppTheme.textTheme(context)
                       .bodyText1!
@@ -127,13 +134,18 @@ class ProfileBioData extends StatelessWidget {
                         size: 16,
                       ),
                       const SizedBox(width: 3),
-                      Text(
+                      Container(
+                        width: 170,
+                        child: Text(
+                        // "",
 
-                        profileModel.responseProfile.daerah == ", , " ?"belum di sertakan": profileModel.responseProfile.daerah,
-                        // profileModel.responseProfile.daerah,
-                        style: CommonAppTheme.textTheme(context)
-                            .bodyText1!
-                            .copyWith(fontSize: 10),
+                          overflow: TextOverflow.ellipsis,
+                          profileModel.responseProfile!.daerah == ", , " ?"belum di sertakan": profileModel.responseProfile!.daerah,
+                          // profileModel.responseProfile.daerah,
+                          style: CommonAppTheme.textTheme(context)
+                              .bodyText1!
+                              .copyWith(fontSize: 10),
+                        ),
                       ),
                     ],
                   ),

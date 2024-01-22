@@ -10,7 +10,6 @@ import 'package:provider/provider.dart';
 import '../../common/theme/color_value.dart';
 import '../widget/custom_textfield.dart';
 import '../widget/loading_animation.dart';
-import 'login/login_provider.dart';
 
 class AuthPageView extends StatelessWidget {
   const AuthPageView({super.key});

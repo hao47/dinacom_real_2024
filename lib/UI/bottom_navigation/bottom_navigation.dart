@@ -1,10 +1,10 @@
 import 'package:dinacom_2024/UI/bottom_navigation/item/lapor/laport.dart';
+import 'package:dinacom_2024/UI/bottom_navigation/item/notification/notification_page.dart';
+import 'package:dinacom_2024/UI/bottom_navigation/item/search/search_page.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 
-import 'item/beranda/beranda.dart';
-import 'item/berita/berita.dart';
 import 'item/poran/poran.dart';
 import 'item/profile/profile.dart';
 
@@ -27,18 +27,19 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     items = [
-      // NavModel(
-      //   page: Beranda(),
-      //   navKey: homeNavKey,
-      // ),
       NavModel(
-        page: Poran(),
+        page: Poran(newContext: context),
         navKey: poranNavKey,
       ),
-      // NavModel(
-      //   page: Berita(),
-      //   navKey: newsNavKey,
-      // ),
+      NavModel(
+        page: SearchPage(),
+        navKey: homeNavKey,
+      ),
+
+      NavModel(
+        page: NotificationPage(),
+        navKey: newsNavKey,
+      ),
       NavModel(
         page: Profile(),
         navKey: profileNavKey,
@@ -198,24 +199,24 @@ class NavBar extends StatelessWidget {
               pageIndex == 0,
               onTap: () => onTap(0),
             ),
-            // navItem(
-            //   "",
-            //   Icons.campaign,
-            //   pageIndex == 1,
-            //   onTap: () => onTap(1),
-            // ),
+            navItem(
+              "",
+              Icons.search_rounded,
+              pageIndex == 1,
+              onTap: () => onTap(1),
+            ),
             const SizedBox(width: 80),
-            // navItem(
-            //   "",
-            //   Icons.newspaper,
-            //   pageIndex == 2,
-            //   onTap: () => onTap(2),
-            // ),
+            navItem(
+              "",
+              Icons.notifications,
+              pageIndex == 2,
+              onTap: () => onTap(2),
+            ),
             navItem(
               "",
               Icons.person,
-              pageIndex == 1,
-              onTap: () => onTap(1),
+              pageIndex == 3,
+              onTap: () => onTap(3),
             ),
           ],
         ),

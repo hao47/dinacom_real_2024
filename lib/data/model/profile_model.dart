@@ -27,14 +27,13 @@ var bios = [
 
 ProfileModel profileModelFromJson(String str) => ProfileModel.fromJson(json.decode(str));
 
-String profileModelToJson(ProfileModel data) => json.encode(data.toJson());
 
 class ProfileModel {
-  ResponseProfile responseProfile;
+  ResponseProfile? responseProfile;
   int status;
 
   ProfileModel({
-    required this.responseProfile,
+     this.responseProfile,
     required this.status,
   });
 
@@ -43,10 +42,7 @@ class ProfileModel {
     status: json["status"],
   );
 
-  Map<String, dynamic> toJson() => {
-    "response_profile": responseProfile.toJson(),
-    "status": status,
-  };
+
 }
 
 class ResponseProfile {

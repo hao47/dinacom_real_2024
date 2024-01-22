@@ -14,10 +14,12 @@ class ProfilePoranList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  ListView.builder(
-      itemCount: poranAllModel.response.length,
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: poranAllModel.responseAllModel.length,
       itemBuilder: (context, index) {
 
-        var result = poranAllModel.response[index];
+        var result = poranAllModel.responseAllModel[index];
 
       return PoranCardItem(response: result);
     },);

@@ -1,31 +1,23 @@
+import 'package:dinacom_2024/UI/auth/auth_page_controller.dart';
 import 'package:dinacom_2024/UI/auth/login/login_page_view.dart';
-import 'package:dinacom_2024/UI/auth/login/login_provider.dart';
 import 'package:dinacom_2024/UI/auth/register/regist_page_view.dart';
-import 'package:dinacom_2024/UI/auth/register/regist_provider.dart';
 import 'package:dinacom_2024/UI/widget/custom_textfield.dart';
 import 'package:dinacom_2024/UI/widget/loading_animation.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:dinacom_2024/validator/Validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-class LoginPageView extends StatefulWidget {
-  @override
-  State<LoginPageView> createState() => _LoginPageViewState();
-}
+class LoginPageView extends GetView<AuthPageController> {
 
-class _LoginPageViewState extends State<LoginPageView> {
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _usernameController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _tanggaLahirController = TextEditingController();
-  TextEditingController _daerahController = TextEditingController();
 
-  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+
+    Get.put(AuthPageController());
     final textTheme = Theme.of(context).textTheme;
     double screenWidth = MediaQuery.of(context).size.width;
     return SafeArea(
@@ -33,7 +25,7 @@ class _LoginPageViewState extends State<LoginPageView> {
           padding:
               EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
           child: Form(
-            key: _formKey,
+            key: controller.formKeyLogin,
             child: Container(
                 padding: const EdgeInsets.only(top: 40, right: 20, left: 20),
                 width: screenWidth,
@@ -59,7 +51,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                         const SizedBox(height: 40),
                         CustomTextFormField(
                           label: 'Email',
-                          controller: _emailController,
+                          controller: controller.emailControllerLogin,
                           textInputType: TextInputType.emailAddress,
                           borderRadius: 15,
                           validator: (value) => Validator.emailValidator(value),
@@ -67,11 +59,11 @@ class _LoginPageViewState extends State<LoginPageView> {
                         const SizedBox(height: 15),
                         CustomTextFormField(
                           label: 'Masukkan kata sandi',
-                          controller: _passwordController,
+                          controller: controller.passwordControllerLogin,
                           isPassword: true,
                           borderRadius: 15,
-                          validator: (value) =>
-                              Validator.passwordValidator(value),
+                          // validator: (value) =>
+                          //     Validator.passwordValidator(value),
                         ),
                         const SizedBox(height: 5),
                         Text(
@@ -85,10 +77,14 @@ class _LoginPageViewState extends State<LoginPageView> {
                         const SizedBox(height: 40),
                         ElevatedButton(
                           onPressed: () async {
-                            if (_formKey.currentState!.validate()) {
-                              Provider.of<LoginProvider>(context, listen: false)
-                                  .login(context, _emailController.text,
-                                      _passwordController.text);
+                            if (controller.formKeyLogin.currentState!.validate()) {
+
+                              // print("halo");
+                              // print(
+                              //     controller.emailController.text);
+                              // print(
+                              //     controller.passwordController.text);
+                              controller.login(controller.emailControllerLogin.text, controller.passwordControllerLogin.text);
                             }
                           },
                           child: const Text('Masuk'),
@@ -128,9 +124,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                       ],
                     ),
                     ValueListenableBuilder<bool>(
-                      valueListenable:
-                          Provider.of<LoginProvider>(context, listen: true)
-                              .isLoad,
+                      valueListenable: controller.isLoad,
                       builder: (context, value, _) => Visibility(
                         visible: value,
                         child: const LoadingAnimation(),
@@ -141,5 +135,4 @@ class _LoginPageViewState extends State<LoginPageView> {
           )),
     );
   }
-
 }

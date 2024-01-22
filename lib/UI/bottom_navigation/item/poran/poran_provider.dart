@@ -5,15 +5,19 @@ import 'package:dinacom_2024/data/api/like_service.dart';
 import 'package:dinacom_2024/data/api/poran_service.dart';
 import 'package:dinacom_2024/data/api/profile_service.dart';
 import 'package:dinacom_2024/data/model/check_like_model.dart';
+import 'package:dinacom_2024/data/model/detail_model.dart';
+import 'package:dinacom_2024/data/model/get_comment_model.dart';
+import 'package:dinacom_2024/data/model/get_comment_model.dart';
+import 'package:dinacom_2024/data/model/get_comment_model.dart';
 import 'package:dinacom_2024/data/model/get_like_model.dart';
 import 'package:dinacom_2024/data/model/poran_all_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:dinacom_2024/constants/url_routes.dart';
 import 'package:dinacom_2024/data/model/profile_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-// import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
@@ -21,10 +25,8 @@ import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 
+import '../../../../common/enums/status.dart';
 
-// import 'package:flutter_quill/translations.dart' show FlutterQuillLocalizations;
-
-enum ResultState { loading, noData, hasData, error }
 
 String generateRandomString(int length) {
   final random = Random();
@@ -33,206 +35,284 @@ String generateRandomString(int length) {
       .join();
 }
 
-class PoranProvider extends ChangeNotifier {
-  //
-  //
-  //
+class PoranController extends GetxController {
   final PoranService profileService = PoranService();
-  final LikeService likeService = LikeService();
-  final ValueNotifier<bool> isLoad = ValueNotifier<bool>(false);
 
-  PoranAllModel _profileModel = PoranAllModel(response: [], status: 200);
-  GetLikeModel _likeModel = GetLikeModel(status: 0);
+  Rx<ResultState> _state = ResultState.loading.obs;
+  RxString _message = ''.obs;
 
-  late ResultState _state;
-  String _message = '';
+  Rx<PoranAllModel> _profileModel =
+      PoranAllModel(responseAllModel: [], status: 0).obs;
 
-  String get message => _message;
+  Rx<PoranAllModel> get profileModel => _profileModel;
 
-  PoranAllModel get categoryResult => _profileModel;
+  RxString get message => _message;
 
-  GetLikeModel get likeModel => _likeModel;
+  // final LikeService likeService = LikeService();
+  // final ValueNotifier<bool> isLoad = ValueNotifier<bool>(false);
 
-  ResultState get state => _state;
+  // late ResultState _state;
+  // String _message = '';
+  // String instasi = 'Instasi Kudus';
 
-  int count = 0;
-
-  // PoranProvider(){
-  //   profile();
+  // setinstasi(String value){
+  //   instasi = value;
+  //   notifyListeners();
   // }
 
 
+  @override
+  void onInit() async {
+    super.onInit();
+    profile();
+  }
+
+  //
+  //
+  // PoranAllModel _profileModel = PoranAllModel(response: [], status: 200);
+  // GetLikeModel _likeModel = GetLikeModel(status: 0);
+  // DetailModel _detailModel = DetailModel(status: 0);
+  // PoranAllModel get categoryResult => _profileModel;
+  // GetLikeModel get likeModel => _likeModel;
+  // DetailModel get detailModel => _detailModel;
+  //
+  // GetCommentModel _commentModel = GetCommentModel(status: 0);
+  // GetCommentModel get commentModel => _commentModel;
+  //
+  Rx<ResultState> get state => _state;
+
+  //
+  // int count = 0;
+  //
+  // // PoranProvider(){
+  // //   profile();
+  // // }
+  //
+  //
+
   Future<dynamic> profile() async {
-    notifyListeners();
-
     try {
-      _state = ResultState.loading;
-      notifyListeners();
-      final profile = await profileService.getporan();
-      if (profile.response.isEmpty) {
-        _state = ResultState.noData;
-        notifyListeners();
-        return _message = 'Empty Data';
-      } else {
-        // print(profile.response.length);
+      _state.value = ResultState.loading;
 
-        _state = ResultState.hasData;
-        notifyListeners();
-        return _profileModel = profile;
+      final profile = await profileService.getporan();
+
+      print(profile.responseAllModel.length.toString());
+
+      if (profile.responseAllModel.isEmpty) {
+        _state.value = ResultState.noData;
+
+        return _message.value = 'Empty Data';
+      } else {
+        _state.value = ResultState.hasData;
+
+        update();
+
+        return _profileModel.value = profile;
       }
     } catch (e) {
       print(e.runtimeType);
-      _state = ResultState.error;
-      notifyListeners();
-      return _message = "ada yang salah";
+      _state.value = ResultState.error;
+
+      return _message.value = "ada yang salah";
     }
   }
 
-  addcounter(int counte) {
-    count = counte + 1;
-
-    notifyListeners();
-  }
-
-  resetcounter(int counte) {
-    count = counte--;
-    notifyListeners();
-  }
-
-  like(BuildContext context, int id, int uslike) async {
-    // notifyListeners();
-
-    print("adwawd");
-
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    String? token = pref.getString('token');
-
-    final response = await http.post(
-        Uri.parse("http://10.0.2.2:8080/api/secured/likes/$id/$uslike"),
-        headers: <String, String>{
-          'Content-Type': 'application/json',
-          'Authorization': '$token',
-        });
-
-    if (response.statusCode == 200) {
-      var responses = jsonDecode(response.body);
-      _likeModel = GetLikeModel.fromJson(responses);
-
-      // Provider.of<PoranProvider>(context, listen: false).profile();
-    } else {
-      throw Exception('ada yang salah');
-    }
-  }
-
-  dislike(BuildContext context, int id,int post_id) async {
-    // notifyListeners();
-
-    print("adwawd");
-
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    String? token = pref.getString('token');
-
-    final response = await http.delete(
-        Uri.parse("http://10.0.2.2:8080/api/secured/likes/$id/$post_id"),
-        headers: <String, String>{
-          'Content-Type': 'application/json',
-          'Authorization': '$token',
-        });
-
-    if (response.statusCode == 200) {
-      print("halok dek");
-
-      // Provider.of<PoranProvider>(context, listen: false).profile();
-    } else {
-      throw Exception('ada yang salah');
-    }
-  }
-
-  CheckLikeModel a = CheckLikeModel(exist: false, responseLike: [], status: 0);
-
-
-  bool check  = false;
-
-  setlike(){
-    check = false;
-    notifyListeners();
-  }
-  unlike(){
-    check = true;
-    notifyListeners();
-  }
-  Future<dynamic>checklike(int post_id) async{
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    String? token = pref.getString('token');
-
-    final response = await http.get(
-        Uri.parse("http://10.0.2.2:8080/api/secured/likes/$post_id"),
-        headers: <String, String>{
-          'Content-Type': 'application/json',
-          'Authorization': '$token',
-        });
-
-
-
-    if (response.statusCode == 200) {
-
-      var responses = jsonDecode(response.body);
-       a = CheckLikeModel.fromJson(responses);
-
-
-
-      if(a.responseLike.isEmpty){
-        notifyListeners();
-        return check = false;
-      }else {
-        notifyListeners();
-        return check = true;
-      }
-
-      // print("halok dek");
-
-      // Provider.of<PoranProvider>(context, listen: false).profile();
-    } else {
-      throw Exception('ada yang salah');
-    }
-  }
-  //
-  String randomString = generateRandomString(10);
-
-  Future<void> uploadImage(XFile? pickedfile,String text) async {
-    try {
-
-      SharedPreferences pref = await SharedPreferences.getInstance();
-      String? token = pref.getString('token');
-      Dio dio = Dio();
-
-      if (pickedfile != null) {
-        FormData formData = FormData.fromMap({
-          'userFile': await MultipartFile.fromFile(pickedfile.path,
-              filename: randomString + ".jpg"),
-          'content': text,
-          'ditujukan': "kepada instasi kudus"
-        });
-        //
-        dio.options.headers['content-Type'] = 'multipart/form-data';
-        dio.options.headers["authorization"] = token;
-        var response = await dio.post('http://10.0.2.2:8080/api/secured/posts',
-            data: formData);
-
-        // print(response.data);
-        if (response.statusCode == 201) {
-          profile();
-          print(response.data);
-          notifyListeners();
-        } else {
-          print("gagal");
-        }
-      } else {}
-    } catch (error) {
-      print(error);
-    }
-  }
-
+// Future<dynamic> detail(int id) async {
+//   //
+//
+//   try {
+//     _state = ResultState.loading;
+//     notifyListeners();
+//     final profile = await profileService.getdetail(id);
+//     if (profile.responseDetail!.id == 0) {
+//       _state = ResultState.noData;
+//       notifyListeners();
+//       return _message = 'Empty Data';
+//     } else {
+//       // print(profile.response.length);
+//
+//       _state = ResultState.hasData;
+//       notifyListeners();
+//       return _detailModel = profile;
+//     }
+//   } catch (e) {
+//     print(e.runtimeType);
+//     _state = ResultState.error;
+//     notifyListeners();
+//     return _message = "ada yang salah";
+//   }
+// }
+// Future<dynamic> getComment(int id) async {
+//   // notifyListeners();
+//
+//   try {
+//     _state = ResultState.loading;
+//     notifyListeners();
+//     final profile = await profileService.getcomment(id);
+//     if (profile.responseComment!.isEmpty) {
+//       _state = ResultState.noData;
+//       notifyListeners();
+//       return _message = 'Empty Data';
+//     } else {
+//       // print(profile.response.length);
+//
+//       _state = ResultState.hasData;
+//       notifyListeners();
+//       return _commentModel = profile;
+//     }
+//   } catch (e) {
+//     print(e.runtimeType);
+//     _state = ResultState.error;
+//     notifyListeners();
+//     return _message = "ada yang salah";
+//   }
+// }
+//
+//
+// addcounter(int counte) {
+//   count = counte + 1;
+//
+//   notifyListeners();
+// }
+//
+// resetcounter(int counte) {
+//   count = counte--;
+//   notifyListeners();
+// }
+//
+// like(BuildContext context, int id, int uslike) async {
+//   // notifyListeners();
+//
+//   print("adwawd");
+//
+//   SharedPreferences pref = await SharedPreferences.getInstance();
+//   String? token = pref.getString('token');
+//
+//   final response = await http.post(
+//       Uri.parse("http://10.0.2.2:8080/api/secured/likes/$id/$uslike"),
+//       headers: <String, String>{
+//         'Content-Type': 'application/json',
+//         'Authorization': '$token',
+//       });
+//
+//   if (response.statusCode == 200) {
+//     var responses = jsonDecode(response.body);
+//     _likeModel = GetLikeModel.fromJson(responses);
+//
+//     // Provider.of<PoranProvider>(context, listen: false).profile();
+//   } else {
+//     throw Exception('ada yang salah');
+//   }
+// }
+//
+// dislike(BuildContext context, int id,int post_id) async {
+//   // notifyListeners();
+//
+//   print("adwawd");
+//
+//   SharedPreferences pref = await SharedPreferences.getInstance();
+//   String? token = pref.getString('token');
+//
+//   final response = await http.delete(
+//       Uri.parse("http://10.0.2.2:8080/api/secured/likes/$id/$post_id"),
+//       headers: <String, String>{
+//         'Content-Type': 'application/json',
+//         'Authorization': '$token',
+//       });
+//
+//   if (response.statusCode == 200) {
+//     print("halok dek");
+//
+//     // Provider.of<PoranProvider>(context, listen: false).profile();
+//   } else {
+//     throw Exception('ada yang salah');
+//   }
+// }
+//
+// CheckLikeModel a = CheckLikeModel(exist: false, responseLike: [], status: 0);
+//
+//
+// bool check  = false;
+//
+// setlike(){
+//   check = false;
+//   notifyListeners();
+// }
+// unlike(){
+//   check = true;
+//   notifyListeners();
+// }
+// Future<dynamic>checklike(int post_id) async{
+//   SharedPreferences pref = await SharedPreferences.getInstance();
+//   String? token = pref.getString('token');
+//
+//   final response = await http.get(
+//       Uri.parse("http://10.0.2.2:8080/api/secured/likes/$post_id"),
+//       headers: <String, String>{
+//         'Content-Type': 'application/json',
+//         'Authorization': '$token',
+//       });
+//
+//
+//
+//   if (response.statusCode == 200) {
+//
+//     var responses = jsonDecode(response.body);
+//      a = CheckLikeModel.fromJson(responses);
+//
+//
+//
+//     if(a.responseLike.isEmpty){
+//       notifyListeners();
+//       return check = false;
+//     }else {
+//       notifyListeners();
+//       return check = true;
+//     }
+//
+//     // print("halok dek");
+//
+//     // Provider.of<PoranProvider>(context, listen: false).profile();
+//   } else {
+//     throw Exception('ada yang salah');
+//   }
+// }
+// //
+// String randomString = generateRandomString(10);
+// //
+// Future<void> uploadImage(XFile? pickedfile,String text) async {
+//   try {
+//
+//     SharedPreferences pref = await SharedPreferences.getInstance();
+//     String? token = pref.getString('token');
+//     Dio dio = Dio();
+//
+//     if (pickedfile != null) {
+//       FormData formData = FormData.fromMap({
+//         'userFile': await MultipartFile.fromFile(pickedfile.path,
+//             filename: randomString + ".jpg"),
+//         'content': text,
+//         'ditujukan': "kepada $instasi"
+//       });
+//       //
+//       dio.options.headers['content-Type'] = 'multipart/form-data';
+//       dio.options.headers["authorization"] = token;
+//       var response = await dio.post('http://10.0.2.2:8080/api/secured/posts',
+//           data: formData);
+//
+//       // print(response.data);
+//       if (response.statusCode == 201) {
+//         profile();
+//         print(response.data);
+//         // notifyListeners();
+//       } else {
+//         print("gagal");
+//       }
+//     } else {}
+//   } catch (error) {
+//     print(error);
+//   }
+// }
 
   deleteporan(int id) async {
     SharedPreferences pref = await SharedPreferences.getInstance();

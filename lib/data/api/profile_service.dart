@@ -33,6 +33,29 @@ class ProfileService{
     }
   }
 
+  Future<ProfileModel> getprofilebyid(int id) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? token = pref.getString('token');
+
+
+    final response =
+    await http.get(Uri.parse("http://10.0.2.2:8080/api/secured/profile/$id"),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': '$token',
+      },
+    );
+
+    // print(response.body);
+
+
+    if (response.statusCode == 200) {
+      return ProfileModel.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('ada yang salah');
+    }
+  }
+
   Future<PoranAllModel> getporanprofile() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String? token = pref.getString('token');

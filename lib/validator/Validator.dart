@@ -61,6 +61,20 @@ class Validator {
         ? 'Kata sandi tidak boleh kurang dari 8 karakter'
         : null;
   }
+
+  static String? confirmPasswordValidator(String value ,String olpw) {
+
+
+    if(value == ""){
+      return "confirm password kosong";
+    }else if(value != olpw){
+      return "confirm password Tidak sama";
+
+    }else{
+      return null;
+    }
+  }
+
   static String? phoneValidator(value) {
     return value.toString().length <= 10 || value.toString().length >= 14
         ? 'Nomor telepon tidak valid'

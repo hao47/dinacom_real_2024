@@ -8,34 +8,32 @@ import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:dinacom_2024/data/model/poran_all_model.dart';
 import 'package:dinacom_2024/validator/Validator.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 enum SampleItem { itemOne, itemTwo, itemThree }
 
-class PoranCardItem extends StatefulWidget {
-  Response response;
+class PoranCardItem extends StatelessWidget {
+  ResponseAllModel response;
+  BuildContext? newContext;
 
-  PoranCardItem({super.key, required this.response});
+  PoranCardItem({super.key, required this.response,this.newContext});
 
-  @override
-  State<PoranCardItem> createState() => _PoranCardItemState();
-}
 
-class _PoranCardItemState extends State<PoranCardItem> {
   SampleItem? selectedMenu;
 
   String jwtToken =
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRhZmZhIiwiZW1haWwiOiJkYWZmYXJvYmFuaTU1MUBnbWFpbC5jb20iLCJpZCI6MSwiZXhwIjoxNzA1NjYxOTU0fQ.aamqFwyjMlqiTpl8OC72N0axTw07rh6RBmxsKukcHDs";
 
 
-  @override
-  void initState() {
-    super.initState();
-    Provider.of<PoranProvider>(context, listen: false)
-          .checklike(widget.response.id);
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   Provider.of<PoranProvider>(context, listen: false)
+  //         .checklike(widget.response.id);
+  // }
 
 
   bool  waa= false;
@@ -43,42 +41,46 @@ class _PoranCardItemState extends State<PoranCardItem> {
   @override
   Widget build(BuildContext context) {
     Map<String, dynamic>? decodedToken = Validator.decodeJwtClaims(jwtToken);
-
-    int id = Provider.of<ProfileProvider>(context, listen: false)
-        .categoryResult
-        .responseProfile
-        .id;
-
-
-    String tujukan = widget.response.author.role == "Instansi"?"":" • ${widget.response.ditujukan}";
-
-    print(id == widget.response.id);
-    print(widget.response.author.id);
-    print(id);
-    timeago.setLocaleMessages('id', timeago.IdMessages());
-
+    //
+    // int id = Provider.of<ProfileProvider>(context, listen: false)
+    //     .categoryResult
+    //     .responseProfile
+    //     .id;
+    //
+    //
+    String tujukan = response.author.role == "Instansi"?"":" • ${response.ditujukan}";
+    //
+    // print(id == response.id);
+    // print(response.author.id);
+    // print(id);
+    // timeago.setLocaleMessages('id', timeago.IdMessages());
+    //
     DateTime now = DateTime.now().toLocal();
-
-    final provider = Provider.of<FavoriteProvider>(context);
-    DateTime inputDate = widget.response.createdAt.toLocal();
-
+    //
+    // final provider = Provider.of<FavoriteProvider>(context);
+    DateTime inputDate = response.createdAt.toLocal();
+    //
     Duration difference = now.difference(inputDate);
-
-    String formattedDate =
-        DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(inputDate);
+    //
+    String formattedDate = DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(inputDate);
 
     String timeAgo = timeago.format(now.subtract(difference), locale: 'id');
 
     return InkWell(
       onTap: () {
 
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return DetailPage();
-        },));
+
+        // print("ini all");
+        // Navigator.push(
+        //   newContext!,
+        //   MaterialPageRoute(builder: (newContext) => DetailPage(id: response.id,)),
+        // );
+
+        Get.toNamed('/detail',arguments: [response.id]);
 
       },
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+        margin: EdgeInsets.symmetric(vertical: 20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16.0),
           color: ColorValue.VeryLightBlue,
@@ -101,7 +103,7 @@ class _PoranCardItemState extends State<PoranCardItem> {
                 children: [
                   Row(
                     children: [
-                      widget.response.author.role == "Instansi"?Container(): Icon(
+                      response.author.role == "Instansi"?Container(): Icon(
                         Icons.circle,
                         color: ColorValue.VeryLightGrey,
                         size: 10,
@@ -109,7 +111,7 @@ class _PoranCardItemState extends State<PoranCardItem> {
                       SizedBox(width: 10),
                       Text(
 
-                        widget.response.author.role == "Instansi"?  '':'Dalam antrian',
+                        response.author.role == "Instansi"?  '':'Dalam antrian',
                         style: TextStyle(
                             fontWeight: FontWeight.w600,
                             color: ColorValue.VeryLightGrey,
@@ -121,13 +123,13 @@ class _PoranCardItemState extends State<PoranCardItem> {
                     initialValue: selectedMenu,
                     // Callback that sets the selected popup menu item.
                     onSelected: (SampleItem item) {
-                      setState(() {
-                        selectedMenu = item;
-                      });
+                      // setState(() {
+                      //   selectedMenu = item;
+                      // });
                     },
                     itemBuilder: (BuildContext context) =>
                         <PopupMenuEntry<SampleItem>>[
-                      id == widget.response.author.id
+                      Get.put(ProfileController()).profileModel.value.responseProfile!.id == response.author.id
                           ? PopupMenuItem<SampleItem>(
                               value: SampleItem.itemOne,
                               onTap: () async{
@@ -140,11 +142,12 @@ class _PoranCardItemState extends State<PoranCardItem> {
                                 //   print('Invalid JWT');
                                 // }
 
-                                print(widget.response.id);
+                                print(response.id);
 
-                                await Provider.of<PoranProvider>(context,listen: false).deleteporan(widget.response.id);
+                                await Get.put(PoranController()).deleteporan(response.id);
 
-                                Provider.of<PoranProvider>(context, listen: false).profile();
+
+                                Get.put(PoranController()).profile();
 
 
                               },
@@ -159,8 +162,48 @@ class _PoranCardItemState extends State<PoranCardItem> {
                 ],
               ),
               SizedBox(height: 5),
+
+
               Row(
                 children: [
+                  Get.put(ProfileController()).profileModel.value.responseProfile!.id != response.author.id
+                      ?
+                  InkWell(
+                    onTap: () {
+                      // print("ini profile");
+
+                      if(Get.put(ProfileController()).profileModel.value.responseProfile!.role == "Masyarakat"){
+
+                        // Get.toNamed('/detail',arguments: [response.id]);
+                        Get.toNamed('/profilemasyarakat',arguments: [response.author.id]);
+                      }else {
+
+                        Get.toNamed('/profileinstansi');
+                      }
+
+                    },
+                    child: Container(
+                      width: 36,
+                      height: 36,
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                              spreadRadius: 2,
+                              blurRadius: 10,
+                              color: Colors.black.withOpacity(0.1),
+                              offset: Offset(0, 10))
+                        ],
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(
+
+                          response.author.photoProfile
+                          ),
+                        ),
+                      ),
+                    ),
+                  ):
                   Container(
                     width: 36,
                     height: 36,
@@ -177,7 +220,7 @@ class _PoranCardItemState extends State<PoranCardItem> {
                         fit: BoxFit.cover,
                         image: NetworkImage(
 
-                        widget.response.author.photoProfile
+                            response.author.photoProfile
                         ),
                       ),
                     ),
@@ -190,7 +233,7 @@ class _PoranCardItemState extends State<PoranCardItem> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            widget.response.author.username,
+                            response.author.username,
                             style: CommonAppTheme.textTheme(context)
                                 .headline1!
                                 .copyWith(fontSize: 20),
@@ -203,7 +246,7 @@ class _PoranCardItemState extends State<PoranCardItem> {
                                 borderRadius: BorderRadius.circular(20),
                                 color: ColorValue.secondaryColor),
                             child: Text(
-                              widget.response.author.role,
+                              response.author.role,
                               style: CommonAppTheme.textTheme(context)
                                   .bodyText1!
                                   .copyWith(
@@ -214,7 +257,7 @@ class _PoranCardItemState extends State<PoranCardItem> {
                           ),
                           SizedBox(width: 3),
 
-                          widget.response.author.role != "Instansi"?Container():
+                          response.author.role != "Instansi"?Container():
                           Image.asset(
                             "assets/images/verified.png",
                             fit: BoxFit.fill,
@@ -231,7 +274,7 @@ class _PoranCardItemState extends State<PoranCardItem> {
                 height: 10,
               ),
               Text(
-                widget.response.content,
+                response.content,
                 maxLines: 5,
                 style: CommonAppTheme.textTheme(context).bodyText1!.copyWith(
                       color: Colors.black,
@@ -241,7 +284,7 @@ class _PoranCardItemState extends State<PoranCardItem> {
               SizedBox(
                 height: 10,
               ),
-              widget.response.gambar == ""
+              response.gambar == ""
                   ? Container()
                   : Container(
                       width: 300,
@@ -258,7 +301,7 @@ class _PoranCardItemState extends State<PoranCardItem> {
                         shape: BoxShape.rectangle,
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: NetworkImage(widget.response.gambar),
+                          image: NetworkImage(response.gambar),
                         ),
                       ),
                     ),
@@ -270,11 +313,22 @@ class _PoranCardItemState extends State<PoranCardItem> {
 
 
 
+
+
               Row(
                 children: [
+
+
+                  Icon(Icons.mode_comment_outlined),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(response.commentJumlah.toString(),style: CommonAppTheme.textTheme(context).bodyText1!,)
+
+
                   // FutureBuilder(
                   //   future: Provider.of<PoranProvider>(context, listen: false)
-                  //       .checklike(widget.response.id),
+                  //       .checklike(response.id),
                   //   builder: (context, snapshot) {
                   //     if (snapshot.connectionState == ConnectionState.waiting) {
                   //       // Menampilkan widget ketika future masih dalam proses
@@ -303,12 +357,12 @@ class _PoranCardItemState extends State<PoranCardItem> {
                   //             //       //         listen: false)
                   //             //       //         .likeModel
                   //             //       //         .responseLike!
-                  //             //       //         .id,widget.response.id);
+                  //             //       //         .id,response.id);
                   //             //       //
                   //             //       // Provider.of<PoranProvider>(context, listen: false)
-                  //             //       //     .resetcounter(widget.response.likeJumlah);
+                  //             //       //     .resetcounter(response.likeJumlah);
                   //             //       //
-                  //             //       // provider.toggleFavorite(widget.response.content);
+                  //             //       // provider.toggleFavorite(response.content);
                   //             //
                   //             //       setState(() {
                   //             //         waa = true;
@@ -336,7 +390,7 @@ class _PoranCardItemState extends State<PoranCardItem> {
                   //                     .count
                   //                     .toString() ==
                   //                     "0"
-                  //                     ? widget.response.likeJumlah.toString()
+                  //                     ? response.likeJumlah.toString()
                   //                     : Provider.of<PoranProvider>(context, listen: true)
                   //                     .count
                   //                     .toString(),

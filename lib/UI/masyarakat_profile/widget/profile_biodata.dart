@@ -2,14 +2,24 @@ import 'package:dinacom_2024/UI/widget/role.dart';
 import 'package:dinacom_2024/common/app_theme.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:flutter/material.dart';
+import 'package:dinacom_2024/data/model/profile_model.dart';
+import 'package:get/get.dart';
+class ProfileBioDataMasyarakat extends StatelessWidget {
 
-class ProfileBioData extends StatelessWidget {
-  const ProfileBioData({super.key});
+  ProfileModel profileModel;
+
+
+  ProfileBioDataMasyarakat({super.key,required this.profileModel});
 
   @override
   Widget build(BuildContext context) {
+    var tahun =  profileModel.responseProfile!.tanggalLahir.year.toString();
+    var bulan =  profileModel.responseProfile!.tanggalLahir.month.toString();
+    var hari =  profileModel.responseProfile!.tanggalLahir.day.toString();
     return Container(
-      padding: const EdgeInsets.only(top: 10, bottom: 20),
+
+      padding: EdgeInsets.all(15),
+
       decoration: const BoxDecoration(
         border: Border(
           bottom: BorderSide(
@@ -19,21 +29,27 @@ class ProfileBioData extends StatelessWidget {
         ),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        // mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: 70,
-            height: 70,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: NetworkImage(
-                  "https://images.pexels.com/photos/3307758/pexels-photo-3307758.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=250",
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                width: 70,
+                height: 70,
+                decoration:  BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage(
+                        profileModel.responseProfile!.photoProfile
+                    ),
+                  ),
                 ),
               ),
-            ),
+
+            ],
           ),
           const SizedBox(width: 20),
           Column(
@@ -44,20 +60,20 @@ class ProfileBioData extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'Nyoman Deka',
+                    profileModel.responseProfile!.username,
                     style: CommonAppTheme.textTheme(context)
                         .headline1!
                         .copyWith(fontSize: 20),
                   ),
                   const SizedBox(width: 10),
-                  const Role(name: "Masyarakat"),
+                  Role(name: profileModel.responseProfile!.role),
                 ],
               ),
               Container(
                 margin: const EdgeInsets.only(top: 3),
                 width: 250,
                 child: Text(
-                  'halo gais ini aplikasi kapan jadinya ya...',
+                  profileModel.responseProfile!.bio == ""?"belum di sertakan":profileModel.responseProfile!.bio,
                   maxLines: 2,
                   style: CommonAppTheme.textTheme(context)
                       .bodyText1!
@@ -78,13 +94,14 @@ class ProfileBioData extends StatelessWidget {
                       ),
                       const SizedBox(width: 3),
                       Text(
-                        '12 Desember 1998',
+                        '$tahun - $bulan - $hari',
                         style: CommonAppTheme.textTheme(context)
                             .bodyText1!
                             .copyWith(fontSize: 10),
                       ),
                     ],
                   ),
+
                   const SizedBox(width: 10),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -95,11 +112,18 @@ class ProfileBioData extends StatelessWidget {
                         size: 16,
                       ),
                       const SizedBox(width: 3),
-                      Text(
-                        'Bogor, Jawa Barat',
-                        style: CommonAppTheme.textTheme(context)
-                            .bodyText1!
-                            .copyWith(fontSize: 10),
+                      Container(
+                        width: 170,
+                        child: Text(
+                          // "",
+
+                          overflow: TextOverflow.ellipsis,
+                          profileModel.responseProfile!.daerah == ", , " ?"belum di sertakan": profileModel.responseProfile!.daerah,
+                          // profileModel.responseProfile.daerah,
+                          style: CommonAppTheme.textTheme(context)
+                              .bodyText1!
+                              .copyWith(fontSize: 10),
+                        ),
                       ),
                     ],
                   ),
