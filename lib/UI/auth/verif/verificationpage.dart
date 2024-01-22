@@ -1,63 +1,19 @@
 import 'dart:async';
 
-import 'package:dinacom_2024/UI/auth/verif/verifprovider.dart';
+import 'package:dinacom_2024/UI/auth/verif/verif_controller.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 
-class VerifPage extends StatefulWidget {
+class VerifPage extends GetView<VerifControlller> {
   const VerifPage({super.key});
 
   @override
-  State<VerifPage> createState() => _VerifPageState();
-}
-
-class _VerifPageState extends State<VerifPage> {
-
-
-  final ValueNotifier<bool> _isEmailVerified = ValueNotifier<bool>(false);
-  Timer? timer;
-
-
-
-  Future _checkEmailVerified() async {
-
-    Provider.of<VerifProvider>(context, listen: false).verif(context, "daffarobani551@gmail.com");
-
-    var check = await Provider.of<VerifProvider>(context, listen: false).verif(context, "daffarobani551@gmail.com");
-
-    _isEmailVerified.value = check;
-
-    if (_isEmailVerified.value) {
-      timer?.cancel();
-    }
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-    if (!_isEmailVerified.value) {
-
-      timer = Timer.periodic(
-        const Duration(seconds: 3),
-            (_) => _checkEmailVerified(),
-      );
-    }
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    timer?.cancel();
-    super.dispose();
-  }
-
-
-  @override
   Widget build(BuildContext context) {
+
+    Get.put(VerifControlller());
 
     final textTheme = Theme.of(context).textTheme;
     return  Scaffold(

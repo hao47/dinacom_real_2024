@@ -1,15 +1,23 @@
 import 'dart:ui';
 
 class ColorValue {
-  static const Color primaryColor = Color(0XFF006BB8);
+  static const Color primaryColor = Color(0xFF58A1E9);
   static const Color secondaryColor = Color(0xe40080ff);
   static const Color greyColor = Color(0XFF9B9B9B);
   static const Color borderColor = Color(0XFFE7E7E7);
   static const Color greyBorderColor = Color(0XFFECEEF2);
   static const Color greenColor = Color(0XFF67D4CA);
   static const Color redColor = Color(0XFFF28080);
-
   static const Color light = Color(0xffebf0ff);
+
+  static const Color LightBlue = Color(0xff58A1E9);
+  static const Color BaseBlue = Color(0xff0080FF);
+  static const Color BaseBlack = Color(0xff111111);
+  static const Color BaseGrey = Color(0xff333333);
+  static const Color LightGrey = Color(0xff666666);
+  static const Color VeryLightGrey = Color(0xffEBEBEB);
+  static const Color VeryLightBlue = Color(0xffEFF7FF);
+  static const Color BaseRed = Color(0xffF03030);
 }
 
 class ColorValueDark {

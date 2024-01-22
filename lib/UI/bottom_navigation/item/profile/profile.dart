@@ -1,41 +1,264 @@
-import 'package:dinacom_2024/UI/bottom_navigation/item/profile/profile_biodata.dart';
+import 'package:dinacom_2024/UI/bottom_navigation/item/profile/wdiget/profile_biodata.dart';
+import 'package:dinacom_2024/UI/bottom_navigation/item/profile/wdiget/profile_poran_list.dart';
+import 'package:dinacom_2024/UI/bottom_navigation/item/profile/wdiget/profileporan.dart';
+
+import 'package:dinacom_2024/common/app_theme.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
+
+import 'package:dinacom_2024/UI/bottom_navigation/item/profile/profile_provider.dart';
+import 'package:dinacom_2024/common/theme/color_value.dart';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:provider/provider.dart';
+
+import '../../../../common/enums/status.dart';
 
 class Profile extends StatelessWidget {
-  const Profile({super.key});
+  // void didChangeDependencies() {
+
+  final ProfileController controller = Get.put(ProfileController());
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    return Scaffold(
-      appBar: AppBar(
-        leading: Icon(
-          Icons.arrow_back_ios_new,
-          color: Colors.black,
-        ),
-        title: Text(
-          "Profile",
-          style: textTheme.headline1!.copyWith(fontSize: 20, height: 1.5),
-        ),
-      ),
-      body: Container(
-          height: MediaQuery.of(context).size.height / 2.2,
-          width: MediaQuery.of(context).size.width ,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(begin: Alignment.topRight, stops: [
-              0.1,
-              0.8
-            ], colors: [
-              Colors.black.withOpacity(.2),
-              Colors.white.withOpacity(.0)
-            ]),
-            image: DecorationImage(
-              image: AssetImage("assets/images/bg-profile.png"),
-              fit: BoxFit.cover,
-            ),
+    return DefaultTabController(
+      length: 2, // Number of tabs
+      child: Scaffold(
+          appBar: AppBar(
+            toolbarHeight: 35,
+            automaticallyImplyLeading: false,
           ),
-          child: ProfileBioData()),
+          body: Column(
+            children: [
+              GetBuilder<ProfileController>(
+                builder: (controller) {
+                  // print(state.categoryResult.response.length);
+                  if (controller.state.value == ResultState.loading) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (controller.state.value == ResultState.hasData) {
+                    // print("ada data");
+
+                    // return Container();
+                    // return Text("halo");
+                    return ProfileBioData(
+                        profileModel: controller.profileModel.value);
+                  } else if (controller.state.value == ResultState.noData) {
+                    return Center(
+                      child: Material(
+                        child: Text("Tidak ada Data"),
+                      ),
+                    );
+                  } else if (controller.state.value == ResultState.error) {
+                    return Center(
+                      child: Material(
+                        child: Text("Ada yang salah"),
+                      ),
+                    );
+                  } else {
+                    return const Center(
+                      child: Material(
+                        child: Text(''),
+                      ),
+                    );
+                  }
+                },
+              ),
+              //
+
+              GetBuilder<ProfileController>(
+                builder: (controller) {
+                  // print(state.categoryResult.response.length);
+                  if (controller.statep.value == ResultState.loading) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (controller.statep.value == ResultState.hasData) {
+                    // print("ada data");
+
+                    // print(controller.poranModel.value.response[0].gambar);
+
+                    // return Container();
+                    // return Text("halo");
+                    return Expanded(
+                              child: DefaultTabController(
+                                length: 2,
+                                child: Column(
+                                  children: [
+                                    TabBar(
+                                      padding: const EdgeInsets.only(
+                                          top: 10, bottom: 5),
+                                      dividerColor: Colors.transparent,
+                                      indicator: const BoxDecoration(
+                                        border: Border(
+                                          bottom: BorderSide(
+                                            color: ColorValue.BaseBlue,
+                                            width: 3,
+                                          ),
+                                        ),
+                                      ),
+                                      unselectedLabelStyle: CommonAppTheme
+                                          .textTheme(context)
+                                          .bodyText1!
+                                          .copyWith(
+                                        fontWeight: FontWeight.w900,
+                                        fontSize: 16,
+                                      ),
+                                      unselectedLabelColor: ColorValue.LightGrey,
+                                      labelStyle: CommonAppTheme
+                                          .textTheme(context)
+                                          .bodyText1!
+                                          .copyWith(
+                                        fontWeight: FontWeight.w900,
+                                        fontSize: 16,
+                                      ),
+                                      labelColor: ColorValue.BaseBlack,
+                                      tabs: const [
+                                        Tab(
+                                          text: 'Poran',
+                                        ),
+                                        Tab(
+                                          text: 'Repost',
+                                        ),
+                                      ],
+                                    ),
+                                    Expanded(
+                                      child: SizedBox(
+                                        height: MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height,
+                                        child:  TabBarView(
+                                          children: [
+
+                                            ProfilePoranList(poranAllModel: controller.poranModel.value,),
+                                            Text("haLO"),
+                                            // Text("haLO"),
+
+                                            // ProfilePoranList(poranAllModel: controller.poranModel.value,)
+
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                  } else if (controller.statep.value == ResultState.noData) {
+                    return Center(
+                      child: Material(
+                        child: Text("Tidak ada Data"),
+                      ),
+                    );
+                  } else if (controller.statep.value == ResultState.error) {
+                    return Center(
+                      child: Material(
+                        child: Text("Ada yang salah"),
+                      ),
+                    );
+                  } else {
+                    return const Center(
+                      child: Material(
+                        child: Text(''),
+                      ),
+                    );
+                  }
+                },
+              )
+
+              // Consumer<ProfileProvider>(
+              //   builder: (context, state, _) {
+              //     if (controller.state.value == ResultState.loading) {
+              //       return Text("");
+              //     } else if (state.state == ResultState.hasData) {
+              //       return Expanded(
+              //         child: DefaultTabController(
+              //           length: 2,
+              //           child: Column(
+              //             children: [
+              //               TabBar(
+              //                 padding: const EdgeInsets.only(
+              //                     top: 10, bottom: 5),
+              //                 dividerColor: Colors.transparent,
+              //                 indicator: const BoxDecoration(
+              //                   border: Border(
+              //                     bottom: BorderSide(
+              //                       color: ColorValue.BaseBlue,
+              //                       width: 3,
+              //                     ),
+              //                   ),
+              //                 ),
+              //                 unselectedLabelStyle: CommonAppTheme
+              //                     .textTheme(context)
+              //                     .bodyText1!
+              //                     .copyWith(
+              //                   fontWeight: FontWeight.w900,
+              //                   fontSize: 16,
+              //                 ),
+              //                 unselectedLabelColor: ColorValue.LightGrey,
+              //                 labelStyle: CommonAppTheme
+              //                     .textTheme(context)
+              //                     .bodyText1!
+              //                     .copyWith(
+              //                   fontWeight: FontWeight.w900,
+              //                   fontSize: 16,
+              //                 ),
+              //                 labelColor: ColorValue.BaseBlack,
+              //                 tabs: const [
+              //                   Tab(
+              //                     text: 'Poran',
+              //                   ),
+              //                   Tab(
+              //                     text: 'Repost',
+              //                   ),
+              //                 ],
+              //               ),
+              //               Expanded(
+              //                 child: SizedBox(
+              //                   height: MediaQuery
+              //                       .of(context)
+              //                       .size
+              //                       .height,
+              //                   child:  TabBarView(
+              //                     children: [
+              //
+              //                       // ProfilePoranList(poranAllModel: state.poranModel,),
+              //                       // ProfilePoranList(poranAllModel: state.poranModel,)
+              //
+              //                     ],
+              //                   ),
+              //                 ),
+              //               ),
+              //             ],
+              //           ),
+              //         ),
+              //       );
+              //     } else if (state.state == ResultState.noData) {
+              //       return Center(
+              //         child: Material(
+              //           child: Text(state.message),
+              //         ),
+              //       );
+              //     } else if (state.state == ResultState.error) {
+              //       return Center(
+              //         child: Material(
+              //           child: Text(state.message),
+              //         ),
+              //       );
+              //     } else {
+              //       return const Center(
+              //         child: Material(
+              //           child: Text(''),
+              //         ),
+              //       );
+              //     }
+              //   },
+              // ),
+            ],
+          )),
     );
   }
 }

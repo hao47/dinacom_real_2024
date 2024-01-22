@@ -47,6 +47,13 @@ dependencies:
   provider:
   lottie:
   csc_picker:
+  font_awesome_flutter:
+  timeago:
+  dio:
+  image_picker:
+  permission_handler: ^11.0.1
+  flutter_quill: 9.2.6
+  dropdown_search:
 
 dev_dependencies:
   flutter_test:

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 
+import 'dart:convert';
 class Validator {
   static Widget checkIconTexFormField(bool? str,String? user) {
     if (str == true) {
@@ -24,7 +25,28 @@ class Validator {
   static String? nameValidator(value) {
     return value.toString().length <= 3 ? 'Nama tidak valid' : null;
   }
+  static String? dateValidator(value) {
+    return value.toString().length <= 3 ? 'Tanggal tidak valid' : null;
+  }
 
+ static Map<String, dynamic>? decodeJwtClaims(String jwtToken) {
+    try {
+      List<String> parts = jwtToken.split('.');
+
+      if (parts.length != 3) {
+        // Invalid JWT format
+        return null;
+      }
+
+      String payload = utf8.decode(base64Url.decode(parts[1]));
+      Map<String, dynamic> decodedClaims = json.decode(payload);
+
+      return decodedClaims;
+    } catch (e) {
+      // Handle decoding errors
+      return null;
+    }
+  }
 
   static String? emailValidator(value) {
     bool emailValid = RegExp(
@@ -39,6 +61,20 @@ class Validator {
         ? 'Kata sandi tidak boleh kurang dari 8 karakter'
         : null;
   }
+
+  static String? confirmPasswordValidator(String value ,String olpw) {
+
+
+    if(value == ""){
+      return "confirm password kosong";
+    }else if(value != olpw){
+      return "confirm password Tidak sama";
+
+    }else{
+      return null;
+    }
+  }
+
   static String? phoneValidator(value) {
     return value.toString().length <= 10 || value.toString().length >= 14
         ? 'Nomor telepon tidak valid'
@@ -56,7 +92,7 @@ class Validator {
 
   static Future<bool> isTokenStillValid(String token) async {
 
-    final response = await http.get(Uri.parse("http://10.0.2.2:8080/api/ping"),
+    final response = await http.get(Uri.parse("http://10.0.2.2:8080/api/secured/ping"),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': '$token',

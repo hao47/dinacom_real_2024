@@ -1,11 +1,12 @@
-import 'package:dinacom_2024/UI/bottom_navigation/item/beranda/beranda.dart';
-import 'package:dinacom_2024/UI/bottom_navigation/item/profile/profile.dart';
+import 'package:dinacom_2024/UI/bottom_navigation/item/lapor/laport.dart';
+import 'package:dinacom_2024/UI/bottom_navigation/item/notification/notification_page.dart';
+import 'package:dinacom_2024/UI/bottom_navigation/item/search/search_page.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 
-import 'item/berita/berita.dart';
 import 'item/poran/poran.dart';
+import 'item/profile/profile.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -27,15 +28,16 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
     items = [
       NavModel(
-        page: Beranda(),
-        navKey: homeNavKey,
-      ),
-      NavModel(
-        page: Poran(),
+        page: Poran(newContext: context),
         navKey: poranNavKey,
       ),
       NavModel(
-        page: Berita(),
+        page: SearchPage(),
+        navKey: homeNavKey,
+      ),
+
+      NavModel(
+        page: NotificationPage(),
         navKey: newsNavKey,
       ),
       NavModel(
@@ -81,8 +83,28 @@ class _MainScreenState extends State<MainScreen> {
           ),
           child: FloatingActionButton(
             onPressed: () {
-              // Add your onPressed functionality here
+              Navigator.of(context).push(PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) {
+                  return Lapor();
+                },
+                transitionDuration: Duration(milliseconds: 1000),
+                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                  const begin = Offset(0.0, 1.0);
+                  const end = Offset.zero;
+                  const curve = Curves.easeInOut;
+                  const duration = Duration(milliseconds: 500); // Durasi transisi dalam milidetik, disesuaikan dengan kebutuhan Anda
+
+                  var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                  var offsetAnimation = animation.drive(tween);
+
+                  return SlideTransition(
+                    position: offsetAnimation,
+                    child: child,
+                  );
+                },
+              ));
             },
+            // child: Icon(Icons.add),
             backgroundColor: Colors.transparent,
             elevation: 0,
             child: const Icon(Icons.add,color: Colors.white,size: 40),
@@ -179,14 +201,14 @@ class NavBar extends StatelessWidget {
             ),
             navItem(
               "",
-              Icons.campaign,
+              Icons.search_rounded,
               pageIndex == 1,
               onTap: () => onTap(1),
             ),
             const SizedBox(width: 80),
             navItem(
               "",
-              Icons.newspaper,
+              Icons.notifications,
               pageIndex == 2,
               onTap: () => onTap(2),
             ),
