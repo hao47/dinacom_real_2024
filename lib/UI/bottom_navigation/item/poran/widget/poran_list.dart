@@ -21,7 +21,7 @@ BuildContext? newContext;
       itemBuilder: (context, index) {
         var result = poranAllModel.responseAllModel[index];
 
-        return PoranCardItemAll(response: result,newContext: newContext);
+        return PoranCardItemAll(response: result,newContext: newContext,index: index,);
       },
     );
   }

@@ -1,4 +1,5 @@
 
+import 'package:dinacom_2024/UI/bottom_navigation/item/profile/profile_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,10 +20,11 @@ void deviceOrientation() {
   ]);
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends GetView<ProfileController> {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
+    Get.put(ProfileController());
     return GetMaterialApp(
       title: 'Lofy',
       theme: ThemeData(

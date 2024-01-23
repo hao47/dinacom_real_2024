@@ -129,6 +129,8 @@ class SearchPage extends GetView<SearchPageController> {
                   } else if (controller.state.value == ResultState.hasData) {
 
 
+                    print("aaaaaaaa");
+
 
 
                     // print(controller.profileModel.value.responseAllModel.length);

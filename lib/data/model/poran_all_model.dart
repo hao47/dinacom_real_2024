@@ -35,7 +35,7 @@ class ResponseAllModel {
   int commentJumlah;
   DateTime createdAt;
   DateTime updatedAt;
-
+  bool liked;
   ResponseAllModel({
     required this.id,
     required this.content,
@@ -47,6 +47,7 @@ class ResponseAllModel {
     required this.commentJumlah,
     required this.createdAt,
     required this.updatedAt,
+    required this.liked,
   });
 
   factory ResponseAllModel.fromJson(Map<String, dynamic> json) => ResponseAllModel(
@@ -60,6 +61,7 @@ class ResponseAllModel {
     commentJumlah: json["comment_jumlah"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
+    liked: json["liked"],
   );
 
 

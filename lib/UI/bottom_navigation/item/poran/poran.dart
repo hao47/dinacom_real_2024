@@ -1,5 +1,6 @@
 import 'package:dinacom_2024/UI/bottom_navigation/item/poran/widget/poran_list.dart';
 import 'package:dinacom_2024/UI/bottom_navigation/item/poran/poran_provider.dart';
+import 'package:dinacom_2024/UI/bottom_navigation/item/profile/profile_provider.dart';
 import 'package:dinacom_2024/common/app_theme.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +41,7 @@ class Poran extends StatelessWidget {
                     style: CommonAppTheme.textTheme(context)
                         .headline1!
                         .copyWith(fontSize: 14, color: Colors.white)),
-                subtitle: Text('Nyoman Deka',
+                subtitle: Text(Get.put(ProfileController()).profileModel.value.responseProfile!.username.toString(),
                     style: CommonAppTheme.textTheme(context)
                         .headline1!
                         .copyWith(fontSize: 16, color: Colors.white)),

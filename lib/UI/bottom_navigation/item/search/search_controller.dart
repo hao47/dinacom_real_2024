@@ -28,7 +28,11 @@ class SearchPageController extends GetxController {
 
 
 
-
+  @override
+  void onInit() async {
+    super.onInit();
+    getporansearch("mirza");
+  }
 
 
 
@@ -42,7 +46,7 @@ class SearchPageController extends GetxController {
       _state.value = ResultState.loading;
 
 
-      final profile = await profileService.getporansearch(q);
+      final profile = await profileService.getporansearch("mirza");
 
       // print(profile.response.length.toString());
 
