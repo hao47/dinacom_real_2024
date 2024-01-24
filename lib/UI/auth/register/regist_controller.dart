@@ -9,13 +9,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-class AuthPageController extends GetxController {
+class RegistPageController extends GetxController {
 
-  final formKeyRegist = GlobalKey<FormState>();
-  final formKeyLogin = GlobalKey<FormState>();
   final ValueNotifier<bool> isLoad = ValueNotifier<bool>(false);
-  TextEditingController emailControllerLogin = TextEditingController();
-  TextEditingController passwordControllerLogin = TextEditingController();
   TextEditingController emailControllerRegist = TextEditingController();
   TextEditingController passwordControllerRegist = TextEditingController();
 
@@ -26,7 +22,7 @@ class AuthPageController extends GetxController {
   TextEditingController daerahController = TextEditingController();
   TextEditingController bioController = TextEditingController();
 
-    SharedPreferences? prefs;
+  SharedPreferences? prefs;
 
   RxString? countryValue = "".obs;
 
@@ -45,14 +41,7 @@ class AuthPageController extends GetxController {
     checkError.value = true;
   }
 
-  @override
-  dispose(){
-    emailControllerLogin.dispose();
-    passwordControllerLogin.dispose();
-    emailControllerLogin.clear();
-    passwordControllerLogin.clear();
-    super.dispose();
-  }
+
 
   selectDate(BuildContext context) async {
     DateTime? _picked = await showDatePicker(
@@ -79,9 +68,9 @@ class AuthPageController extends GetxController {
         lastDate: DateTime(2100));
 
     if (_picked != null) {
-     tanggaLahirController
+      tanggaLahirController
           .text = _picked.toString().split(" ")[0];
-     update();
+      update();
     }
   }
   Rx<XFile?> pickedFile = Rx<XFile?>(null);
@@ -104,7 +93,10 @@ class AuthPageController extends GetxController {
 
       Dio dio = Dio();
 
-      if (pickedfile != null) {
+
+
+
+      // if (pickedfile != null) {
 
 
         var request = http.MultipartRequest(
@@ -114,11 +106,16 @@ class AuthPageController extends GetxController {
 
         request.headers['Content-Type'] = 'multipart/form-data';
 
-        request.files.add(await http.MultipartFile.fromPath(
-          'userFile',
-          pickedfile.path,
-          filename: randomString + ".jpg",
-        ));
+
+
+        if( pickedfile != null){
+          request.files.add(await http.MultipartFile.fromPath(
+            'userFile',
+            pickedfile.path,
+            filename: randomString + ".jpg",
+          ));
+        }
+
 
         request.fields['email'] = emailControllerRegist.text ?? "";
         request.fields['username'] = usernameController.text ?? "";
@@ -160,7 +157,10 @@ class AuthPageController extends GetxController {
           isLoad.value = false;
           throw Exception('ada yang salah');
         }
-      } else {}
+      // } else {
+      //
+      //   isLoad.value = false;
+      // }
     } catch (error) {
       print(error);
     }
@@ -180,14 +180,14 @@ class AuthPageController extends GetxController {
 
     isLoad.value = true;
     final response =
-        await http.post(Uri.parse("http://10.0.2.2:8080/api/login"),
-            headers: <String, String>{
-              'Content-Type': 'application/json',
-            },
-            body: jsonEncode({
-              'email': username,
-              'password': password,
-            }));
+    await http.post(Uri.parse("http://10.0.2.2:8080/api/login"),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          'email': username,
+          'password': password,
+        }));
     if (response.statusCode == 200 || response.statusCode == 400) {
       isLoad.value = true;
 

@@ -180,54 +180,69 @@ class PoranController extends GetxController {
 //   notifyListeners();
 // }
 //
-// like(BuildContext context, int id, int uslike) async {
-//   // notifyListeners();
+
+
+  Rx<GetLikeModel> _likeModel =
+      GetLikeModel( status: 0).obs;
+
+  Rx<GetLikeModel> get likeModel => _likeModel;
+
+
+  RxInt likenumber = 0.obs;
+
+
+Future<bool> like(BuildContext context, int id, int uslike) async {
+  // notifyListeners();
+
+  print("adwawd");
+
+  SharedPreferences pref = await SharedPreferences.getInstance();
+  String? token = pref.getString('token');
+
+  final response = await http.post(
+      Uri.parse("http://10.0.2.2:8080/api/secured/likes/$id/$uslike"),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': '$token',
+      });
+
+  if (response.statusCode == 200) {
+    var responses = jsonDecode(response.body);
+    _likeModel.value = GetLikeModel.fromJson(responses);
+
+    return true;
+
+    // Provider.of<PoranProvider>(context, listen: false).profile();
+  } else {
+    throw Exception('ada yang salah');
+
+  }
+}
 //
-//   print("adwawd");
-//
-//   SharedPreferences pref = await SharedPreferences.getInstance();
-//   String? token = pref.getString('token');
-//
-//   final response = await http.post(
-//       Uri.parse("http://10.0.2.2:8080/api/secured/likes/$id/$uslike"),
-//       headers: <String, String>{
-//         'Content-Type': 'application/json',
-//         'Authorization': '$token',
-//       });
-//
-//   if (response.statusCode == 200) {
-//     var responses = jsonDecode(response.body);
-//     _likeModel = GetLikeModel.fromJson(responses);
-//
-//     // Provider.of<PoranProvider>(context, listen: false).profile();
-//   } else {
-//     throw Exception('ada yang salah');
-//   }
-// }
-//
-// dislike(BuildContext context, int id,int post_id) async {
-//   // notifyListeners();
-//
-//   print("adwawd");
-//
-//   SharedPreferences pref = await SharedPreferences.getInstance();
-//   String? token = pref.getString('token');
-//
-//   final response = await http.delete(
-//       Uri.parse("http://10.0.2.2:8080/api/secured/likes/$id/$post_id"),
-//       headers: <String, String>{
-//         'Content-Type': 'application/json',
-//         'Authorization': '$token',
-//       });
-//
-//   if (response.statusCode == 200) {
-//     print("halok dek");
-//
-//     // Provider.of<PoranProvider>(context, listen: false).profile();
-//   } else {
-//     throw Exception('ada yang salah');
-//   }
-// }
+  Future<bool> dislike(BuildContext context, int id,int post_id) async {
+  // notifyListeners();
+
+  print(id);
+
+  SharedPreferences pref = await SharedPreferences.getInstance();
+  String? token = pref.getString('token');
+
+  final response = await http.delete(
+      Uri.parse("http://10.0.2.2:8080/api/secured/likes/$id/$post_id"),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': '$token',
+      });
+
+  if (response.statusCode == 200) {
+    print("halok dek");
+    return true;
+
+    // Provider.of<PoranProvider>(context, listen: false).profile();
+  } else {
+    throw Exception('ada yang salah');
+  }
+}
 //
 // CheckLikeModel a = CheckLikeModel(exist: false, responseLike: [], status: 0);
 //
@@ -242,41 +257,30 @@ class PoranController extends GetxController {
 //   check = true;
 //   notifyListeners();
 // }
-// Future<dynamic>checklike(int post_id) async{
-//   SharedPreferences pref = await SharedPreferences.getInstance();
-//   String? token = pref.getString('token');
-//
-//   final response = await http.get(
-//       Uri.parse("http://10.0.2.2:8080/api/secured/likes/$post_id"),
-//       headers: <String, String>{
-//         'Content-Type': 'application/json',
-//         'Authorization': '$token',
-//       });
-//
-//
-//
-//   if (response.statusCode == 200) {
-//
-//     var responses = jsonDecode(response.body);
-//      a = CheckLikeModel.fromJson(responses);
-//
-//
-//
-//     if(a.responseLike.isEmpty){
-//       notifyListeners();
-//       return check = false;
-//     }else {
-//       notifyListeners();
-//       return check = true;
-//     }
-//
-//     // print("halok dek");
-//
-//     // Provider.of<PoranProvider>(context, listen: false).profile();
-//   } else {
-//     throw Exception('ada yang salah');
-//   }
-// }
+  Rx<CheckLikeModel> _checkModel =
+      CheckLikeModel(responseLike: [], status: 0,exist: false).obs;
+
+  Rx<CheckLikeModel> get checkModel => _checkModel;
+
+Future<CheckLikeModel>checklike(int post_id) async{
+  try {
+
+    final profile = await profileService.checklike(post_id);
+
+
+    if (profile.responseLike.isEmpty) {
+
+      return _checkModel.value =   CheckLikeModel(responseLike: [], status: 0,exist: false);
+    } else {
+
+
+      return _checkModel.value = profile;
+    }
+  } catch (e) {
+
+    throw Exception('ada yang salah');
+  }
+}
 // //
 // String randomString = generateRandomString(10);
 // //

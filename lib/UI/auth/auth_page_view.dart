@@ -23,8 +23,10 @@ class AuthPageView extends StatelessWidget {
                 AuthBanner(),
                 ChatContent(),
                 SizedBox(height: 60,),
-                AuthButton(),
+
               ]),
-        ));
+        )
+    ,bottomNavigationBar:  AuthButton(),
+    );
   }
 }

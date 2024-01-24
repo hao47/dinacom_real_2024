@@ -6,6 +6,8 @@ import 'package:dinacom_2024/common/app_theme.dart';
 import 'package:dinacom_2024/common/navigate.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:dinacom_2024/data/model/poran_all_model.dart';
+import 'package:dinacom_2024/data/model/search_model.dart';
+// import 'package:dinacom_2024/data/model/poran_all_model.dart';
 import 'package:dinacom_2024/validator/Validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,11 +17,11 @@ import 'package:timeago/timeago.dart' as timeago;
 
 enum SampleItem { itemOne, itemTwo, itemThree }
 
-class PoranCardItem extends StatelessWidget {
-  ResponseAllModel response;
+class PoranCardItemSearch extends StatelessWidget {
+  Post response;
   BuildContext? newContext;
 
-  PoranCardItem({super.key, required this.response,this.newContext});
+  PoranCardItemSearch({super.key, required this.response,this.newContext});
 
 
   SampleItem? selectedMenu;

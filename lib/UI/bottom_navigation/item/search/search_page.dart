@@ -1,22 +1,25 @@
 
+import 'package:dinacom_2024/UI/bottom_navigation/item/search/search_controller.dart';
+import 'package:dinacom_2024/UI/bottom_navigation/item/search/widget/poran_list.dart';
 import 'package:dinacom_2024/UI/bottom_navigation/item/search/widget/short_showmodal.dart';
 import 'package:dinacom_2024/common/app_theme.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class SearchPage extends StatefulWidget {
+import '../../../../common/enums/status.dart';
+
+class SearchPage extends GetView<SearchPageController> {
+
+  BuildContext? newContext;
   SearchPage({super.key});
 
-  @override
-  State<SearchPage> createState() => _LaporState();
-}
-
-class _LaporState extends State<SearchPage> {
-
-
   TextEditingController _controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+
+    Get.put(SearchController());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorValue.LightBlue,
@@ -34,6 +37,11 @@ class _LaporState extends State<SearchPage> {
                   fontSize: 10,
                   color: ColorValue.BaseBlack,
                 ),
+                onChanged: (value) {
+                  print("aaaa");
+                  controller.getporansearch(value);
+
+                },
                 decoration: InputDecoration(
                   hintText: 'Cari Laporan ..',
                   hintStyle:
@@ -98,6 +106,81 @@ class _LaporState extends State<SearchPage> {
           ),
           SizedBox(width: 25),
         ],
+      ),
+      body:
+      GetBuilder<SearchPageController>(
+        builder: (controller) {
+          // print(state.categoryResult.response.length);
+          if (controller.state.value == ResultState.loading) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (controller.state.value == ResultState.hasData) {
+            print("aaaaaaaa");
+
+            return
+              GetBuilder<SearchPageController>(
+                builder: (controller) {
+                  // print(state.categoryResult.response.length);
+                  if (controller.state.value == ResultState.loading) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (controller.state.value == ResultState.hasData) {
+
+
+                    print("aaaaaaaa");
+
+
+
+                    // print(controller.profileModel.value.responseAllModel.length);
+                    //
+                    return Container();
+                    return PoranListSearch(
+                        newContext: newContext, searchModel: controller.searchModel.value,);
+                  } else if (controller.state.value == ResultState.noData) {
+                    return Center(
+                      child: Material(
+                        child: Text("Tidak ada Data"),
+                      ),
+                    );
+                  } else if (controller.state.value == ResultState.error) {
+                    return Center(
+                      child: Material(
+                        child: Text("Ada yang salah"),
+                      ),
+                    );
+                  } else {
+                    return const Center(
+                      child: Material(
+                        child: Text(''),
+                      ),
+                    );
+                  }
+                },
+              );
+
+
+          } else if (controller.state.value == ResultState.noData) {
+            return Center(
+              child: Material(
+                child: Text("Tidak ada Data"),
+              ),
+            );
+          } else if (controller.state.value == ResultState.error) {
+            return Center(
+              child: Material(
+                child: Text("Ada yang salah"),
+              ),
+            );
+          } else {
+            return const Center(
+              child: Material(
+                child: Text(''),
+              ),
+            );
+          }
+        },
       ),
     );
   }

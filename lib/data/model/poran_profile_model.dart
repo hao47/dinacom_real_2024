@@ -1,30 +1,34 @@
 // To parse this JSON data, do
 //
-//     final poranAllModel = poranAllModelFromJson(jsonString);
+//     final poranProfileModel = poranProfileModelFromJson(jsonString);
 
 import 'dart:convert';
 
-PoranAllModel poranAllModelFromJson(String str) => PoranAllModel.fromJson(json.decode(str));
+PoranProfileModel poranProfileModelFromJson(String str) => PoranProfileModel.fromJson(json.decode(str));
 
+String poranProfileModelToJson(PoranProfileModel data) => json.encode(data.toJson());
 
-class PoranAllModel {
-  List<ResponseAllModel> responseAllModel;
+class PoranProfileModel {
+  List<ResponseProfileModel> responseProfileModel;
   int status;
 
-  PoranAllModel({
-    required this.responseAllModel,
+  PoranProfileModel({
+    required this.responseProfileModel,
     required this.status,
   });
 
-  factory PoranAllModel.fromJson(Map<String, dynamic> json) => PoranAllModel(
-    responseAllModel: List<ResponseAllModel>.from(json["response_all_model"].map((x) => ResponseAllModel.fromJson(x))),
+  factory PoranProfileModel.fromJson(Map<String, dynamic> json) => PoranProfileModel(
+    responseProfileModel: List<ResponseProfileModel>.from(json["response_profile_model"].map((x) => ResponseProfileModel.fromJson(x))),
     status: json["status"],
   );
 
-
+  Map<String, dynamic> toJson() => {
+    "response_profile_model": List<dynamic>.from(responseProfileModel.map((x) => x.toJson())),
+    "status": status,
+  };
 }
 
-class ResponseAllModel {
+class ResponseProfileModel {
   int id;
   String content;
   String gambar;
@@ -35,8 +39,8 @@ class ResponseAllModel {
   int commentJumlah;
   DateTime createdAt;
   DateTime updatedAt;
-  bool liked;
-  ResponseAllModel({
+
+  ResponseProfileModel({
     required this.id,
     required this.content,
     required this.gambar,
@@ -47,10 +51,9 @@ class ResponseAllModel {
     required this.commentJumlah,
     required this.createdAt,
     required this.updatedAt,
-    required this.liked,
   });
 
-  factory ResponseAllModel.fromJson(Map<String, dynamic> json) => ResponseAllModel(
+  factory ResponseProfileModel.fromJson(Map<String, dynamic> json) => ResponseProfileModel(
     id: json["id"],
     content: json["content"],
     gambar: json["gambar"],
@@ -61,15 +64,26 @@ class ResponseAllModel {
     commentJumlah: json["comment_jumlah"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
-    liked: json["liked"],
   );
 
-
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "content": content,
+    "gambar": gambar,
+    "ditujukan": ditujukan,
+    "author": author.toJson(),
+    "author_id": authorId,
+    "like_jumlah": likeJumlah,
+    "comment_jumlah": commentJumlah,
+    "created_at": createdAt.toIso8601String(),
+    "updated_at": updatedAt.toIso8601String(),
+  };
 }
 
 class Author {
   int id;
   DateTime updatedAt;
+  dynamic deletedAt;
   String username;
   String email;
   String password;
@@ -86,6 +100,7 @@ class Author {
   Author({
     required this.id,
     required this.updatedAt,
+    required this.deletedAt,
     required this.username,
     required this.email,
     required this.password,
@@ -103,6 +118,7 @@ class Author {
   factory Author.fromJson(Map<String, dynamic> json) => Author(
     id: json["ID"],
     updatedAt: DateTime.parse(json["UpdatedAt"]),
+    deletedAt: json["DeletedAt"],
     username: json["username"],
     email: json["email"],
     password: json["password"],
@@ -117,5 +133,21 @@ class Author {
     bio: json["bio"],
   );
 
-
+  Map<String, dynamic> toJson() => {
+    "ID": id,
+    "UpdatedAt": updatedAt.toIso8601String(),
+    "DeletedAt": deletedAt,
+    "username": username,
+    "email": email,
+    "password": password,
+    "photo_profile": photoProfile,
+    "tanggal_lahir": "${tanggalLahir.year.toString().padLeft(4, '0')}-${tanggalLahir.month.toString().padLeft(2, '0')}-${tanggalLahir.day.toString().padLeft(2, '0')}",
+    "daerah": daerah,
+    "role": role,
+    "VerHash": verHash,
+    "Timeout": timeout.toIso8601String(),
+    "IsActive": isActive,
+    "CreatedAt": createdAt.toIso8601String(),
+    "bio": bio,
+  };
 }

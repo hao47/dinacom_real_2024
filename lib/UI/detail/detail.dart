@@ -10,6 +10,7 @@ import 'package:dinacom_2024/UI/widget/role.dart';
 import 'package:dinacom_2024/common/app_theme.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
@@ -201,7 +202,15 @@ class DetailPage extends GetView<DetailController> {
                                     ],
                                   ),
                                   IconButton(
-                                      onPressed: () {},
+                                      onPressed: () async{
+
+                                        // FlutterShare
+                                        await FlutterShare.share(
+                                            title: controller.detailModel.value.responseDetail!.content,
+                                            text: controller.detailModel.value.responseDetail!.content,
+                                            linkUrl: controller.detailModel.value.responseDetail!.content,
+                                            chooserTitle: 'News Share');
+                                      },
                                       icon: const Icon(Icons.share),
                                       iconSize: 16),
                                 ],
