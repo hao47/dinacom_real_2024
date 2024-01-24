@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:csc_picker/csc_picker.dart';
-import 'package:dinacom_2024/UI/auth/auth_page_controller.dart';
+import 'package:dinacom_2024/UI/auth/register/regist_controller.dart';
 import 'package:dinacom_2024/UI/widget/custom_textfield.dart';
 import 'package:dinacom_2024/UI/widget/loading_animation.dart';
 import 'package:dinacom_2024/common/app_theme.dart';
@@ -16,7 +16,7 @@ import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-class RegistLengkap extends GetView<AuthPageController> {
+class RegistLengkap extends GetView<RegistPageController> {
    RegistLengkap({super.key});
 
 
@@ -80,7 +80,7 @@ class RegistLengkap extends GetView<AuthPageController> {
                                .copyWith(fontSize: 12, color: ColorValue.LightGrey),
                          ),
                          Container(
-                           margin: EdgeInsets.symmetric(vertical: 75),
+                           margin: EdgeInsets.symmetric(vertical: 65),
                            // height: 1,
                            child: Obx(
                                  () => Stack(
@@ -88,16 +88,20 @@ class RegistLengkap extends GetView<AuthPageController> {
                                children: [
                                  controller.pickedFile.value != null?
                              CircleAvatar(
+                               backgroundColor: Colors.white,
                                      radius: 64,
                                      backgroundImage: FileImage(File(controller.pickedFile.value!.path)),
                                    ):
                                  CircleAvatar(
-                                   radius: 64,
-                                   backgroundImage: NetworkImage("https://www.shutterstock.com/image-vector/vector-flat-illustration-grayscale-avatar-600nw-2264922221.jpg"),
+
+                                   backgroundColor: Colors.white,
+                                   radius: 84,
+                                   backgroundImage: NetworkImage("https://www.shutterstock.com/image-vector/vector-flat-illustration-grayscale-avatar-600nw-2264922221.jpg",),
+
                                  ),
                                  Positioned(
-                                     bottom: 0,
-                                     left: 80,
+                                     bottom: 10,
+                                     left: 100,
                                      child: Container(
                                        width: 40,
                                        height: 40,

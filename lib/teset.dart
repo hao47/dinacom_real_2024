@@ -1,143 +1,115 @@
-import 'package:csc_picker/csc_picker.dart';
+import 'dart:ui';
+
+import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:flutter/material.dart';
 
-import 'UI/widget/custom_textfield.dart';
+class BeritaPage extends StatelessWidget {
+  const BeritaPage({super.key});
 
-
-class CountryPicker extends StatefulWidget {
-  const CountryPicker({super.key});
-
-  @override
-  State<CountryPicker> createState() => _CountryPickerState();
-}
-
-class _CountryPickerState extends State<CountryPicker> {
-  // String countryValue = "";
-
-  TextEditingController _passwordController = TextEditingController();
-  String countryValue = "";
-  String stateValue = "";
-  String cityValue = "";
-  String address = "";
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    var width = MediaQuery.sizeOf(context).width;
+    var height = MediaQuery.sizeOf(context).height;
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text(widget.title),
-      // ),
-      body: Center(
-        child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            height: 600,
-            child: Column(
-              children: [
-                ///Adding CSC Picker Widget in app
-                CSCPicker(
-                  ///Enable disable state dropdown [OPTIONAL PARAMETER]
-                  showStates: true,
 
-                  /// Enable disable city drop down [OPTIONAL PARAMETER]
-                  showCities: true,
-
-                  ///Enable (get flag with country name) / Disable (Disable flag) / ShowInDropdownOnly (display flag in dropdown only) [OPTIONAL PARAMETER]
-                  flagState: CountryFlag.DISABLE,
-
-                  ///Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER] (USE with disabledDropdownDecoration)
-                  dropdownDecoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      color: Colors.white,
-                      border:
-                      Border.all(color: Colors.grey.shade300, width: 1)),
-
-                  ///Disabled Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER]  (USE with disabled dropdownDecoration)
-                  disabledDropdownDecoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      color: Colors.grey.shade300,
-                      border:
-                      Border.all(color: Colors.grey.shade300, width: 1)),
-
-                  ///placeholders for dropdown search field
-                  countrySearchPlaceholder: "Country",
-                  stateSearchPlaceholder: "State",
-                  citySearchPlaceholder: "City",
-
-                  ///labels for dropdown
-                  countryDropdownLabel: "Country",
-                  stateDropdownLabel: "State",
-                  cityDropdownLabel: "City",
-
-                  ///Default Country
-                  ///defaultCountry: CscCountry.India,
-
-                  ///Country Filter [OPTIONAL PARAMETER]
-                  countryFilter: [CscCountry.India,CscCountry.United_States,CscCountry.Canada],
-
-                  ///Disable country dropdown (Note: use it with default country)
-                  //disableCountry: true,
-
-                  ///selected item style [OPTIONAL PARAMETER]
-                  selectedItemStyle: TextStyle(
-                    color: Colors.black,
-                    fontSize: 14,
-                  ),
-
-                  ///DropdownDialog Heading style [OPTIONAL PARAMETER]
-                  dropdownHeadingStyle: TextStyle(
-                      color: Colors.black,
-                      fontSize: 17,
-                      fontWeight: FontWeight.bold),
-
-                  ///DropdownDialog Item style [OPTIONAL PARAMETER]
-                  dropdownItemStyle: TextStyle(
-                    color: Colors.black,
-                    fontSize: 14,
-                  ),
-
-                  ///Dialog box radius [OPTIONAL PARAMETER]
-                  dropdownDialogRadius: 10.0,
-
-                  ///Search bar radius [OPTIONAL PARAMETER]
-                  searchBarRadius: 10.0,
-
-                  ///triggers once country selected in dropdown
-                  onCountryChanged: (value) {
-                    setState(() {
-                      ///store value in country variable
-                      countryValue = value;
-                    });
-                  },
-
-                  ///triggers once state selected in dropdown
-                  onStateChanged: (value) {
-                    setState(() {
-                      ///store value in state variable
-                      stateValue = value ?? "";
-                    });
-                  },
-
-                  ///triggers once city selected in dropdown
-                  onCityChanged: (value) {
-                    setState(() {
-                      ///store value in city variable
-                      cityValue = value ?? "";
-                    });
-                  },
-
-                  ///Show only specific countries using country filter
-                  // countryFilter: ["United States", "Canada", "Mexico"],
+      body: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Container(
+            height: height * 0.4,
+            decoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              image: const DecorationImage(
+                fit: BoxFit.cover,
+                image: NetworkImage(
+                  "https://images.pexels.com/photos/3307758/pexels-photo-3307758.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=250",
                 ),
+              ),
+            ),
+          ),
+          DraggableScrollableSheet(
 
-                ///print newly selected country state and city in Text Widget
-                TextButton(
-                    onPressed: () {
-                      setState(() {
-                        address = "$cityValue, $stateValue, $countryValue";
-                      });
-                    },
-                    child: Text("Print Data")),
-                Text(address)
-              ],
-            )),
+              initialChildSize: 0.65,
+              maxChildSize: 1.0,
+              minChildSize: 0.65,
+              builder: (context, controller) {
+                return Stack(
+                  alignment: AlignmentDirectional.topCenter,
+                  clipBehavior: Clip.none,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(
+                          left: width * 0.1,
+                          right: width * 0.1,
+                          top: height * 0.05),
+                      decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(50),
+                              topRight: Radius.circular(50))),
+                      child: Text(
+                        """
+Cryptocurrencies “have no intrinsic value” and people who invest in them should be prepared to lose all their money, Bank of England Governor Andrew Bailey said.
+
+Digital currencies like bitcoin, ether and even dogecoin have been on a tear this year, reminding some investors of the 2017 crypto bubble in which bitcoin blasted toward \$20,000, only to sink as low as \$3,122 a year later.
+
+Asked at a press conference Thursday about the rising value of cryptocurrencies, Bailey said: “They have no intrinsic value. That doesn’t mean to say people don’t put value on them, because they can have extrinsic value. But they have no intrinsic value.”
+
+“I’m going to say this very bluntly again,” he added. “Buy them only if you’re prepared to lose all your money.”
+
+Bailey’s comments echoed a similar warning from the U.K.’s Financial Conduct Authority.
+
+“Investing in cryptoassets, or investments and lending linked to them, generally involves taking very high risks with investors’ money,” the financial services watchdog said in January.
+
+“If consumers invest in these types of product, they should be prepared to lose all their money.”
+
+Bailey, who was formerly the chief executive of the FCA, has long been a skeptic of crypto. In 2017, he warned: “If you want to invest in bitcoin, be prepared to lose all your money.”
+                      """,
+                        style: textTheme.bodyText1!.copyWith(
+                            fontSize: 16,
+                            height: 1.5,
+                            color: ColorValue.BaseBlack),
+                      ),
+                    ),
+                    Positioned(
+                      top: -100,
+                      width: width * 0.8,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: BackdropFilter(
+                            filter: ImageFilter.blur(
+                              sigmaX: 10,
+                              sigmaY: 10,
+                            ),
+                            child: Container(
+                              margin: EdgeInsets.all(20),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text('Senin, 15 Januari 2024',
+                                      style: textTheme.bodyText1!.copyWith(
+                                          fontSize: 12,
+                                          height: 1.5,
+                                          color: ColorValue.BaseBlack,
+                                          fontWeight: FontWeight.w900)),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                      'Debat cawapres seru ketiga paslon saling bersilat lidah dengan pedas',
+                                      style: textTheme.bodyText1!.copyWith(
+                                          fontSize: 16,
+                                          height: 1.5,
+                                          color: ColorValue.BaseBlack)),
+                                ],
+                              ),
+                            )),
+                      ),
+                    ),
+                  ],
+                );
+              })
+        ],
       ),
     );
   }

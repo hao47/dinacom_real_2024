@@ -1,7 +1,8 @@
-import 'package:dinacom_2024/UI/auth/auth_page_binding.dart';
+
 import 'package:dinacom_2024/UI/auth/auth_page_view.dart';
 import 'package:dinacom_2024/UI/auth/login/login_binding.dart';
 import 'package:dinacom_2024/UI/auth/login/login_page_view.dart';
+import 'package:dinacom_2024/UI/auth/register/regist_binding.dart';
 import 'package:dinacom_2024/UI/auth/register/regist_page_view.dart';
 import 'package:dinacom_2024/UI/auth/verif/verif_binding.dart';
 import 'package:dinacom_2024/UI/auth/verif/verif_controller.dart';
@@ -45,7 +46,7 @@ List<GetPage> routes = [
   GetPage(
     name:  UrlRoutes.auth_page,
     page: () => AuthPageView(),
-    binding: AuthPageBinding(),
+    // binding: AuthPageBinding(),
   ),
   GetPage(
     name: '/menu',
@@ -85,6 +86,13 @@ List<GetPage> routes = [
   ),  GetPage(
     name: '/profileinstansi',
     page: () => ProfileInstansi(),
+
+    // binding: SettingBinding(),
+  ),
+  GetPage(
+    name: '/regist',
+    page: () => RegistPageView(),
+    binding: RegistPageBinding()
 
     // binding: SettingBinding(),
   ),

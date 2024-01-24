@@ -1,4 +1,4 @@
-import 'package:dinacom_2024/UI/auth/auth_page_controller.dart';
+
 import 'package:dinacom_2024/UI/masyarakat_profile/widget/profile_biodata.dart';
 // import 'package:dinacom_2024/UI/masyarakat_profile/profile_post.dart';
 import 'package:dinacom_2024/UI/setting/setting_controller.dart';

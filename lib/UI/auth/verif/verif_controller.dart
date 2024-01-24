@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:dinacom_2024/UI/auth/auth_page_controller.dart';
-import 'package:dinacom_2024/UI/bottom_navigation/bottom_navigation.dart';
-import 'package:dinacom_2024/common/navigate.dart';
+import 'package:dinacom_2024/UI/auth/register/regist_controller.dart';
 import 'package:dinacom_2024/constants/url_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -47,7 +45,7 @@ class VerifControlller extends GetxController {
 
   Future _checkEmailVerified() async {
 
-    final a = Get.put(AuthPageController());
+    final a = Get.put(RegistPageController());
 
     var check = await verif(a.emailControllerRegist.text);
 

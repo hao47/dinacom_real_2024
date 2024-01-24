@@ -1,4 +1,4 @@
-import 'package:dinacom_2024/UI/auth/auth_page_controller.dart';
+// import 'package:dinacom_2024/UI/auth/auth_page_controller.dart';
 import 'package:dinacom_2024/UI/auth/login/login_page_view.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:flutter/material.dart';
@@ -65,6 +65,7 @@ class AuthButton extends StatelessWidget {
                     Get.bottomSheet(
 
                       isScrollControlled: true,
+                      // ignoreSafeArea: false,
                       LoginPageView(),
                       backgroundColor: Colors.white,
                       elevation: 0,

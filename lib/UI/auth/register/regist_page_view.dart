@@ -1,5 +1,6 @@
-import 'package:dinacom_2024/UI/auth/auth_page_controller.dart';
 import 'package:dinacom_2024/UI/auth/login/login_page_view.dart';
+import 'package:dinacom_2024/UI/auth/register/regist_controller.dart';
+import 'package:dinacom_2024/UI/auth/register/regist_controller.dart';
 import 'package:dinacom_2024/UI/auth/register/regist_lengkap.dart';
 import 'package:dinacom_2024/UI/widget/custom_textfield.dart';
 import 'package:dinacom_2024/UI/widget/loading_animation.dart';
@@ -11,24 +12,26 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-class RegistPageView extends GetView<AuthPageController> {
+class RegistPageView extends GetView<RegistPageController> {
+  final formKeyRegist = GlobalKey<FormState>();
+
+  // final controller = Get.put(RegistPageController());
+
   @override
   Widget build(BuildContext context) {
-
-    Get.put(AuthPageController());
+    Get.put(RegistPageController());
     final textTheme = Theme.of(context).textTheme;
     double screenWidth = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Form(
-        key: controller.formKeyRegist,
+        key: formKeyRegist,
         child: Container(
             padding: const EdgeInsets.only(top: 40, right: 20, left: 20),
             width: screenWidth,
             height: 600,
             decoration: const BoxDecoration(
                 color: Colors.white,
-                borderRadius:
-                    BorderRadius.vertical(top: Radius.circular(25))),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(25))),
             child: Stack(
               children: [
                 SingleChildScrollView(
@@ -50,8 +53,7 @@ class RegistPageView extends GetView<AuthPageController> {
                         controller: controller.emailControllerRegist,
                         textInputType: TextInputType.emailAddress,
                         borderRadius: 15,
-                        validator: (value) =>
-                            Validator.emailValidator(value),
+                        validator: (value) => Validator.emailValidator(value),
                       ),
                       const SizedBox(height: 12.5),
                       CustomTextFormField(
@@ -59,8 +61,7 @@ class RegistPageView extends GetView<AuthPageController> {
                           controller: controller.usernameController,
                           textInputType: TextInputType.name,
                           borderRadius: 15,
-                          validator: (value) =>
-                              Validator.nameValidator(value)),
+                          validator: (value) => Validator.nameValidator(value)),
                       const SizedBox(height: 12.5),
                       CustomTextFormField(
                         label: 'Password',
@@ -77,7 +78,8 @@ class RegistPageView extends GetView<AuthPageController> {
                         isPassword: true,
                         borderRadius: 15,
                         validator: (value) =>
-                            Validator.confirmPasswordValidator(value!,controller.passwordControllerRegist.text),
+                            Validator.confirmPasswordValidator(value!,
+                                controller.passwordControllerRegist.text),
                       ),
                       const SizedBox(height: 12.5),
                       Row(
@@ -104,27 +106,17 @@ class RegistPageView extends GetView<AuthPageController> {
                       const SizedBox(height: 14),
                       ElevatedButton(
                         onPressed: () async {
-                          if (controller.formKeyRegist.currentState!
-                              .validate()) {
-                            // print(Provider.of<RegistProvider>(
-                            //     context, listen: false).emailController.text);
-                            // if (controller.confirmPasswordController.text != controller.passwordController.text) {
-                            //   return;
-                            // }
+                          if (formKeyRegist.currentState!.validate()) {
                             if (!controller.isCheckedTerms.value) {
                               controller.errorTerms();
                               return;
                             }
-                            //
+
                             Navigator.push(context, MaterialPageRoute(
                               builder: (context) {
                                 return RegistLengkap();
                               },
                             ));
-
-                            // Provider.of<RegistProvider>(
-                            //     context, listen: false).regist(
-                            //     context, controller.formKeyRegistntroller.text,controller.formKeyRegisteController.text,controller.formKeyRegistdController.text,_tanggaLahirController.text,"Kudus");
                           }
                         },
                         child: const Text('Next'),

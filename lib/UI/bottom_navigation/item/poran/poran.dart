@@ -174,7 +174,7 @@ class Poran extends StatelessWidget {
                   style: CommonAppTheme.textTheme(context).headline1!.copyWith(
                         fontSize: 20,
                       )),
-              GetBuilder<PoranController>(
+              GetX<PoranController>(
                 builder: (controller) {
                   // print(state.categoryResult.response.length);
                   if (controller.state.value == ResultState.loading) {

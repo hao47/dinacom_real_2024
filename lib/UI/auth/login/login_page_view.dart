@@ -1,6 +1,4 @@
-import 'package:dinacom_2024/UI/auth/auth_page_controller.dart';
 import 'package:dinacom_2024/UI/auth/login/login_controller.dart';
-import 'package:dinacom_2024/UI/auth/login/login_page_view.dart';
 import 'package:dinacom_2024/UI/auth/register/regist_page_view.dart';
 import 'package:dinacom_2024/UI/widget/custom_textfield.dart';
 import 'package:dinacom_2024/UI/widget/loading_animation.dart';
@@ -9,22 +7,15 @@ import 'package:dinacom_2024/validator/Validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 
 class LoginPageView extends GetView<LoginPageController> {
 
-
-
   final formKeyLogin = GlobalKey<FormState>();
-
-
-  // Get.put ()
+  // final controller = Get.put( LoginPageController());
 
   @override
   Widget build(BuildContext context) {
-    Get.lazyPut<LoginPageController>(
-            () => LoginPageController());
-
+    Get.put( LoginPageController());
     final textTheme = Theme.of(context).textTheme;
     double screenWidth = MediaQuery.of(context).size.width;
     return SafeArea(
@@ -83,11 +74,6 @@ class LoginPageView extends GetView<LoginPageController> {
                       onPressed: () async {
                         if (formKeyLogin.currentState!.validate()) {
 
-                          // print("halo");
-                          // print(
-                          //     controller.emailController.text);
-                          // print(
-                          //     controller.passwordController.text);
                           controller.login(controller.emailController.text, controller.passwordController.text);
                         }
                       },

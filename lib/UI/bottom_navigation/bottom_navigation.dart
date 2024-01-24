@@ -1,8 +1,10 @@
 import 'package:dinacom_2024/UI/bottom_navigation/item/lapor/laport.dart';
 import 'package:dinacom_2024/UI/bottom_navigation/item/notification/notification_page.dart';
+import 'package:dinacom_2024/UI/bottom_navigation/item/profile/profile_provider.dart';
 import 'package:dinacom_2024/UI/bottom_navigation/item/search/search_page.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'dart:io';
 
 import 'item/poran/poran.dart';
@@ -50,6 +52,8 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    Get.put(ProfileController());
     return WillPopScope(
       onWillPop: () {
         if (items[selectedTab].navKey.currentState?.canPop() ?? false) {

@@ -20,7 +20,7 @@ void deviceOrientation() {
   ]);
 }
 
-class MyApp extends GetView<ProfileController> {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {

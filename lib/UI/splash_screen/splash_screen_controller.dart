@@ -18,8 +18,6 @@ class SplashScreenController extends GetxController {
 
     await checkTokenShared();
 
-    // print("ada" + isHasToken.toString());
-
     Timer(
         const Duration(seconds: 3),
         () => isHasToken
@@ -38,15 +36,12 @@ class SplashScreenController extends GetxController {
 
 
     prefs.setString("token", "");
-    // prefs.setString("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRhZmZhIiwiZW1haWwiOiJkYWZmYXJvYmFuaTU1MUBnbWFpbC5jb20iLCJpZCI6MzMsImV4cCI6MTcwNTgyMzM5MX0.Aum4RC1UNbrymoaK5-ebU3ASbhqKYGGwtJxolNh_1e4");
-    String? token = prefs.getString('token');
+   String? token = prefs.getString('token');
 
-    // print(token);
 
     if (token != "" && token != null) {
       print(token);
       var isTokenValid =  await Validator.isTokenStillValid(token!);
-      // print(isTokenValid);
       return isHasToken = isTokenValid;
     }else {
       return false;
