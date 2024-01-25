@@ -60,7 +60,6 @@ class DetailPage extends GetView<DetailController> {
         body: SingleChildScrollView(
             child: Column(
                 children: [
-
                   GetBuilder<DetailController>(
                     builder: (controller) {
                       // print(state.categoryResult.response.length);
@@ -136,6 +135,9 @@ class DetailPage extends GetView<DetailController> {
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
+                                      controller.detailModel.value.responseDetail!.gambar == ""?
+                                      Container()
+                                          :
                                       Container(
                                         height: 180,
                                         decoration: BoxDecoration(
@@ -220,7 +222,6 @@ class DetailPage extends GetView<DetailController> {
                                   ),
                                   IconButton(
                                       onPressed: () async{
-
                                         // FlutterShare
                                         await FlutterShare.share(
                                             title: controller.detailModel.value.responseDetail!.content,
@@ -336,6 +337,7 @@ controller: controller.bodycontroller,
                   if( a == true){
                     Get.put(DetailController()).detail();
                     Get.put(DetailController()).getComment();
+
                     FocusScope.of(context).unfocus();
                     controller.bodycontroller.clear();
                   }

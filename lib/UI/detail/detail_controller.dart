@@ -100,6 +100,8 @@ class DetailController extends GetxController{
 
         update();
 
+
+
         return _getcommentModel.value = profile;
       }
     } catch (e) {
