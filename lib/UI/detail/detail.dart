@@ -329,16 +329,15 @@ controller: controller.bodycontroller,
             decoration: InputDecoration(
               suffixIcon: IconButton(
                 onPressed: () async{
-                  FocusScope.of(context).unfocus();
-                  controller.bodycontroller.clear();
 
                   final a = await controller.createporan(controller.one[0],controller.bodycontroller.text);
 
 
                   if( a == true){
-
                     Get.put(DetailController()).detail();
                     Get.put(DetailController()).getComment();
+                    FocusScope.of(context).unfocus();
+                    controller.bodycontroller.clear();
                   }
 
 
