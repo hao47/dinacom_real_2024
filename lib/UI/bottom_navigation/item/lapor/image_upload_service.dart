@@ -3,6 +3,7 @@ import 'package:dinacom_2024/UI/bottom_navigation/item/poran/poran_provider.dart
 import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:dio/dio.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 // import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -63,6 +64,8 @@ class ImageUploadService{
       if (response.statusCode == 201 || response.statusCode == 400) {
 
         showCustom(context);
+
+        Get.put(PoranController()). profile();
       } else {
 
 

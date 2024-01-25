@@ -16,7 +16,7 @@ class SearchPage extends GetView<SearchPageController> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(SearchPageController());
+    Get.put(SearchPageController()).getPoranSearch("");
     // Get.put(ProfileController());
     return Scaffold(
 
