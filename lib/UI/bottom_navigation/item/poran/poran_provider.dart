@@ -200,7 +200,7 @@ Future<bool> like(BuildContext context, int id, int uslike) async {
   String? token = pref.getString('token');
 
   final response = await http.post(
-      Uri.parse("http://10.0.2.2:8080/api/secured/likes/$id/$uslike"),
+      Uri.parse("https://urchin-app-hlgon.ondigitalocean.app/api/secured/likes/$id/$uslike"),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Authorization': '$token',
@@ -228,7 +228,7 @@ Future<bool> like(BuildContext context, int id, int uslike) async {
   String? token = pref.getString('token');
 
   final response = await http.delete(
-      Uri.parse("http://10.0.2.2:8080/api/secured/likes/$id/$post_id"),
+      Uri.parse("https://urchin-app-hlgon.ondigitalocean.app/api/secured/likes/$id/$post_id"),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Authorization': '$token',
@@ -323,7 +323,7 @@ Future<CheckLikeModel>checklike(int post_id) async{
     String? token = pref.getString('token');
 
     final response = await http.delete(
-        Uri.parse("http://10.0.2.2:8080/api/secured/posts/$id"),
+        Uri.parse("https://urchin-app-hlgon.ondigitalocean.app/api/secured/posts/$id"),
         headers: <String, String>{
           'Content-Type': 'application/json',
           'Authorization': '$token',

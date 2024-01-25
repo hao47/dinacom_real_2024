@@ -92,7 +92,7 @@ class Validator {
 
   static Future<bool> isTokenStillValid(String token) async {
 
-    final response = await http.get(Uri.parse("http://10.0.2.2:8080/api/secured/ping"),
+    final response = await http.get(Uri.parse("https://urchin-app-hlgon.ondigitalocean.app/api/secured/ping"),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': '$token',

@@ -29,6 +29,7 @@ class ResponseDetail {
   String content;
   String gambar;
   String ditujukan;
+  String title;
   Author author;
   int authorId;
   int likeJumlah;
@@ -42,6 +43,7 @@ class ResponseDetail {
     required this.gambar,
     required this.ditujukan,
     required this.author,
+    required this.title,
     required this.authorId,
     required this.likeJumlah,
     required this.commentJumlah,
@@ -54,6 +56,7 @@ class ResponseDetail {
     content: json["content"],
     gambar: json["gambar"],
     ditujukan: json["ditujukan"],
+    title: json["title"],
     author: Author.fromJson(json["author"]),
     authorId: json["author_id"],
     likeJumlah: json["like_jumlah"],

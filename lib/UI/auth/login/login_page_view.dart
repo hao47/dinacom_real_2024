@@ -99,13 +99,13 @@ class LoginPageView extends GetView<LoginPageController> {
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
                                 Navigator.pop(context);
-                                showModalBottomSheet(
-                                  isScrollControlled: true,
-                                  context: context,
-                                  builder: (context) {
-                                    return RegistPageView();
-                                  },
-                                );
+                                // showModalBottomSheet(
+                                //   isScrollControlled: true,
+                                //   context: context,
+                                //   builder: (context) {
+                                //     return RegistPageView();
+                                //   },
+                                // );
                               },
                           ),
                         ],

@@ -29,6 +29,7 @@ class ResponseAllModel {
   String content;
   String gambar;
   String ditujukan;
+  String title;
   Author author;
   int authorId;
   int likeJumlah;
@@ -41,6 +42,7 @@ class ResponseAllModel {
     required this.content,
     required this.gambar,
     required this.ditujukan,
+    required this.title,
     required this.author,
     required this.authorId,
     required this.likeJumlah,
@@ -58,6 +60,7 @@ class ResponseAllModel {
     author: Author.fromJson(json["author"]),
     authorId: json["author_id"],
     likeJumlah: json["like_jumlah"],
+    title: json["title"],
     commentJumlah: json["comment_jumlah"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),

@@ -115,7 +115,7 @@ class DetailController extends GetxController{
     String? token = pref.getString('token');
 
     final response =
-    await http.post(Uri.parse("http://10.0.2.2:8080/api/secured/comments/$postid"),
+    await http.post(Uri.parse("https://urchin-app-hlgon.ondigitalocean.app/api/secured/comments/$postid"),
         headers: <String, String>{
           'Content-Type': 'application/json',
           'Authorization': '$token',

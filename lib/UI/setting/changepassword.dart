@@ -58,7 +58,7 @@ class ChangePassword extends GetView<SettingController> {
             const SizedBox(height: 12.5),
             CustomTextFormField(
               label: 'Confirm Password',
-              controller: controller.confirmPasswordController,
+              controller: controller.confirmpasswordController,
               borderRadius: 15,
               validator: (value) => Validator.passwordValidator(value),
             ),

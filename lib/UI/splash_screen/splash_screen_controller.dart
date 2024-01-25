@@ -35,7 +35,7 @@ class SplashScreenController extends GetxController {
     prefs = await SharedPreferences.getInstance();
 
 
-    prefs.setString("token", "");
+    // prefs.setString("token", "");
    String? token = prefs.getString('token');
 
 

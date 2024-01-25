@@ -17,7 +17,7 @@ class LikeService {
     String? token = pref.getString('token');
 
     final response = await http.post(
-        Uri.parse("http://10.0.2.2:8080/api/secured/likes/$id/$uslike"),
+        Uri.parse("https://urchin-app-hlgon.ondigitalocean.app/api/secured/likes/$id/$uslike"),
         headers: <String, String>{
           'Content-Type': 'application/json',
           'Authorization': '$token',

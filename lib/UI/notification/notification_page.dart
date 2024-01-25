@@ -1,5 +1,6 @@
 
-import 'package:dinacom_2024/UI/bottom_navigation/item/notification/widget/notif_container.dart';
+// import 'package:dinacom_2024/UI/bottom_navigation/item/notification/widget/notif_container.dart';
+import 'package:dinacom_2024/UI/notification/widget/notif_container.dart';
 import 'package:dinacom_2024/common/app_theme.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:flutter/material.dart';

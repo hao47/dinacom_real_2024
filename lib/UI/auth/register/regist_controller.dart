@@ -101,7 +101,7 @@ class RegistPageController extends GetxController {
 
         var request = http.MultipartRequest(
           'POST',
-          Uri.parse('http://10.0.2.2:8080/api/user/register'),
+          Uri.parse('https://urchin-app-hlgon.ondigitalocean.app/api/user/register'),
         );
 
         request.headers['Content-Type'] = 'multipart/form-data';
@@ -169,57 +169,44 @@ class RegistPageController extends GetxController {
   }
 
 
+   Future<bool> checkExist() async {
 
 
-
-  login(String username, String password) async {
-
-
-    print(username);
-    print(password);
-
-    isLoad.value = true;
-    final response =
-    await http.post(Uri.parse("http://10.0.2.2:8080/api/login"),
+     isLoad.value = true;
+    final response = await http.get(
+        Uri.parse("https://urchin-app-hlgon.ondigitalocean.app/api/emailexist/${emailControllerRegist.text}/${usernameController.text}"),
         headers: <String, String>{
           'Content-Type': 'application/json',
-        },
-        body: jsonEncode({
-          'email': username,
-          'password': password,
-        }));
-    if (response.statusCode == 200 || response.statusCode == 400) {
+        });
+
+
+    Map<String, dynamic> jsonResponse = json.decode(response.body);
+    String message = jsonResponse['message'];
+    if (response.statusCode == 200) {
+
       isLoad.value = true;
+      if(message == "email dapat didaftarkan"){
 
-      Map<String, dynamic> jsonResponse = json.decode(response.body);
-      bool status = jsonResponse['status'];
-      String message = jsonResponse['message'];
-      String? token = jsonResponse['token'];
-
-
-      print(response.body);
-
-      if (status) {
-        prefs = await SharedPreferences.getInstance();
-        print(jsonResponse);
-
-        await prefs!.setString("token", token!);
-
-
-        // Future.delayed(Duration(days: 1));
-
-        Get.offAllNamed("/menu");
         isLoad.value = false;
-      } else {
+
+        return true;
+      }else {
+
         isLoad.value = false;
+
+        return false;
       }
+
     } else {
-      print(response.body);
 
       isLoad.value = false;
       throw Exception('ada yang salah');
+
+      return false;
+
     }
   }
+
 
   String generateRandomString(int length) {
     final random = Random();
@@ -227,4 +214,6 @@ class RegistPageController extends GetxController {
     return List.generate(length, (index) => chars[random.nextInt(chars.length)])
         .join();
   }
+
+
 }

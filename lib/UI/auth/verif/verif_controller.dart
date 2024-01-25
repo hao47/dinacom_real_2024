@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 class VerifControlller extends GetxController {
   Future<dynamic> verif( String email) async {
     final response =
-        await http.post(Uri.parse("http://10.0.2.2:8080/api/emailver"),
+        await http.post(Uri.parse("https://urchin-app-hlgon.ondigitalocean.app/api/emailver"),
             headers: <String, String>{
               'Content-Type': 'application/json',
             },
@@ -20,11 +20,11 @@ class VerifControlller extends GetxController {
       Map<String, dynamic> jsonResponse = json.decode(response.body);
       String message = jsonResponse['message'];
 
-      if (message == "email Sudah terverifikasi") {
+      if (message == "Email sudah terverifikasi") {
 
 
         print("halo");
-        Get.toNamed( UrlRoutes.auth_page);
+        Get.toNamed(UrlRoutes.auth_page);
 
 
         // Get.toNamed(UrlRoutes.verif);

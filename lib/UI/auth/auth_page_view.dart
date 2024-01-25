@@ -11,12 +11,16 @@ import '../../common/theme/color_value.dart';
 import '../widget/custom_textfield.dart';
 import '../widget/loading_animation.dart';
 
-class AuthPageView extends StatelessWidget {
-  const AuthPageView({super.key});
+  class AuthPageView extends StatelessWidget {
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+   AuthPageView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+      // key: scaffoldKey,
         body: SingleChildScrollView(
           child: Column(
               children: [

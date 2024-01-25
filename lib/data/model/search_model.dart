@@ -29,12 +29,14 @@ class Post {
   String content;
   String gambar;
   String ditujukan;
+  String title;
   Author author;
   int authorId;
   int likeJumlah;
   int commentJumlah;
   DateTime createdAt;
   DateTime updatedAt;
+  bool liked;
 
   Post({
     required this.id,
@@ -42,11 +44,13 @@ class Post {
     required this.gambar,
     required this.ditujukan,
     required this.author,
+    required this.title,
     required this.authorId,
     required this.likeJumlah,
     required this.commentJumlah,
     required this.createdAt,
     required this.updatedAt,
+    required this.liked,
   });
 
   factory Post.fromJson(Map<String, dynamic> json) => Post(
@@ -56,10 +60,12 @@ class Post {
     ditujukan: json["ditujukan"],
     author: Author.fromJson(json["author"]),
     authorId: json["author_id"],
+    title: json["title"],
     likeJumlah: json["like_jumlah"],
     commentJumlah: json["comment_jumlah"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
+    liked: json["liked"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -73,6 +79,7 @@ class Post {
     "comment_jumlah": commentJumlah,
     "created_at": createdAt.toIso8601String(),
     "updated_at": updatedAt.toIso8601String(),
+    "liked": liked,
   };
 }
 

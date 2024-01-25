@@ -25,6 +25,7 @@ class ProfileController extends GetxController {
   final ProfileService profileService = ProfileService();
 
   Rx<ResultState> _state = ResultState.loading.obs;
+  Rx<ResultState> _statep = ResultState.loading.obs;
   RxString _message = ''.obs;
 
   Rx<ProfileModel> _profileModel =
@@ -38,43 +39,24 @@ class ProfileController extends GetxController {
   Rx<ResultState> get state => _state;
 
 
-  Rx<ResultState> _statep = ResultState.loading.obs;
+  // Rx<ResultState> _statep = ResultState.loading.obs;
 
-  Rx<ResultState> get statep => _state;
-//
-//
-//
-//   final ProfileService profileService = ProfileService();
-//   final ValueNotifier<bool> isLoad = ValueNotifier<bool>(false);
-//   late final SharedPreferences prefs;
-//
-//
-//
-//   late ProfileModel _profileModel;
+  Rx<ResultState> get statep => _statep;
+
     Rx<PoranProfileModel> _poranModel = PoranProfileModel(responseProfileModel: [], status: 0).obs;
-//
-//   late ResultState _state;
-//   String _message = '';
-//
-//   String get message => _message;
-//
-//   ProfileModel get categoryResult => _profileModel;
+
   Rx<PoranProfileModel> get poranModel => _poranModel;
-//
-//   ResultState get state => _state;
-//
-//
-//   ProfileProvider(){
-//     getporanprofile();
-//   }
-//
+
 
   @override
   void onInit() async{
     super.onInit();
     profilee();
     getporanprofile();
+    getporanprolike();
   }
+
+
 
   Future<dynamic> profilee() async {
     try {
@@ -105,6 +87,11 @@ class ProfileController extends GetxController {
   }
 
 
+
+
+
+
+
   Future<dynamic> getporanprofile() async {
     try {
       _statep.value = ResultState.loading;
@@ -132,27 +119,32 @@ class ProfileController extends GetxController {
       return _message.value = "ada yang salah";
     }
   }
-//
-//
-//   Future<dynamic> getporanprofile() async {
-//     try {
-//       _state = ResultState.loading;
-//       notifyListeners();
-//       final profile = await profileService.getporanprofile();
-//       if (profile.response.isEmpty) {
-//         _state = ResultState.noData;
-//         notifyListeners();
-//         return _message = 'Empty Data';
-//       } else {
-//         _state = ResultState.hasData;
-//         notifyListeners();
-//         return _poranModel = profile;
-//       }
-//     } catch (e) {
-//       print(e);
-//       _state = ResultState.error;
-//       notifyListeners();
-//       return _message = "ada yang salah";
-//     }
-//   }
+  Future<dynamic> getporanprolike() async {
+    try {
+      _statep.value = ResultState.loading;
+
+
+      final profile = await profileService.getporanlike();
+
+      // print(profile.response.length.toString());
+
+      if (profile.responseProfileModel.isEmpty) {
+        _statep.value = ResultState.noData;
+
+        return _message.value = 'Empty Data';
+      } else {
+        _statep.value = ResultState.hasData;
+
+        // update();
+
+        return _poranModel.value = profile;
+      }
+    } catch (e) {
+      print(e.runtimeType);
+      _statep.value = ResultState.error;
+
+      return _message.value = "ada yang salah";
+    }
+  }
+
 }

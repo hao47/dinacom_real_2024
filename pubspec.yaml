@@ -55,6 +55,14 @@ dependencies:
   flutter_quill: 9.2.6
   dropdown_search:
   flutter_share:
+  fluttertoast: ^8.2.4
+  tuple: ^2.0.2
+  geolocator: ^10.1.0
+  geocoding:
+  carousel_slider: ^4.2.1
+  shimmer:
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
