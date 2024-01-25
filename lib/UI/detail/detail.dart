@@ -335,7 +335,6 @@ controller: controller.bodycontroller,
 
 
                   if( a == true){
-
                     Get.put(DetailController()).detail();
                     Get.put(DetailController()).getComment();
 

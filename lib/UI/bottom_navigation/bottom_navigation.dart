@@ -75,20 +75,24 @@ class _BottomNavigationState extends State<BottomNavigation> {
         bottomNavigationBar: BottomNavigationBar(
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.bar_chart_outlined),
+              icon: Icon(Icons.home_outlined),
               activeIcon: Icon(
-                Icons.bar_chart,
+                Icons.home_rounded,
                 color: ColorValue.primaryColor,
               ),
-              label: 'Dashboard',
+              label: 'Beranda',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_bag_outlined),
+              icon: Icon(Icons.search_rounded),
               activeIcon: Icon(
-                Icons.shopping_bag,
+                Icons.search_rounded,
                 color: ColorValue.primaryColor,
               ),
-              label: 'Produk',
+              label: 'Pencarian',
+            ),
+            BottomNavigationBarItem(
+              icon: const SizedBox.shrink(),
+              label: "",
             ),
             // BottomNavigationBarItem(
             //   icon: Icon(Icons.add),
@@ -99,12 +103,12 @@ class _BottomNavigationState extends State<BottomNavigation> {
             //   label: 'lapor',
             // ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.chat_outlined),
+              icon: Icon(Icons.newspaper_outlined),
               activeIcon: Icon(
-                Icons.chat,
+                Icons.newspaper_rounded,
                 color: ColorValue.primaryColor,
               ),
-              label: 'Chat',
+              label: 'Berita',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person_outline),
