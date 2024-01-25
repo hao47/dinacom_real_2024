@@ -21,10 +21,15 @@ class _BottomNavigationState extends State<BottomNavigation> {
   int _currentIndex = 0;
   final List _pageStack = [];
 
+  int getCurrentIndex() {
+    return _currentIndex;
+  }
+
   final _tabs = [
     Poran(),
     SearchPage(),
     // Lapor(),
+    Container(),
     Berita(),
     Profile(),
   ];
@@ -93,6 +98,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
             BottomNavigationBarItem(
               icon: const SizedBox.shrink(),
               label: "",
+
             ),
             // BottomNavigationBarItem(
             //   icon: Icon(Icons.add),
@@ -132,7 +138,14 @@ class _BottomNavigationState extends State<BottomNavigation> {
           showSelectedLabels: true,
           elevation: 5,
           onTap: (index) {
-            _pagePush(index);
+
+            // print(index);
+            if( index == 2){
+              _pagePush(_currentIndex);
+            }else{
+
+              _pagePush(index);
+            }
           },
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
