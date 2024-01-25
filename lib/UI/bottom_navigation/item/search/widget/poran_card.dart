@@ -267,14 +267,6 @@ class PoranCardItemSearch extends GetView<PoranController> {
                                   fontSize: 7),
                             ),
                           ),
-                          SizedBox(width: 3),
-                          response.author.role != "Instansi"
-                              ? Container()
-                              : Image.asset(
-                            "assets/images/verified.png",
-                            fit: BoxFit.fill,
-                            width: 16,
-                          ),
                         ],
                       ),
                       Text(timeAgo == "kurang dari semenit yang lalu"

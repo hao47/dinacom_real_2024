@@ -12,6 +12,7 @@ import 'package:dinacom_2024/common/app_theme.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/quill_delta.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -19,6 +20,8 @@ import 'package:flutter_quill/flutter_quill.dart';
 import 'package:provider/provider.dart';
 import 'package:get/get.dart';
 import 'package:tuple/tuple.dart';
+
+import '../../../widget/loading_animation.dart';
 
 class Lapor extends StatefulWidget {
   Lapor({super.key});
@@ -101,172 +104,190 @@ class _LaporState extends State<Lapor> {
           )
         ],
       ),
-      body: Form(
-        key: _formKey,
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 30),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(left: 25, right: 15),
-                    width: 35,
-                    height: 35,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: ColorValue.BaseGrey,
-                        image: DecorationImage(
-                            image: NetworkImage(Get.put(ProfileController())
-                                .profileModel
-                                .value
-                                .responseProfile!
-                                .photoProfile))),
-                  ),
-
-                  Flexible(child:
-                  QuillEditor.basic(
-                    configurations: QuillEditorConfigurations(
-                        placeholder: "Judul...",
-
-                        controller: _controller,
-                        readOnly: false,
-                        sharedConfigurations: const QuillSharedConfigurations(
-                          locale: Locale('id'),
-                        ),
-                        customStyles: DefaultStyles(
-                            link: TextStyle().copyWith(color: Colors.blue),
-                            color: Colors.black,
-                            placeHolder: DefaultTextBlockStyle(
-                                const TextStyle().copyWith(
-                                  fontSize: 17,
-                                  color: Colors.black.withOpacity(0.6),
-                                  height: 1.3,
-                                ),
-                                VerticalSpacing(0, 0),
-                                VerticalSpacing(0, 0),
-                                null
-                            )
-                        )
-                    ),
-                  ),)
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 15, left: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-
-                  Flexible(
-                    child: QuillEditor.basic(
-                      configurations: QuillEditorConfigurations(
-                          placeholder: "Konten...",
-
-                          controller: _controller1,
-
-                          readOnly: false,
-                          sharedConfigurations: const QuillSharedConfigurations(
-                            locale: Locale('id'),
-                          ),
-                          customStyles: DefaultStyles(
-                              link: TextStyle().copyWith(color: Colors.blue),
-                              color: Colors.black,
-                              placeHolder: DefaultTextBlockStyle(
-                                  const TextStyle().copyWith(
-                                    fontSize: 17,
-                                    color: Colors.black.withOpacity(0.6),
-                                    height: 1.3,
-                                  ),
-                                  VerticalSpacing(0, 0),
-                                  VerticalSpacing(0, 0),
-                                  null
-                              )
-                          )
+      body: Stack(
+        children: [
+          Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 30),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(left: 25, right: 15),
+                        width: 35,
+                        height: 35,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: ColorValue.BaseGrey,
+                            image: DecorationImage(
+                                image: NetworkImage(Get.put(ProfileController())
+                                    .profileModel
+                                    .value
+                                    .responseProfile!
+                                    .photoProfile))),
                       ),
+
+                      Flexible(child:
+                      QuillEditor.basic(
+                        configurations: QuillEditorConfigurations(
+                            placeholder: "Judul...",
+
+                            controller: _controller,
+                            readOnly: false,
+                            sharedConfigurations: const QuillSharedConfigurations(
+                              locale: Locale('id'),
+                            ),
+                            customStyles: DefaultStyles(
+                                link: TextStyle().copyWith(color: Colors.blue),
+                                color: Colors.black,
+                                placeHolder: DefaultTextBlockStyle(
+                                    const TextStyle().copyWith(
+                                      fontSize: 17,
+                                      color: Colors.black.withOpacity(0.6),
+                                      height: 1.3,
+                                    ),
+                                    VerticalSpacing(0, 0),
+                                    VerticalSpacing(0, 0),
+                                    null
+                                )
+                            )
+                        ),
+                      ),)
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 15, left: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+
+                      Flexible(
+                        child: QuillEditor.basic(
+                          configurations: QuillEditorConfigurations(
+                              placeholder: "Konten...",
+
+                              controller: _controller1,
+
+                              readOnly: false,
+                              sharedConfigurations: const QuillSharedConfigurations(
+                                locale: Locale('id'),
+                              ),
+                              customStyles: DefaultStyles(
+                                  link: TextStyle().copyWith(color: Colors.blue),
+                                  color: Colors.black,
+                                  placeHolder: DefaultTextBlockStyle(
+                                      const TextStyle().copyWith(
+                                        fontSize: 17,
+                                        color: Colors.black.withOpacity(0.6),
+                                        height: 1.3,
+                                      ),
+                                      VerticalSpacing(0, 0),
+                                      VerticalSpacing(0, 0),
+                                      null
+                                  )
+                              )
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+
+
+
+                alamat == "" ?
+                InkWell(
+                  onTap: () async{
+
+                    // _controller.indentSelection();
+
+                    FocusScope.of(context).unfocus();
+                    // _controller.clear();
+                    // var result = await Get.bottomSheet(ChangeLocation());
+                    //
+                    //
+                    //
+                    // // if (result != null && result is List<String?>) {
+                    //   List<String?> streets = result;
+                    //   setState(() {
+                    //     alamat = streets[0]!;
+                    //   });
+                    // }
+
+                    Position position = await _determinePosition();
+
+
+                    List<Placemark> placemark = await placemarkFromCoordinates(position.latitude, position.longitude);
+
+                    print(placemark[0].street);
+
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 15),
+                    child: Row(
+                      children: [
+                        Icon(Icons.location_on,size: 25),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text("Pilih Lokasi Kejadian",style: CommonAppTheme.textTheme(context).bodyText1,)
+                      ],
                     ),
                   ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-
-
-
-            alamat == "" ?
-            InkWell(
-              onTap: () async{
-
-                // _controller.indentSelection();
-
-                FocusScope.of(context).unfocus();
-                // _controller.clear();
-                var result = await Get.bottomSheet(ChangeLocation());
-
-
-
-                // if (result != null && result is List<String?>) {
-                  List<String?> streets = result;
-                  setState(() {
-                    alamat = streets[0]!;
-                  });
-                // }
-
-              },
-              child: Padding(
-                padding: EdgeInsets.only(left: 15),
-                child: Row(
-                  children: [
-                    Icon(Icons.location_on,size: 25),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text("Pilih Lokasi Kejadian",style: CommonAppTheme.textTheme(context).bodyText1,)
-                  ],
-                ),
-              ),
-            )
-                :
-            Padding(
-              padding: EdgeInsets.only(left: 15),
-              child: Row(
-                children: [
-                  Icon(Icons.location_on,size: 25),
-                  SizedBox(
-                    width: 5,
+                )
+                    :
+                Padding(
+                  padding: EdgeInsets.only(left: 15),
+                  child: Row(
+                    children: [
+                      Icon(Icons.location_on,size: 25),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(alamat,style: CommonAppTheme.textTheme(context).bodyText1,)
+                    ],
                   ),
-                  Text(alamat,style: CommonAppTheme.textTheme(context).bodyText1,)
-                ],
-              ),
-            ),
-
-            SizedBox(
-              height: 10,
-            ),
-            Visibility(
-              visible: pickedFile != null,
-              child: pickedFile != null
-                  ? Image.file(File(pickedFile!.path), height: 200)
-                  : Container(),
-            ),
-            Expanded(child: Container()),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 10),
-              child: QuillToolbar.simple(
-                configurations: QuillSimpleToolbarConfigurations(
-                  controller: _controller,
-                  multiRowsDisplay: false,
                 ),
-              ),
-            )
-          ],
-        ),
+
+                SizedBox(
+                  height: 10,
+                ),
+                Visibility(
+                  visible: pickedFile != null,
+                  child: pickedFile != null
+                      ? Image.file(File(pickedFile!.path), height: 200)
+                      : Container(),
+                ),
+                Expanded(child: Container()),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 10),
+                  child: QuillToolbar.simple(
+                    configurations: QuillSimpleToolbarConfigurations(
+                      controller: _controller,
+                      multiRowsDisplay: false,
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+          ValueListenableBuilder<bool>(
+            valueListenable: uploadService.isLoad,
+            builder: (context, value, _) => Visibility(
+              visible: value,
+              child: const LoadingAnimation(),
+            ),
+          ),
+        ],
       ),
       floatingActionButton: Container(
         margin: EdgeInsets.only(bottom: 30.0),
@@ -316,5 +337,36 @@ class _LaporState extends State<Lapor> {
     final picker = ImagePicker();
     pickedFile = await picker.pickImage(source: ImageSource.gallery);
     setState(() {});
+  }
+
+  Future<Position> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      await Geolocator.openLocationSettings();
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    // When we reach here, permissions are granted and we can
+    // continue accessing the position of the device.
+    return await Geolocator.getCurrentPosition();
   }
 }
