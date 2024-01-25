@@ -78,23 +78,18 @@ class _LaporState extends State<Lapor> {
           Container(
             // color: ColorValue.secondaryColor,
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: alamat == "" || alamat == null && _controller.document.toPlainText().length == 1 && _controller1.document.toPlainText().length == 1?Text("Unggah",
-                style: CommonAppTheme.textTheme(context)
-                    .headline1!
-                    .copyWith(color: Colors.white.withOpacity(0.7), fontSize: 16)
-
-            ):TextButton(
+            child: TextButton(
               onPressed: () {
-                // if (alamat != "") {
-                  final judul = _controller.document.toPlainText();
-                  final content = _controller1.document.toPlainText();
+                if (alamat != "") {
+                final judul = _controller.document.toPlainText();
+                final content = _controller1.document.toPlainText();
 
-                  print(judul.length);
-                  // print(judul);
+                print(judul.length);
+                // print(judul);
 
 
-                  uploadService.uploadImage(pickedFile, context,"aa","aa",alamat);
-                // }
+                uploadService.uploadImage(pickedFile, context,content,judul,alamat);
+                }
               },
               child: Text("Unggah",
                   style: CommonAppTheme.textTheme(context)
@@ -130,35 +125,33 @@ class _LaporState extends State<Lapor> {
                                 .responseProfile!
                                 .photoProfile))),
                   ),
-                  Wrap(
-                    children: [
-                      QuillEditor.basic(
-                        configurations: QuillEditorConfigurations(
-                            placeholder: "Judul...",
 
-                            controller: _controller,
-                            readOnly: false,
-                            sharedConfigurations: const QuillSharedConfigurations(
-                              locale: Locale('id'),
-                            ),
-                            customStyles: DefaultStyles(
-                                link: TextStyle().copyWith(color: Colors.blue),
-                                color: Colors.black,
-                                placeHolder: DefaultTextBlockStyle(
-                                    const TextStyle().copyWith(
-                                      fontSize: 17,
-                                      color: Colors.black.withOpacity(0.6),
-                                      height: 1.3,
-                                    ),
-                                    VerticalSpacing(0, 0),
-                                    VerticalSpacing(0, 0),
-                                    null
-                                )
-                            )
+                  Flexible(child:
+                  QuillEditor.basic(
+                    configurations: QuillEditorConfigurations(
+                        placeholder: "Judul...",
+
+                        controller: _controller,
+                        readOnly: false,
+                        sharedConfigurations: const QuillSharedConfigurations(
+                          locale: Locale('id'),
                         ),
-                      ),
-                    ]
-                  ),
+                        customStyles: DefaultStyles(
+                            link: TextStyle().copyWith(color: Colors.blue),
+                            color: Colors.black,
+                            placeHolder: DefaultTextBlockStyle(
+                                const TextStyle().copyWith(
+                                  fontSize: 17,
+                                  color: Colors.black.withOpacity(0.6),
+                                  height: 1.3,
+                                ),
+                                VerticalSpacing(0, 0),
+                                VerticalSpacing(0, 0),
+                                null
+                            )
+                        )
+                    ),
+                  ),)
                 ],
               ),
             ),
