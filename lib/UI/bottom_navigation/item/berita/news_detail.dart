@@ -21,9 +21,14 @@ class DetailBeritaPage extends StatelessWidget {
       appBar: AppBar(
         toolbarHeight: 75,
         backgroundColor: ColorValue.LightBlue,
-        leading: const Icon(
-          Icons.arrow_back_ios_new,
-          color: Colors.white,
+        leading:  IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_back_ios_new,
+            color: Colors.white,
+          ),
         ),
         title: Text(
           "Berita",
