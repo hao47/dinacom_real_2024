@@ -5,9 +5,9 @@ import 'package:dinacom_2024/data/model/berita_model.dart';
 import 'package:flutter/material.dart';
 
 class DetailBeritaPage extends StatelessWidget {
-
   Result result;
-   DetailBeritaPage({super.key,required this.result});
+
+  DetailBeritaPage({super.key, required this.result});
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +21,14 @@ class DetailBeritaPage extends StatelessWidget {
       appBar: AppBar(
         toolbarHeight: 75,
         backgroundColor: ColorValue.LightBlue,
-        leading: const Icon(
-          Icons.arrow_back_ios_new,
-          color: Colors.white,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_back_ios_new,
+            color: Colors.white,
+          ),
         ),
         title: Text(
           "Berita",
@@ -37,11 +42,10 @@ class DetailBeritaPage extends StatelessWidget {
             height: height * 0.4,
             decoration: BoxDecoration(
               shape: BoxShape.rectangle,
-              image:  DecorationImage(
+              image: DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage(
-                  result.imageUrl ?? "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ="
-               ),
+                image: NetworkImage(result.imageUrl ??
+                    "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ="),
               ),
             ),
           ),
@@ -56,15 +60,14 @@ class DetailBeritaPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                        result.title,
+                    Text(result.title,
                         style: textTheme.bodyText1!.copyWith(
                             fontSize: 16,
                             height: 1.5,
                             color: ColorValue.BaseBlack,
                             fontWeight: FontWeight.w900)),
                     SizedBox(height: 10),
-                    Text( "$tahun-$bulan-$hari",
+                    Text("$tahun-$bulan-$hari",
                         style: textTheme.bodyText1!.copyWith(
                             fontSize: 12,
                             height: 1.5,
@@ -72,7 +75,7 @@ class DetailBeritaPage extends StatelessWidget {
                             fontWeight: FontWeight.w900)),
                     SizedBox(height: 25),
                     Text(
-                    """
+                      """
                     ${result.description}
                     
                     ${result.description}
@@ -84,8 +87,7 @@ class DetailBeritaPage extends StatelessWidget {
                     
                     ${result.description}
                     
-                    """
-                    ,
+                    """,
                       style: textTheme.bodyText1!.copyWith(
                           fontSize: 14,
                           height: 1.5,
