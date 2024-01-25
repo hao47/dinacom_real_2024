@@ -90,6 +90,10 @@ class _BottomNavigationState extends State<BottomNavigation> {
               ),
               label: 'Pencarian',
             ),
+            BottomNavigationBarItem(
+              icon: const SizedBox.shrink(),
+              label: "",
+            ),
             // BottomNavigationBarItem(
             //   icon: Icon(Icons.add),
             //   activeIcon: Icon(
