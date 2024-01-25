@@ -130,32 +130,34 @@ class _LaporState extends State<Lapor> {
                                 .responseProfile!
                                 .photoProfile))),
                   ),
-                  Flexible(
-                    child: QuillEditor.basic(
-                      configurations: QuillEditorConfigurations(
-                        placeholder: "Judul...",
+                  Wrap(
+                    children: [
+                      QuillEditor.basic(
+                        configurations: QuillEditorConfigurations(
+                            placeholder: "Judul...",
 
-                        controller: _controller,
-                        readOnly: false,
-                        sharedConfigurations: const QuillSharedConfigurations(
-                          locale: Locale('id'),
-                        ),
-                        customStyles: DefaultStyles(
-                          link: TextStyle().copyWith(color: Colors.blue),
-                          color: Colors.black,
-                          placeHolder: DefaultTextBlockStyle(
-                            const TextStyle().copyWith(
-                              fontSize: 17,
-                              color: Colors.black.withOpacity(0.6),
-                              height: 1.3,
+                            controller: _controller,
+                            readOnly: false,
+                            sharedConfigurations: const QuillSharedConfigurations(
+                              locale: Locale('id'),
                             ),
-                          VerticalSpacing(0, 0),
-                          VerticalSpacing(0, 0),
-                            null
-                          )
-                        )
+                            customStyles: DefaultStyles(
+                                link: TextStyle().copyWith(color: Colors.blue),
+                                color: Colors.black,
+                                placeHolder: DefaultTextBlockStyle(
+                                    const TextStyle().copyWith(
+                                      fontSize: 17,
+                                      color: Colors.black.withOpacity(0.6),
+                                      height: 1.3,
+                                    ),
+                                    VerticalSpacing(0, 0),
+                                    VerticalSpacing(0, 0),
+                                    null
+                                )
+                            )
+                        ),
                       ),
-                    ),
+                    ]
                   ),
                 ],
               ),
