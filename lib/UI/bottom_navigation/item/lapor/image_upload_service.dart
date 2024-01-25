@@ -23,6 +23,7 @@ String generateRandomString(int length) {
 
 class ImageUploadService{
 
+  final ValueNotifier<bool> isLoad = ValueNotifier<bool>(false);
 
   String randomString = generateRandomString(10);
   Future<void> uploadImage(XFile? pickedfile,BuildContext context,String content,String judul,String alamat) async {
