@@ -82,42 +82,58 @@ class RegistLengkap extends GetView<RegistPageController> {
                          Container(
                            margin: EdgeInsets.symmetric(vertical: 65),
                            // height: 1,
-                           child: Obx(
-                                 () => Stack(
-                               alignment: Alignment.center,
-                               children: [
-                                 controller.pickedFile.value != null?
-                             CircleAvatar(
-                               backgroundColor: Colors.white,
-                                     radius: 64,
-                                     backgroundImage: FileImage(File(controller.pickedFile.value!.path)),
-                                   ):
-                                 CircleAvatar(
-
-                                   backgroundColor: Colors.white,
-                                   radius: 84,
-                                   backgroundImage: NetworkImage("https://www.shutterstock.com/image-vector/vector-flat-illustration-grayscale-avatar-600nw-2264922221.jpg",),
-
-                                 ),
-                                 Positioned(
-                                     bottom: 10,
-                                     left: 100,
-                                     child: Container(
-                                       width: 40,
-                                       height: 40,
+                           child: Obx(() =>
+                               Stack(
+                                 alignment: Alignment.center,
+                                 children: [
+                                   Container(
+                                       width: 110,
+                                       height: 110,
                                        decoration: BoxDecoration(
-                                         borderRadius: BorderRadius.circular(100),
-                                         color: ColorValue.primaryColor
-                                       ),
-                                       child: IconButton(onPressed: () {
+                                           boxShadow: [
+                                             BoxShadow(
+                                                 spreadRadius: 2,
+                                                 blurRadius: 10,
+                                                 color: Colors.black.withOpacity(0.1),
+                                                 offset: const Offset(0, 10))
+                                           ],
+                                           shape: BoxShape.circle,
+                                           image:  controller.pickedFile.value != null? DecorationImage(
+                                             fit: BoxFit.cover,
+                                             image: FileImage(File(controller.pickedFile.value!.path)),
 
-                                         checkPermissions();
+                                           ):
+                                           DecorationImage(
+                                               fit: BoxFit.cover,
+                                               image: NetworkImage(
+                                             "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg"
+                                               ))
 
-                                       }, icon: Icon(CupertinoIcons.pencil,)),
-                                     ))
-                               ],
-                             ),
-                           ),
+                                       )
+                                   ),
+                                   Positioned(
+                                       top: 0,
+                                       right: 0,
+                                       child: InkWell(
+                                         onTap: () {
+                                           checkPermissions();
+                                         },
+                                         child: Container(
+                                           height: 35,
+                                           width: 35,
+                                           decoration: BoxDecoration(
+                                             shape: BoxShape.circle,
+                                             color: ColorValue.BaseGrey.withOpacity(0.8),
+                                           ),
+                                           child: const Icon(
+                                             Icons.edit,
+                                             color: Colors.white,
+                                             size: 20,
+                                           ),
+                                         ),
+                                       )),
+                                 ],
+                               ),)
                          ),
                          CustomTextFormField(
                            label: 'Bio',

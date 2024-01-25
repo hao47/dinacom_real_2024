@@ -1,5 +1,7 @@
 
 import 'package:dinacom_2024/UI/bottom_navigation/item/poran/poran_provider.dart';
+import 'package:dinacom_2024/UI/bottom_navigation/item/profile/profile_provider.dart';
+import 'package:dinacom_2024/UI/bottom_navigation/item/search/search_controller.dart';
 import 'package:dinacom_2024/UI/detail/detail_controller.dart';
 import 'package:dinacom_2024/UI/detail/detail_controller.dart';
 import 'package:dinacom_2024/UI/detail/widget/comment.dart';
@@ -38,6 +40,10 @@ class DetailPage extends GetView<DetailController> {
           leading:  IconButton(
          onPressed: () {
            Get.put(PoranController()).profile();
+           Get.put(ProfileController()).profilee();
+
+           Get.put(SearchPageController()).getPoranSearch("");
+           // Get.put(SearchPageController()).searchModel.value.posts[ Get.put(DetailController()).one[1]].commentJumlah++;
 
            Navigator.pop(context);
          },
@@ -145,6 +151,17 @@ class DetailPage extends GetView<DetailController> {
                                         ),
                                       ),
                                       SizedBox(height: 20),
+                                      Text(
+
+
+                                        controller.detailModel.value.responseDetail!.title,
+                                        style: CommonAppTheme.textTheme(context)
+                                            .headline1!
+                                            .copyWith(
+                                            fontSize: 14,
+                                            color: ColorValue.BaseBlack),
+                                      ),
+                                      SizedBox(height: 5),
                                       Text(
 
 

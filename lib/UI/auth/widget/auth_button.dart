@@ -13,7 +13,8 @@ import '../../widget/loading_animation.dart';
 import '../register/regist_page_view.dart';
 
 class AuthButton extends StatelessWidget {
-  const AuthButton({super.key});
+
+   AuthButton({super.key});
 
   @override
   Widget build(BuildContext context) {

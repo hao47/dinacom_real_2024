@@ -1,6 +1,9 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:dinacom_2024/UI/bottom_navigation/item/poran/poran_provider.dart';
+import 'package:dinacom_2024/UI/bottom_navigation/item/profile/profile_provider.dart';
 import 'package:dio/dio.dart';
 import 'package:dinacom_2024/constants/url_routes.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +49,7 @@ class LoginPageController extends GetxController {
 
     isLoad.value = true;
     final response =
-    await http.post(Uri.parse("http://10.0.2.2:8080/api/login"),
+    await http.post(Uri.parse("https://urchin-app-hlgon.ondigitalocean.app/api/login"),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
@@ -74,8 +77,33 @@ class LoginPageController extends GetxController {
 
         // Future.delayed(Duration(days: 1));
 
-        Get.offAllNamed("/menu");
-        isLoad.value = false;
+        String? tokens = prefs!.getString('token');
+
+
+        if(tokens != "" && tokens != null){
+
+          Timer(
+              const Duration(seconds: 2),() {
+
+            Get.offAllNamed("/menu");
+
+            Get.put(ProfileController());
+            Get.put(PoranController());
+
+            isLoad.value = false;
+              },);
+        }
+
+        // Timer(
+        //     const Duration(seconds: 2),() {
+        //
+        //   Get.offAllNamed("/menu");
+        //
+        //   Get.put(ProfileController());
+        //   Get.put(PoranController());
+        //
+        //   isLoad.value = false;
+        //     },);
       } else {
         isLoad.value = false;
       }

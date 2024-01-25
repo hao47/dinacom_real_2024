@@ -18,7 +18,7 @@ class PoranService {
     String? token = pref.getString('token');
 
     final response = await http.get(
-                              Uri.parse("http://10.0.2.2:8080/api/secured/posts"),
+                              Uri.parse("https://urchin-app-hlgon.ondigitalocean.app/api/secured/posts"),
         headers: <String, String>{
           'Content-Type': 'application/json',
           'Authorization': '$token',
@@ -40,7 +40,7 @@ class PoranService {
     String? token = pref.getString('token');
 
     final response = await http.get(
-        Uri.parse("http://10.0.2.2:8080/api/secured/posts/$id"),
+        Uri.parse("https://urchin-app-hlgon.ondigitalocean.app/api/secured/posts/$id"),
         headers: <String, String>{
           'Content-Type': 'application/json',
           'Authorization': '$token',
@@ -60,7 +60,7 @@ class PoranService {
     String? token = pref.getString('token');
 
     final response = await http.get(
-        Uri.parse("http://10.0.2.2:8080/api/secured/likes/$post_id"),
+        Uri.parse("https://urchin-app-hlgon.ondigitalocean.app/api/secured/likes/$post_id"),
         headers: <String, String>{
           'Content-Type': 'application/json',
           'Authorization': '$token',
@@ -83,7 +83,7 @@ class PoranService {
     String? token = pref.getString('token');
 
     final response = await http.get(
-        Uri.parse("http://10.0.2.2:8080/api/secured/comments/$id"),
+        Uri.parse("https://urchin-app-hlgon.ondigitalocean.app/api/secured/comments/$id"),
         headers: <String, String>{
           'Content-Type': 'application/json',
           'Authorization': '$token',
@@ -102,7 +102,7 @@ class PoranService {
     String? token = pref.getString('token');
 
     final response = await http.get(
-        Uri.parse("http://10.0.2.2:8080/api/secured/posts"),
+        Uri.parse("https://urchin-app-hlgon.ondigitalocean.app/api/secured/posts"),
         headers: <String, String>{
           'Content-Type': 'application/json',
           'Authorization': '$token',

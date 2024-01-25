@@ -112,7 +112,7 @@ class PoranCardItemAll extends GetView<PoranController> {
                           ? Container()
                           : Icon(
                               Icons.circle,
-                              color: ColorValue.VeryLightGrey,
+                              color: ColorValue.greyColor,
                               size: 10,
                             ),
                       SizedBox(width: 10),
@@ -122,7 +122,7 @@ class PoranCardItemAll extends GetView<PoranController> {
                             : 'Dalam antrian',
                         style: TextStyle(
                             fontWeight: FontWeight.w600,
-                            color: ColorValue.VeryLightGrey,
+                            color: ColorValue.greyColor,
                             fontSize: 10),
                       ),
                     ],
@@ -285,6 +285,18 @@ class PoranCardItemAll extends GetView<PoranController> {
               ),
               SizedBox(
                 height: 10,
+              ),
+              Text(
+                response.title,
+                maxLines: 1,
+                style: CommonAppTheme.textTheme(context).headline1!.copyWith(
+                  color: Colors.black,
+                  overflow: TextOverflow.ellipsis,
+                  fontSize: 18
+                ),
+              ),
+              SizedBox(
+                height: 5,
               ),
               Text(
                 response.content,

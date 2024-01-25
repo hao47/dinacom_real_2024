@@ -1,21 +1,37 @@
 
+import 'package:dinacom_2024/UI/bottom_navigation/item/profile/profile_provider.dart';
 import 'package:dinacom_2024/constants/url_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingController  extends GetxController{
-  TextEditingController usernameController = TextEditingController(text: 'Initial Value');
-  TextEditingController tanggaLahirController = TextEditingController(text: 'Initial Value');
+
+
+  TextEditingController usernameController = TextEditingController(text: Get.put(ProfileController()).profileModel.value.responseProfile!.username);
+  TextEditingController tanggaLahirController = TextEditingController(text: Get.put(ProfileController()).profileModel.value.responseProfile!.tanggalLahir.year.toString() +"-"+  Get.put(ProfileController()).profileModel.value.responseProfile!.tanggalLahir.month.toString() +"-"+ Get.put(ProfileController()).profileModel.value.responseProfile!.tanggalLahir.day.toString());
   TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
+  TextEditingController confirmpasswordController = TextEditingController();
 
-  RxString? countryValue = "".obs;
 
-  RxString? stateValue = "".obs;
+  Rx<XFile?> pickedFile = Rx<XFile?>(null);
 
-  RxString? cityValue = "".obs;
+  void pickedImage() async {
+    final picker = ImagePicker();
+    XFile? newPickedFile = await picker.pickImage(source: ImageSource.gallery);
 
+    if (newPickedFile != null) {
+      pickedFile.value = newPickedFile;
+      update(); // Perbarui widget yang menggunakan pickedFile
+    }
+  }
+
+  logout() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("token", "");
+    Get.offAllNamed(UrlRoutes.auth_page);
+  }
 
   selectDate(BuildContext context) async {
     DateTime? _picked = await showDatePicker(
@@ -48,18 +64,5 @@ class SettingController  extends GetxController{
     }
   }
 
-
-  logout() async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-
-    prefs.setString("token", "");
-    Get.toNamed(UrlRoutes.auth_page);
-
-    // Navigator.push(context, MaterialPageRoute(builder: (context) {
-    //   return AuthPA
-    // },));
-
-  }
 
 }

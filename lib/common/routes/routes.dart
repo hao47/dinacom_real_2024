@@ -8,6 +8,7 @@ import 'package:dinacom_2024/UI/auth/verif/verif_binding.dart';
 import 'package:dinacom_2024/UI/auth/verif/verif_controller.dart';
 import 'package:dinacom_2024/UI/auth/verif/verificationpage.dart';
 import 'package:dinacom_2024/UI/bottom_navigation/bottom_navigation.dart';
+// import 'package:dinacom_2024/UI/bottom_navigation/item/notification/notification_page.dart';
 // import 'package:dinacom_2024/UI/bottom_navigation/item/beranda/beranda.dart';
 import 'package:dinacom_2024/UI/bottom_navigation/item/poran/poran.dart';
 import 'package:dinacom_2024/UI/bottom_navigation/item/poran/poran_binding.dart';
@@ -16,6 +17,7 @@ import 'package:dinacom_2024/UI/detail/detail.dart';
 import 'package:dinacom_2024/UI/detail/detail_binding.dart';
 import 'package:dinacom_2024/UI/instansi_profile/profile.dart';
 import 'package:dinacom_2024/UI/masyarakat_profile/profile.dart';
+import 'package:dinacom_2024/UI/notification/notification_page.dart';
 import 'package:dinacom_2024/UI/setting/changepassword.dart';
 import 'package:dinacom_2024/UI/setting/setting.dart';
 import 'package:dinacom_2024/UI/setting/setting_binding.dart';
@@ -50,7 +52,7 @@ List<GetPage> routes = [
   ),
   GetPage(
     name: '/menu',
-    page: () => const MainScreen(),
+    page: () => const BottomNavigation(),
   ),
   GetPage(
     name: UrlRoutes.verif,
@@ -89,10 +91,18 @@ List<GetPage> routes = [
 
     // binding: SettingBinding(),
   ),
+  // GetPage(
+  //   name: '/regist',
+  //   page: () => RegistPageView(),
+  //   binding: RegistPageBinding()
+  //
+  //   // binding: SettingBinding(),
+  // ),
+
   GetPage(
-    name: '/regist',
-    page: () => RegistPageView(),
-    binding: RegistPageBinding()
+      name: '/notif',
+      page: () => NotificationPage(),
+      // binding: RegistPageBinding()
 
     // binding: SettingBinding(),
   ),

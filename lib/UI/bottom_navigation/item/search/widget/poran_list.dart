@@ -23,7 +23,7 @@ BuildContext? newContext;
       itemBuilder: (context, index) {
         var result = searchModel.posts[index];
 
-        return PoranCardItemSearch(response: result,newContext: newContext);
+        return PoranCardItemSearch(response: result,newContext: newContext,index: index,);
       },
     );
   }

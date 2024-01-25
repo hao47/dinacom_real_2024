@@ -19,7 +19,7 @@ class SplashScreen extends StatelessWidget {
           height: screenHeight,
           child: Center(
               child: Image.asset(
-            "assets/images/logo.png",
+            "assets/images/new_logo.png",
             fit: BoxFit.fill,
             width: screenWidth * 0.35,
           )),

@@ -2,6 +2,7 @@
 import 'package:dinacom_2024/UI/bottom_navigation/item/profile/profile_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'UI/masyarakat_profile/profile.dart';
 import 'common/routes/routes.dart';
@@ -12,6 +13,7 @@ void main() async {
 
   runApp(const MyApp());
   deviceOrientation();
+  _determinePosition();
 }
 
 void deviceOrientation() {
@@ -19,6 +21,37 @@ void deviceOrientation() {
     DeviceOrientation.portraitUp,
   ]);
 }
+
+
+ _determinePosition() async {
+  bool serviceEnabled;
+  LocationPermission permission;
+
+  // Test if location services are enabled.
+  serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  if (!serviceEnabled) {
+    await Geolocator.openLocationSettings();
+    return Future.error('Location services are disabled.');
+  }
+
+  permission = await Geolocator.checkPermission();
+  if (permission == LocationPermission.denied) {
+    permission = await Geolocator.requestPermission();
+    if (permission == LocationPermission.denied) {
+
+      return Future.error('Location permissions are denied');
+    }
+  }
+
+  if (permission == LocationPermission.deniedForever) {
+    // Permissions are denied forever, handle appropriately.
+    return Future.error(
+        'Location permissions are permanently denied, we cannot request permissions.');
+  }
+
+
+}
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

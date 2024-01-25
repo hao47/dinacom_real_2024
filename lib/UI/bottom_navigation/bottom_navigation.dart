@@ -1,263 +1,137 @@
+import 'package:dinacom_2024/UI/bottom_navigation/item/berita/berita.dart';
 import 'package:dinacom_2024/UI/bottom_navigation/item/lapor/laport.dart';
-import 'package:dinacom_2024/UI/bottom_navigation/item/notification/notification_page.dart';
-import 'package:dinacom_2024/UI/bottom_navigation/item/profile/profile_provider.dart';
+import 'package:dinacom_2024/UI/bottom_navigation/item/poran/poran.dart';
+import 'package:dinacom_2024/UI/bottom_navigation/item/profile/profile.dart';
 import 'package:dinacom_2024/UI/bottom_navigation/item/search/search_page.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'dart:io';
 
-import 'item/poran/poran.dart';
-import 'item/profile/profile.dart';
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+
+class BottomNavigation extends StatefulWidget {
+  final int currentIndex;
+
+  const BottomNavigation({Key? key, this.currentIndex = 0}) : super(key: key);
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  State<BottomNavigation> createState() => _BottomNavigationState();
 }
 
-class _MainScreenState extends State<MainScreen> {
-  final homeNavKey = GlobalKey<NavigatorState>();
-  final poranNavKey = GlobalKey<NavigatorState>();
-  final newsNavKey = GlobalKey<NavigatorState>();
-  final profileNavKey = GlobalKey<NavigatorState>();
-  int selectedTab = 0;
-  List<NavModel> items = [];
+class _BottomNavigationState extends State<BottomNavigation> {
+  int _currentIndex = 0;
+  final List _pageStack = [];
+
+  final _tabs = [
+     Poran(),
+     SearchPage(),
+     Lapor(),
+     Berita(),
+     Profile(),
+  ];
+
+  void _pagePush(int i) {
+    if (_pageStack.isEmpty) {
+      _pageStack.add(_currentIndex);
+    }
+    if (i == _currentIndex) {
+      return;
+    }
+    if (!_pageStack.contains(_currentIndex)) {
+      _pageStack.add(_currentIndex);
+    }
+
+    setState(() {
+      _currentIndex = i;
+    });
+  }
+
+  Future<bool> _pagePop(BuildContext context) {
+    if (_pageStack.isEmpty) {
+      return Future<bool>.value(true);
+    } else {
+      int t = _pageStack.removeLast();
+      setState(() {
+        _currentIndex = (_currentIndex != t) ? t : _pageStack.removeLast();
+      });
+      return Future<bool>.value(false);
+    }
+  }
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-    items = [
-      NavModel(
-        page: Poran(newContext: context),
-        navKey: poranNavKey,
-      ),
-      NavModel(
-        page: SearchPage(),
-        navKey: homeNavKey,
-      ),
-
-      NavModel(
-        page: NotificationPage(),
-        navKey: newsNavKey,
-      ),
-      NavModel(
-        page: Profile(),
-        navKey: profileNavKey,
-      ),
-
-    ];
+    _currentIndex = widget.currentIndex;
   }
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
 
-    Get.put(ProfileController());
     return WillPopScope(
-      onWillPop: () {
-        if (items[selectedTab].navKey.currentState?.canPop() ?? false) {
-          items[selectedTab].navKey.currentState?.pop();
-          return Future.value(false);
-        } else {
-          return Future.value(true);
-        }
-      },
+      onWillPop: () => _pagePop(context),
       child: Scaffold(
-        body: IndexedStack(
-          index: selectedTab,
-          children: items
-              .map((page) => Navigator(
-            key: page.navKey,
-            onGenerateInitialRoutes: (navigator, initialRoute) {
-              return [
-                MaterialPageRoute(builder: (context) => page.page)
-              ];
-            },
-          ))
-              .toList(),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: Container(
-
-          decoration: BoxDecoration(
-            color: ColorValue.secondaryColor,
-            borderRadius: BorderRadius.circular(100),
-            border: Border.all(color: Colors.white.withOpacity(1), width: 4),
-          ),
-          child: FloatingActionButton(
-            onPressed: () {
-              Navigator.of(context).push(PageRouteBuilder(
-                pageBuilder: (context, animation, secondaryAnimation) {
-                  return Lapor();
-                },
-                transitionDuration: Duration(milliseconds: 1000),
-                transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                  const begin = Offset(0.0, 1.0);
-                  const end = Offset.zero;
-                  const curve = Curves.easeInOut;
-                  const duration = Duration(milliseconds: 500); // Durasi transisi dalam milidetik, disesuaikan dengan kebutuhan Anda
-
-                  var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-                  var offsetAnimation = animation.drive(tween);
-
-                  return SlideTransition(
-                    position: offsetAnimation,
-                    child: child,
-                  );
-                },
-              ));
-            },
-            // child: Icon(Icons.add),
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            child: const Icon(Icons.add,color: Colors.white,size: 40),
-          ),
-        ),
-        bottomNavigationBar: NavBar(
-          pageIndex: selectedTab,
+        body: _tabs[_currentIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.bar_chart_outlined),
+              activeIcon: Icon(
+                Icons.bar_chart,
+                color: ColorValue.primaryColor,
+              ),
+              label: 'Dashboard',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_bag_outlined),
+              activeIcon: Icon(
+                Icons.shopping_bag,
+                color: ColorValue.primaryColor,
+              ),
+              label: 'Produk',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.add),
+              activeIcon: Icon(
+                Icons.add,
+                color: ColorValue.primaryColor,
+              ),
+              label: 'lapor',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.chat_outlined),
+              activeIcon: Icon(
+                Icons.chat,
+                color: ColorValue.primaryColor,
+              ),
+              label: 'Chat',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person_outline),
+              activeIcon: Icon(
+                Icons.person,
+                color: ColorValue.primaryColor,
+              ),
+              label: 'Profil',
+            ),
+          ],
+          currentIndex: _currentIndex,
+          backgroundColor: Colors.white,
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor:  ColorValue.primaryColor,
+          unselectedItemColor: Colors.grey,
+          selectedFontSize: 12,
+          unselectedFontSize: 12,
+          selectedLabelStyle: textTheme.bodyText2,
+          unselectedLabelStyle: textTheme.bodyText2,
+          showUnselectedLabels: true,
+          showSelectedLabels: true,
+          elevation: 5,
           onTap: (index) {
-            if (index == selectedTab) {
-              items[index]
-                  .navKey
-                  .currentState
-                  ?.popUntil((route) => route.isFirst);
-            } else {
-              setState(() {
-                selectedTab = index;
-              });
-            }
+            _pagePush(index);
           },
         ),
       ),
     );
   }
-}
-
-class TabPage extends StatelessWidget {
-  final int tab;
-
-  const TabPage({Key? key, required this.tab}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-
-    );
-  }
-}
-
-class Page extends StatelessWidget {
-  final int tab;
-
-  const Page({super.key, required this.tab});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Page Tab $tab')),
-      body: Center(child: Text('Tab $tab')),
-    );
-  }
-}
-
-class NavBar extends StatelessWidget {
-  final int pageIndex;
-  final Function(int) onTap;
-
-  const NavBar({
-    super.key,
-    required this.pageIndex,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return BottomAppBar(
-      color: Colors.transparent,
-      elevation: 0,
-      height: 90,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.2),
-              offset: const Offset(
-                2.0,
-                6.0,
-              ),
-              blurRadius: 10.0,
-              spreadRadius: 2.0,
-            ),
-          ],
-          color: Colors.white,
-        ),
-        // height: 80,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            navItem(
-              "",
-              Icons.home,
-              pageIndex == 0,
-              onTap: () => onTap(0),
-            ),
-            navItem(
-              "",
-              Icons.search_rounded,
-              pageIndex == 1,
-              onTap: () => onTap(1),
-            ),
-            const SizedBox(width: 80),
-            navItem(
-              "",
-              Icons.notifications,
-              pageIndex == 2,
-              onTap: () => onTap(2),
-            ),
-            navItem(
-              "",
-              Icons.person,
-              pageIndex == 3,
-              onTap: () => onTap(3),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget navItem(String menu, IconData icon, bool selected,
-      {Function()? onTap}) {
-    return Expanded(
-      child: InkWell(
-          onTap: onTap,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                icon,
-                size: 30,
-                color: selected
-                    ? const Color.fromRGBO(0, 128, 255, 1)
-                    : Colors.grey.withOpacity(0.8),
-              ),
-              // Text(menu,
-              //     style: TextStyle(
-              //       fontSize: 14,
-              //       color: selected
-              //           ? const Color.fromRGBO(0, 128, 255, 1)
-              //           : Colors.grey.withOpacity(0.8),
-              //     ))
-            ],
-          )),
-    );
-  }
-}
-class NavModel {
-  final Widget page;
-  final GlobalKey<NavigatorState> navKey;
-
-  NavModel({required this.page, required this.navKey});
 }

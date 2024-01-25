@@ -5,6 +5,7 @@ import 'package:dinacom_2024/common/app_theme.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../common/enums/status.dart';
 
@@ -13,168 +14,23 @@ class Poran extends StatelessWidget {
 
   Poran({super.key, this.newContext});
 
-  final PoranController controller = Get.put(PoranController());
+
 
   @override
   Widget build(BuildContext context) {
+    Get.put(PoranController()).profile();
+    Get.put(ProfileController()).profilee();
     return Scaffold(
-        body: SingleChildScrollView(
-      child: Column(children: [
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          height: 370,
-          decoration: BoxDecoration(
-              color: ColorValue.primaryColor,
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20))),
-          width: double.infinity,
-          child: SafeArea(
-            child: Column(children: [
-              ListTile(
-                leading: CircleAvatar(
-                  backgroundColor: const Color(0xff764abc),
-                  child: Image.network(
-                      "https://www.shutterstock.com/image-vector/vector-flat-illustration-grayscale-avatar-600nw-2264922221.jpg"),
-                ),
-                title: Text('Selamat  datang kembali!',
-                    style: CommonAppTheme.textTheme(context)
-                        .headline1!
-                        .copyWith(fontSize: 14, color: Colors.white)),
-                subtitle: Text(Get.put(ProfileController()).profileModel.value.responseProfile!.username.toString(),
-                    style: CommonAppTheme.textTheme(context)
-                        .headline1!
-                        .copyWith(fontSize: 16, color: Colors.white)),
-                contentPadding: EdgeInsets.all(0),
-                // isThreeLine: false,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                width: double.infinity,
-                height: 180,
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    image: DecorationImage(
-                        image: AssetImage("assets/images/event_pemilu.png"),
-                        fit: BoxFit.fill)),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text("Segera Hadir",
-                            style: CommonAppTheme.textTheme(context)
-                                .bodyText1!
-                                .copyWith(
-                                    fontSize: 16, color: Color(0xfff5e766))),
-                        Container(
-                          alignment: Alignment.topCenter,
-                          height: 30,
-                          width: 30,
-                          decoration: BoxDecoration(
-                              color: ColorValue.secondaryColor,
-                              borderRadius: BorderRadius.circular(200)),
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.link),
-                          ),
-                        )
-                      ],
-                    ),
-                    Text(
-                        "Pemilu sudah dekat ayo pilih cawapres pilihan kamu lewat Go connect",
-                        style: CommonAppTheme.textTheme(context)
-                            .headline1!
-                            .copyWith(color: Colors.white, fontSize: 18)),
-                  ],
-                ),
-              )
-            ]),
-          ),
-        ),
-        SizedBox(
-          height: 25,
-        ),
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Berita Terkini",
-                      style:
-                          CommonAppTheme.textTheme(context).headline1!.copyWith(
-                                fontSize: 20,
-                              )),
-                  Text("See All",
-                      style: CommonAppTheme.textTheme(context)
-                          .bodyText1!
-                          .copyWith(fontSize: 18, color: Color(0xff666666))),
-                ],
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                width: double.infinity,
-                height: 180,
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    image: DecorationImage(
-                        image: AssetImage("assets/images/berita_pilpres.png"),
-                        fit: BoxFit.fill)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 2),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(1000),
-                          border: Border.all(
-                              color: ColorValue.primaryColor, width: 2)),
-                      child: Text("Politik",
-                          style: CommonAppTheme.textTheme(context)
-                              .bodyText1!
-                              .copyWith(color: Colors.black)),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                            "Debat cawapres seru ketiga \npaslon saling bersilat lidah \ndengan panas",
-                            style: CommonAppTheme.textTheme(context)
-                                .headline1!
-                                .copyWith(color: Colors.white, fontSize: 18)),
-                        Text("12-01-24",
-                            style: CommonAppTheme.textTheme(context)
-                                .bodyText1!
-                                .copyWith(
-                                  color: Colors.white,
-                                ))
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Text("Poran terbaru",
-                  style: CommonAppTheme.textTheme(context).headline1!.copyWith(
-                        fontSize: 20,
-                      )),
-              GetX<PoranController>(
+
+        appBar: AppBar(
+          backgroundColor: Colors.blue,
+          toolbarHeight: 75,
+          automaticallyImplyLeading: false,
+          actions: [
+            SizedBox(width: 25),
+            Expanded(
+              child:
+              GetX<ProfileController>(
                 builder: (controller) {
                   // print(state.categoryResult.response.length);
                   if (controller.state.value == ResultState.loading) {
@@ -183,22 +39,51 @@ class Poran extends StatelessWidget {
                     );
                   } else if (controller.state.value == ResultState.hasData) {
 
-
-                    if(controller.profileModel.value.responseAllModel.length != 0){
-
-                      print("masokkkkkkkkkkkkkkkkkkk");
-                      return PoranList(
-                          poranAllModel: controller.profileModel.value,
-                          newContext: newContext);
-                    }else {
-                      return Container();
-                    }
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
 
 
 
-                    // print(controller.profileModel.value.responseAllModel.length);
-                    //
-                    // return Container();
+                     CircleAvatar(
+                            radius: 20,
+                            backgroundImage: NetworkImage(
+                                controller.profileModel.value.responseProfile!.photoProfile
+
+                            ),
+                          ),
+                        SizedBox(width: 10),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Selamat  datang kembali!',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 12)),
+                            Text( controller.profileModel.value.responseProfile!.username,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 18,
+                                )),
+                          ],
+                        ),
+                        Spacer(),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 20),
+                          child: IconButton(
+                              onPressed: () {
+
+                                Get.toNamed('/notif');
+
+                              },
+                              icon: Icon(Icons.notifications_none_rounded, color: Colors.white, size: 35)),
+                        )
+                      ],
+                    );
+
 
                   } else if (controller.state.value == ResultState.noData) {
                     return Center(
@@ -220,11 +105,88 @@ class Poran extends StatelessWidget {
                     );
                   }
                 },
-              )
-            ],
+              ),
+            )
+          ],
+        ),
+        body: SingleChildScrollView(
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+
+
+                GetX<PoranController>(
+                  builder: (controller) {
+                    // print(state.categoryResult.response.length);
+                    if (controller.state.value == ResultState.loading) {
+                      return Container(
+                        height: MediaQuery.of(context).size.height * 0.275,
+                        width: double.maxFinite,
+                        margin: EdgeInsets.symmetric(vertical: 20),
+                        child: Card(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10.0),
+                            child: Center(
+                              child: Shimmer.fromColors(
+                                baseColor: Colors.grey[300]!,
+                                highlightColor: Colors.grey[100]!,
+                                child: Container(
+                                  height: double.maxFinite,
+                                  width: double.maxFinite,
+                                  color: Colors.blue,
+                                ),
+                              ),
+                            ),
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                      );
+                    } else if (controller.state.value ==
+                        ResultState.hasData) {
+                      if (controller
+                              .profileModel.value.responseAllModel.length !=
+                          0) {
+                        print("masokkkkkkkkkkkkkkkkkkk");
+                        return PoranList(
+                            poranAllModel: controller.profileModel.value,
+                            newContext: newContext);
+
+                        // return Container();
+                      } else {
+                        return Container();
+                      }
+
+                      // print(controller.profileModel.value.responseAllModel.length);
+                      //
+                      // return Container();
+                    } else if (controller.state.value == ResultState.noData) {
+                      return Center(
+                        child: Material(
+                          child: Text("Tidak ada Data"),
+                        ),
+                      );
+                    } else if (controller.state.value == ResultState.error) {
+                      return Center(
+                        child: Material(
+                          child: Text("Ada yang salah"),
+                        ),
+                      );
+                    } else {
+                      return const Center(
+                        child: Material(
+                          child: Text(''),
+                        ),
+                      );
+                    }
+                  },
+                )
+              ],
+            ),
           ),
-        )
-      ]),
-    ));
+        ));
   }
 }

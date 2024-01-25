@@ -38,6 +38,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
     // final provider = Provider.of<ThemeProvider>(context);
 
     return TextFormField(
+
       onTap: widget.onTap,
       controller: widget.controller,
       keyboardType: widget.textInputType,
@@ -52,11 +53,15 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       cursorColor: ColorValue.BaseBlue,
       readOnly: widget.readOnly,
       decoration: InputDecoration(
+
+        // contentPadding: EdgeInsets.symmetric(vertical: 40.0),
+
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(widget.borderRadius),
           borderSide: const BorderSide(
             width: 1.5,
             color: Color(0xff666666),
+
           ),
         ),
         enabledBorder: OutlineInputBorder(
