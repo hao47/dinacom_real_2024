@@ -144,7 +144,7 @@ class RegistPageController extends GetxController {
             isLoad.value = false;
 
 
-            Get.offAllNamed(UrlRoutes.verif);
+            Get.toNamed(UrlRoutes.verif);
           } else {
 
             // print(jsonResponse);
@@ -174,7 +174,7 @@ class RegistPageController extends GetxController {
 
      isLoad.value = true;
     final response = await http.get(
-        Uri.parse("https://urchin-app-hlgon.ondigitalocean.app/api/emailexist/${emailControllerRegist.value.text}"),
+        Uri.parse("https://urchin-app-hlgon.ondigitalocean.app/api/emailexist/${emailControllerRegist.text}/${usernameController.text}"),
         headers: <String, String>{
           'Content-Type': 'application/json',
         });
@@ -198,7 +198,11 @@ class RegistPageController extends GetxController {
       }
 
     } else {
+
+      isLoad.value = false;
       throw Exception('ada yang salah');
+
+      return false;
 
     }
   }

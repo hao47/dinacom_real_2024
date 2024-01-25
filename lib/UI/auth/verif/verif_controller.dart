@@ -20,11 +20,11 @@ class VerifControlller extends GetxController {
       Map<String, dynamic> jsonResponse = json.decode(response.body);
       String message = jsonResponse['message'];
 
-      if (message == "email Sudah terverifikasi") {
+      if (message == "Email sudah terverifikasi") {
 
 
         print("halo");
-        Get.toNamed( UrlRoutes.auth_page);
+        Get.toNamed(UrlRoutes.auth_page);
 
 
         // Get.toNamed(UrlRoutes.verif);

@@ -109,82 +109,87 @@ class Poran extends StatelessWidget {
             )
           ],
         ),
-        body: SingleChildScrollView(
-          child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+        body: RefreshIndicator(
+          onRefresh: () async {
+            Get.put(PoranController()).profile();
+          },
+          child: SingleChildScrollView(
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
 
 
-                GetX<PoranController>(
-                  builder: (controller) {
-                    // print(state.categoryResult.response.length);
-                    if (controller.state.value == ResultState.loading) {
-                      return Container(
-                        height: MediaQuery.of(context).size.height * 0.275,
-                        width: double.maxFinite,
-                        margin: EdgeInsets.symmetric(vertical: 20),
-                        child: Card(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10.0),
-                            child: Center(
-                              child: Shimmer.fromColors(
-                                baseColor: Colors.grey[300]!,
-                                highlightColor: Colors.grey[100]!,
-                                child: Container(
-                                  height: double.maxFinite,
-                                  width: double.maxFinite,
-                                  color: Colors.blue,
+                  GetX<PoranController>(
+                    builder: (controller) {
+                      // print(state.categoryResult.response.length);
+                      if (controller.state.value == ResultState.loading) {
+                        return Container(
+                          height: MediaQuery.of(context).size.height * 0.275,
+                          width: double.maxFinite,
+                          margin: EdgeInsets.symmetric(vertical: 20),
+                          child: Card(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10.0),
+                              child: Center(
+                                child: Shimmer.fromColors(
+                                  baseColor: Colors.grey[300]!,
+                                  highlightColor: Colors.grey[100]!,
+                                  child: Container(
+                                    height: double.maxFinite,
+                                    width: double.maxFinite,
+                                    color: Colors.blue,
+                                  ),
                                 ),
                               ),
                             ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
                           ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        ),
-                      );
-                    } else if (controller.state.value ==
-                        ResultState.hasData) {
-                      if (controller
-                              .profileModel.value.responseAllModel.length !=
-                          0) {
-                        print("masokkkkkkkkkkkkkkkkkkk");
-                        return PoranList(
-                            poranAllModel: controller.profileModel.value,
-                            newContext: newContext);
+                        );
+                      } else if (controller.state.value ==
+                          ResultState.hasData) {
+                        if (controller
+                                .profileModel.value.responseAllModel.length !=
+                            0) {
+                          print("masokkkkkkkkkkkkkkkkkkk");
+                          return PoranList(
+                              poranAllModel: controller.profileModel.value,
+                              newContext: newContext);
 
+                          // return Container();
+                        } else {
+                          return Container();
+                        }
+
+                        // print(controller.profileModel.value.responseAllModel.length);
+                        //
                         // return Container();
+                      } else if (controller.state.value == ResultState.noData) {
+                        return Center(
+                          child: Material(
+                            child: Text("Tidak ada Data"),
+                          ),
+                        );
+                      } else if (controller.state.value == ResultState.error) {
+                        return Center(
+                          child: Material(
+                            child: Text("Ada yang salah"),
+                          ),
+                        );
                       } else {
-                        return Container();
+                        return const Center(
+                          child: Material(
+                            child: Text(''),
+                          ),
+                        );
                       }
-
-                      // print(controller.profileModel.value.responseAllModel.length);
-                      //
-                      // return Container();
-                    } else if (controller.state.value == ResultState.noData) {
-                      return Center(
-                        child: Material(
-                          child: Text("Tidak ada Data"),
-                        ),
-                      );
-                    } else if (controller.state.value == ResultState.error) {
-                      return Center(
-                        child: Material(
-                          child: Text("Ada yang salah"),
-                        ),
-                      );
-                    } else {
-                      return const Center(
-                        child: Material(
-                          child: Text(''),
-                        ),
-                      );
-                    }
-                  },
-                )
-              ],
+                    },
+                  )
+                ],
+              ),
             ),
           ),
         ));

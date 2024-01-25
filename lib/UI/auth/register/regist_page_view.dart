@@ -122,7 +122,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 
                              var a = await controller.checkExist();
 
-                              print(a);
                               if(a == true){
                                 Navigator.push(context, MaterialPageRoute(
                                   builder: (context) {

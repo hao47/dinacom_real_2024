@@ -60,12 +60,12 @@ class _LaporState extends State<Lapor> {
           onPressed: () {
             // Provider.of<PoranProvider>(context, listen: false).profile();
 
-            Get.put(PoranController()).profile();
+            // Get.put(PoranController()).profile();
             // Get.put(SearchPageController());
 
-            // Navigator.pop(context);
+            Navigator.pop(context);
 
-            Get.bottomSheet(ExitPostDialog());
+            // Get.bottomSheet(ExitPostDialog());
           },
           icon: const Icon(
             Icons.close_rounded,

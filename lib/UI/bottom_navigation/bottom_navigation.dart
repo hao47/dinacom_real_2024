@@ -22,11 +22,11 @@ class _BottomNavigationState extends State<BottomNavigation> {
   final List _pageStack = [];
 
   final _tabs = [
-     Poran(),
-     SearchPage(),
-     Lapor(),
-     Berita(),
-     Profile(),
+    Poran(),
+    SearchPage(),
+    // Lapor(),
+    Berita(),
+    Profile(),
   ];
 
   void _pagePush(int i) {
@@ -90,14 +90,14 @@ class _BottomNavigationState extends State<BottomNavigation> {
               ),
               label: 'Produk',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.add),
-              activeIcon: Icon(
-                Icons.add,
-                color: ColorValue.primaryColor,
-              ),
-              label: 'lapor',
-            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(Icons.add),
+            //   activeIcon: Icon(
+            //     Icons.add,
+            //     color: ColorValue.primaryColor,
+            //   ),
+            //   label: 'lapor',
+            // ),
             BottomNavigationBarItem(
               icon: Icon(Icons.chat_outlined),
               activeIcon: Icon(
@@ -131,7 +131,45 @@ class _BottomNavigationState extends State<BottomNavigation> {
             _pagePush(index);
           },
         ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: Container(
+
+          decoration: BoxDecoration(
+            color: ColorValue.secondaryColor,
+            borderRadius: BorderRadius.circular(100),
+            border: Border.all(color: Colors.white.withOpacity(1), width: 4),
+          ),
+          child: FloatingActionButton(
+            onPressed: () {
+              Navigator.of(context).push(PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) {
+                  return Lapor();
+                },
+                transitionDuration: Duration(milliseconds: 1000),
+                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                  const begin = Offset(0.0, 1.0);
+                  const end = Offset.zero;
+                  const curve = Curves.easeInOut;
+                  const duration = Duration(milliseconds: 500); // Durasi transisi dalam milidetik, disesuaikan dengan kebutuhan Anda
+
+                  var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                  var offsetAnimation = animation.drive(tween);
+
+                  return SlideTransition(
+                    position: offsetAnimation,
+                    child: child,
+                  );
+                },
+              ));
+            },
+            // child: Icon(Icons.add),
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            child: const Icon(Icons.add,color: Colors.white,size: 40),
+          ),
+        ),
       ),
+
     );
   }
 }
