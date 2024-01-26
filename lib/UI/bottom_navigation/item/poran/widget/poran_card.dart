@@ -85,16 +85,16 @@ class PoranCardItemAll extends GetView<PoranController> {
         Get.toNamed('/detail', arguments: [response.id]);
       },
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 20),
+        margin: EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16.0),
-          color: ColorValue.VeryLightBlue,
+          color: Colors.white,
           boxShadow: [
             BoxShadow(
-              color: Color(0xFFd5d5d5),
-              offset: Offset(10, 11),
-              blurRadius: 14,
-              spreadRadius: -2,
+              color: Color(0xFFd5d5d5).withOpacity(1),
+              offset: Offset(8, 8),
+              blurRadius: 50,
+              spreadRadius: -10,
             ),
           ],
         ),
@@ -199,16 +199,9 @@ class PoranCardItemAll extends GetView<PoranController> {
                             }
                           },
                           child: Container(
-                            width: 36,
-                            height: 36,
+                            width: 40,
+                            height: 40,
                             decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    spreadRadius: 2,
-                                    blurRadius: 10,
-                                    color: Colors.black.withOpacity(0.1),
-                                    offset: Offset(0, 10))
-                              ],
                               shape: BoxShape.circle,
                               image: DecorationImage(
                                 fit: BoxFit.cover,
@@ -219,16 +212,9 @@ class PoranCardItemAll extends GetView<PoranController> {
                           ),
                         )
                       : Container(
-                          width: 36,
-                          height: 36,
+                    width: 40,
+                    height: 40,
                           decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                  spreadRadius: 2,
-                                  blurRadius: 10,
-                                  color: Colors.black.withOpacity(0.1),
-                                  offset: Offset(0, 10))
-                            ],
                             shape: BoxShape.circle,
                             image: DecorationImage(
                               fit: BoxFit.cover,
@@ -236,7 +222,7 @@ class PoranCardItemAll extends GetView<PoranController> {
                             ),
                           ),
                         ),
-                  SizedBox(width: 5),
+                  SizedBox(width: 10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -247,9 +233,9 @@ class PoranCardItemAll extends GetView<PoranController> {
                             response.author.username,
                             style: CommonAppTheme.textTheme(context)
                                 .headline1!
-                                .copyWith(fontSize: 20),
+                                .copyWith(fontSize: 16),
                           ),
-                          SizedBox(width: 10),
+                          SizedBox(width: 7),
                           Container(
                             padding: EdgeInsets.symmetric(
                                 horizontal: 7, vertical: 2),
@@ -287,9 +273,6 @@ class PoranCardItemAll extends GetView<PoranController> {
                   fontSize: 18
                 ),
               ),
-              SizedBox(
-                height: 5,
-              ),
               Text(
                 response.content,
                 maxLines: 5,
@@ -297,9 +280,6 @@ class PoranCardItemAll extends GetView<PoranController> {
                       color: Colors.black,
                       overflow: TextOverflow.ellipsis,
                     ),
-              ),
-              SizedBox(
-                height: 10,
               ),
               response.gambar == ""
                   ? Container()
@@ -322,14 +302,11 @@ class PoranCardItemAll extends GetView<PoranController> {
                         ),
                       ),
                     ),
-              SizedBox(
-                height: 10,
-              ),
               Row(
                 children: [
                   Icon(Icons.mode_comment_outlined),
                   SizedBox(
-                    width: 10,
+                    width: 5,
                   ),
                   Text(
                     response.commentJumlah.toString(),

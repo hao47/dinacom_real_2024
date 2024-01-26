@@ -34,20 +34,20 @@ class BeritaController extends GetxController{
     try {
       _state.value = ResultState.loading;
 
-      final berita = await beritaService.getberita();
+      final profile = await beritaService.getberita();
 
+      print(profile.results.length.toString());
 
-
-      if (berita.results.isEmpty) {
+      if (profile.results.isEmpty) {
         _state.value = ResultState.noData;
 
         return _message.value = 'Empty Data';
       } else {
         _state.value = ResultState.hasData;
 
-        update();
+        // update();
 
-        return _beritaModel.value = berita;
+        return _beritaModel.value = profile;
       }
     } catch (e) {
       print(e.runtimeType);
@@ -56,6 +56,36 @@ class BeritaController extends GetxController{
       return _message.value = "ada yang salah";
     }
   }
+
+  // Future<dynamic> berita() async {
+  //
+  //
+  //   // try {
+  //     _state.value = ResultState.loading;
+  //
+  //     final berita = await beritaService.getberita();
+  //
+  //
+  //
+  //     if (berita.results.isEmpty) {
+  //       _state.value = ResultState.noData;
+  //
+  //       return _message.value = 'Empty Data';
+  //     } else {
+  //       _state.value = ResultState.hasData;
+  //
+  //       // update();
+  //
+  //       return _beritaModel.value = berita;
+  //     }
+  //   // } catch (e) {
+  //   //   print(e);
+  //   //
+  //   //   _state.value = ResultState.error;
+  //   //
+  //   //   return _message.value = "ada yang salah";
+  //   // }
+  // }
 
 
 
