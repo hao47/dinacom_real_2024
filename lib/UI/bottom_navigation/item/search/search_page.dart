@@ -19,7 +19,7 @@ class SearchPage extends GetView<SearchPageController> {
     Get.put(SearchPageController()).getPoranSearch("");
     // Get.put(ProfileController());
     return Scaffold(
-
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: ColorValue.LightBlue,
           toolbarHeight: 75,
