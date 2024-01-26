@@ -331,37 +331,32 @@ class _PoranState extends State<Poran> with SingleTickerProviderStateMixin {
                           ),
                         )
                       : SingleChildScrollView(
-                    child: Container(
-                      height:
-                      MediaQuery.of(context).size.height *
-                          .225,
-                      width: double.maxFinite,
-                      margin:
-                      EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                      child: Card(
-                        child: ClipRRect(
-                          borderRadius:
-                          BorderRadius.circular(10.0),
-                          child: Center(
-                            child: Shimmer.fromColors(
-                              baseColor: Colors.grey[300]!,
-                              highlightColor: Colors.grey[100]!,
-                              child: Container(
-                                height: double.maxFinite,
-                                width: double.maxFinite,
-                                color: Colors.blue,
+                          child: Container(
+                            height: MediaQuery.of(context).size.height * .225,
+                            width: double.maxFinite,
+                            margin: EdgeInsets.symmetric(
+                                vertical: 20, horizontal: 20),
+                            child: Card(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10.0),
+                                child: Center(
+                                  child: Shimmer.fromColors(
+                                    baseColor: Colors.grey[300]!,
+                                    highlightColor: Colors.grey[100]!,
+                                    child: Container(
+                                      height: double.maxFinite,
+                                      width: double.maxFinite,
+                                      color: Colors.blue,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
                               ),
                             ),
                           ),
                         ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius:
-                          BorderRadius.circular(10.0),
-                        ),
-                      ),
-                    ),
-
-                  ),
                   _selectedIndex == 1
                       ? SingleChildScrollView(
                           child: Container(
@@ -452,16 +447,13 @@ class _PoranState extends State<Poran> with SingleTickerProviderStateMixin {
                         )
                       : SingleChildScrollView(
                           child: Container(
-                            height:
-                                MediaQuery.of(context).size.height *
-                                    .225,
+                            height: MediaQuery.of(context).size.height * .225,
                             width: double.maxFinite,
-                            margin:
-                                EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                            margin: EdgeInsets.symmetric(
+                                vertical: 20, horizontal: 20),
                             child: Card(
                               child: ClipRRect(
-                                borderRadius:
-                                    BorderRadius.circular(10.0),
+                                borderRadius: BorderRadius.circular(10.0),
                                 child: Center(
                                   child: Shimmer.fromColors(
                                     baseColor: Colors.grey[300]!,
@@ -475,15 +467,13 @@ class _PoranState extends State<Poran> with SingleTickerProviderStateMixin {
                                 ),
                               ),
                               shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.circular(10.0),
+                                borderRadius: BorderRadius.circular(10.0),
                               ),
                             ),
                           ),
                         )
                 ],
               )),
-
             ],
           )),
     );

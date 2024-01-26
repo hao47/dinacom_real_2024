@@ -6,8 +6,6 @@ import 'package:dinacom_2024/UI/bottom_navigation/item/search/search_page.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:flutter/material.dart';
 
-
-
 class BottomNavigation extends StatefulWidget {
   final int currentIndex;
 
@@ -99,7 +97,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
             BottomNavigationBarItem(
               icon: const SizedBox.shrink(),
               label: "",
-
             ),
             // BottomNavigationBarItem(
             //   icon: Icon(Icons.add),
@@ -110,12 +107,13 @@ class _BottomNavigationState extends State<BottomNavigation> {
             //   label: 'lapor',
             // ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.newspaper_outlined),
+              icon: Icon(Icons.campaign_outlined, size: 26),
               activeIcon: Icon(
-                Icons.newspaper_rounded,
+                Icons.campaign_rounded,
                 color: ColorValue.primaryColor,
+                size: 26,
               ),
-              label: 'Berita',
+              label: 'Informasi',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person_outline),
@@ -129,7 +127,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
           currentIndex: _currentIndex,
           backgroundColor: Colors.white,
           type: BottomNavigationBarType.fixed,
-          selectedItemColor:  ColorValue.primaryColor,
+          selectedItemColor: ColorValue.primaryColor,
           unselectedItemColor: Colors.grey,
           selectedFontSize: 12,
           unselectedFontSize: 12,
@@ -139,19 +137,16 @@ class _BottomNavigationState extends State<BottomNavigation> {
           showSelectedLabels: true,
           elevation: 5,
           onTap: (index) {
-
             // print(index);
-            if( index == 2){
+            if (index == 2) {
               _pagePush(_currentIndex);
-            }else{
-
+            } else {
               _pagePush(index);
             }
           },
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Container(
-
           decoration: BoxDecoration(
             color: ColorValue.secondaryColor,
             borderRadius: BorderRadius.circular(100),
@@ -165,13 +160,17 @@ class _BottomNavigationState extends State<BottomNavigation> {
                   return Lapor();
                 },
                 transitionDuration: Duration(milliseconds: 1000),
-                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
                   const begin = Offset(0.0, 1.0);
                   const end = Offset.zero;
                   const curve = Curves.easeInOut;
-                  const duration = Duration(milliseconds: 500); // Durasi transisi dalam milidetik, disesuaikan dengan kebutuhan Anda
+                  const duration = Duration(
+                      milliseconds:
+                          500); // Durasi transisi dalam milidetik, disesuaikan dengan kebutuhan Anda
 
-                  var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                  var tween = Tween(begin: begin, end: end)
+                      .chain(CurveTween(curve: curve));
                   var offsetAnimation = animation.drive(tween);
 
                   return SlideTransition(
@@ -184,11 +183,10 @@ class _BottomNavigationState extends State<BottomNavigation> {
             // child: Icon(Icons.add),
             backgroundColor: Colors.transparent,
             elevation: 0,
-            child: const Icon(Icons.add,color: Colors.white,size: 40),
+            child: const Icon(Icons.add, color: Colors.white, size: 40),
           ),
         ),
       ),
-
     );
   }
 }

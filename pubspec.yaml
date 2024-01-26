@@ -61,6 +61,7 @@ dependencies:
   geocoding:
   carousel_slider: ^4.2.1
   shimmer:
+  fl_chart: ^0.66.1
 
 
 dev_dependencies:
