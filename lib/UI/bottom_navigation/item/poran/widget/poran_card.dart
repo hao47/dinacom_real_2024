@@ -101,7 +101,7 @@ class PoranCardItemAll extends GetView<PoranController> {
           ],
         ),
         child: Padding(
-          padding: const EdgeInsets.only(top: 5, bottom: 5, left: 20),
+          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -129,48 +129,51 @@ class PoranCardItemAll extends GetView<PoranController> {
                       ),
                     ],
                   ),
-                  PopupMenuButton<SampleItem>(
-                    initialValue: selectedMenu,
-                    // Callback that sets the selected popup menu item.
-                    onSelected: (SampleItem item) {
-                      // setState(() {
-                      //   selectedMenu = item;
-                      // });
-                    },
-                    itemBuilder: (BuildContext context) =>
-                        <PopupMenuEntry<SampleItem>>[
-                      Get.put(ProfileController())
-                                  .profileModel
-                                  .value
-                                  .responseProfile!
-                                  .id ==
-                              response.author.id
-                          ? PopupMenuItem<SampleItem>(
-                              value: SampleItem.itemOne,
-                              onTap: () async {
-                                // if (decodedToken != null) {
-                                //   // rint('User ID: ${decodedClaims['sub']}');
-                                //   print('Username: ${decodedToken['id']}');
-                                //   print(
-                                //       'Signature: ${decodedToken['signature']}');
-                                // } else {
-                                //   print('Invalid JWT');
-                                // }
+                  SizedBox(
+                    width: 30,
+                    child: PopupMenuButton<SampleItem>(
+                      initialValue: selectedMenu,
+                      // Callback that sets the selected popup menu item.
+                      onSelected: (SampleItem item) {
+                        // setState(() {
+                        //   selectedMenu = item;
+                        // });
+                      },
+                      itemBuilder: (BuildContext context) =>
+                          <PopupMenuEntry<SampleItem>>[
+                        Get.put(ProfileController())
+                                    .profileModel
+                                    .value
+                                    .responseProfile!
+                                    .id ==
+                                response.author.id
+                            ? PopupMenuItem<SampleItem>(
+                                value: SampleItem.itemOne,
+                                onTap: () async {
+                                  // if (decodedToken != null) {
+                                  //   // rint('User ID: ${decodedClaims['sub']}');
+                                  //   print('Username: ${decodedToken['id']}');
+                                  //   print(
+                                  //       'Signature: ${decodedToken['signature']}');
+                                  // } else {
+                                  //   print('Invalid JWT');
+                                  // }
 
-                                print(response.id);
+                                  print(response.id);
 
-                                await Get.put(PoranController())
-                                    .deleteporan(response.id);
+                                  await Get.put(PoranController())
+                                      .deleteporan(response.id);
 
-                                Get.put(PoranController()).profile();
-                              },
-                              child: Text('Delete'),
-                            )
-                          : PopupMenuItem<SampleItem>(
-                              // value: SampleItem.itemOne,
-                              child: null,
-                            )
-                    ],
+                                  Get.put(PoranController()).profile();
+                                },
+                                child: Text('Delete'),
+                              )
+                            : PopupMenuItem<SampleItem>(
+                                // value: SampleItem.itemOne,
+                                child: null,
+                              )
+                      ],
+                    ),
                   )
                 ],
               ),
@@ -274,16 +277,15 @@ class PoranCardItemAll extends GetView<PoranController> {
                   ),
                 ],
               ),
-              SizedBox(
-                height: 12,
-              ),
+              const SizedBox(height: 15),
               Text(
                 response.title,
                 maxLines: 1,
                 style: CommonAppTheme.textTheme(context).headline1!.copyWith(
                     color: Colors.black,
                     overflow: TextOverflow.ellipsis,
-                    fontSize: 16),
+                    fontSize: 16,
+                    height: 1.5),
               ),
               Text(
                 response.content,
@@ -296,7 +298,8 @@ class PoranCardItemAll extends GetView<PoranController> {
               response.gambar == ""
                   ? Container()
                   : Container(
-                      width: 300,
+                      margin: EdgeInsets.only(top: 5, bottom: 10),
+                      width: double.maxFinite,
                       height: 120,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
@@ -314,7 +317,6 @@ class PoranCardItemAll extends GetView<PoranController> {
                         ),
                       ),
                     ),
-              SizedBox(height: 10),
               Row(
                 children: [
                   Icon(
@@ -322,18 +324,14 @@ class PoranCardItemAll extends GetView<PoranController> {
                     color: ColorValue.LightGrey,
                     size: 19,
                   ),
-                  SizedBox(
-                    width: 10,
-                  ),
+                  const SizedBox(width: 10),
                   Text(
                     response.commentJumlah.toString(),
                     style: CommonAppTheme.textTheme(context)
                         .bodyText1!
                         .copyWith(fontSize: 14),
                   ),
-                  SizedBox(
-                    width: 7.5,
-                  ),
+                  const SizedBox(width: 7.5),
 
                   // Obx(() =>   controller.likeModel.value.responseLike!.id == 0?
 
