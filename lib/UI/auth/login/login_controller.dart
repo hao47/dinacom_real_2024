@@ -1,14 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
-
 import 'package:dinacom_2024/UI/bottom_navigation/item/poran/poran_provider.dart';
 import 'package:dinacom_2024/UI/bottom_navigation/item/profile/profile_provider.dart';
-import 'package:dio/dio.dart';
-import 'package:dinacom_2024/constants/url_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -41,7 +38,8 @@ class LoginPageController extends GetxController {
 
 
 
-  Future<bool> login(String username, String password) async {
+  login(String username, String password,BuildContext context) async {
+
 
 
     print(username);
@@ -111,6 +109,7 @@ class LoginPageController extends GetxController {
       } else {
         isLoad.value = false;
 
+        showCustom(context);
 
       }
     } else {
@@ -121,6 +120,38 @@ class LoginPageController extends GetxController {
     }
   }
 
+  showCustom(BuildContext context) {
+    FToast fToast = FToast();
+    fToast.init(context);
+
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      decoration: BoxDecoration(
+        // borderRadius: BorderRadius.circular(5),
+        color: Colors.black.withOpacity(0.85),
+      ),
+      child: const Row(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+
+          Expanded(
+            child: Text(
+              "maaf, email atau username sudah ada",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+    fToast.showToast(
+        child: toast,
+        toastDuration: const Duration(seconds: 3),
+        gravity: ToastGravity.SNACKBAR,
+        isDismissable: true
+    );
+  }
   String generateRandomString(int length) {
     final random = Random();
     const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
