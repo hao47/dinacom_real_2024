@@ -41,7 +41,7 @@ class LoginPageController extends GetxController {
 
 
 
-  login(String username, String password) async {
+  Future<bool> login(String username, String password) async {
 
 
     print(username);
@@ -85,13 +85,17 @@ class LoginPageController extends GetxController {
           Timer(
               const Duration(seconds: 2),() {
 
+
             Get.offAllNamed("/menu");
 
             Get.put(ProfileController());
             Get.put(PoranController());
 
             isLoad.value = false;
+
               },);
+
+
         }
 
         // Timer(
@@ -106,6 +110,8 @@ class LoginPageController extends GetxController {
         //     },);
       } else {
         isLoad.value = false;
+
+
       }
     } else {
       print(response.body);
