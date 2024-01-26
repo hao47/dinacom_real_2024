@@ -6,7 +6,9 @@ import 'package:dinacom_2024/data/model/profile_model.dart';
 import 'package:flutter/material.dart';
 
 class ProfileBioDataAsInstansi extends StatelessWidget {
-  const ProfileBioDataAsInstansi({super.key});
+
+  ProfileModel profileModel;
+   ProfileBioDataAsInstansi({super.key,required this.profileModel});
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +31,10 @@ class ProfileBioDataAsInstansi extends StatelessWidget {
                           offset: const Offset(0, 10))
                     ],
                     shape: BoxShape.circle,
-                    image: const DecorationImage(
+                    image:  DecorationImage(
                         fit: BoxFit.cover,
                         image: NetworkImage(
-                          "https://images.pexels.com/photos/3307758/pexels-photo-3307758.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=250",
+                            profileModel.responseProfile!.photoProfile
                         ))),
               ),
               Positioned(
@@ -60,20 +62,17 @@ class ProfileBioDataAsInstansi extends StatelessWidget {
           spacing: 10,
           children: [
             Text(
-              "Kota Kudus",
+              profileModel.responseProfile!.username,
               style: CommonAppTheme.textTheme(context)
                   .headline1!
                   .copyWith(fontSize: 23),
             ),
-            Image.asset(
-              "assets/images/verified.png",
-              fit: BoxFit.fill,
-              width: 22,
-            ),
+
           ],
         ),
         Text(
-          "haiii! kenalankan aku mindus dari \n Jawa Tengah !",
+
+          profileModel.responseProfile!.bio,
           style: CommonAppTheme.textTheme(context)
               .bodyText1!
               .copyWith(color: Colors.black, fontSize: 14.5),
@@ -81,11 +80,108 @@ class ProfileBioDataAsInstansi extends StatelessWidget {
         ),
         const SizedBox(height: 5),
         const Role(name: "Instansi"),
-        const SizedBox(height: 20),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: bios.map((bio) => buildBioRow(bio, context)).toList(),
+        const SizedBox(height: 5),
+
+        // ProfileModelTemporary(iconData: Icons.location_on_sharp, text: "Jawa Tengah, Kudus"),
+        
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+
+            Icon( Icons.location_on_sharp),
+            SizedBox(
+              width: 5,
+            ),
+            Text(profileModel.responseProfile!.daerah,
+                style: CommonAppTheme.textTheme(context)
+                    .bodyText1!
+                    .copyWith(color: Colors.black, fontSize: 12.5)
+            )
+
+          ],
         ),
+
+        Container(
+          height: 150,
+          padding: EdgeInsets.all(20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(child:
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
+                    boxShadow: [
+
+
+                      BoxShadow(
+                        color: Color(0xFF959595).withOpacity(1),
+                        offset: Offset(-8, 6),
+                        blurRadius: 9,
+                        spreadRadius: -4,
+                      ),
+
+
+                    ]
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("250",
+
+                        style: CommonAppTheme.textTheme(context)
+                            .headline1!
+                            .copyWith(color: ColorValue.secondaryColor)
+                    ),
+                    SizedBox(height: 3,),
+                    Text("Laporan Selesai",
+                        style: CommonAppTheme.textTheme(context)
+                            .bodyText1!
+                            .copyWith(color: ColorValue.secondaryColor
+                        )),
+                  ],
+                ),
+              )),
+
+
+
+
+        SizedBox(width: 10,),
+              Expanded(child:
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                    color: ColorValue.secondaryColor,
+                    boxShadow: [
+
+            
+
+                    ]
+                ),
+                child: Column(
+
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("250",
+
+                        style: CommonAppTheme.textTheme(context)
+                            .headline1!
+                            .copyWith(color:Colors.white)
+                    ),
+                    SizedBox(height: 3,),
+                    Text("Laporan Selesai",
+                        style: CommonAppTheme.textTheme(context)
+                            .bodyText1!
+                            .copyWith(color:Colors.white
+                        )),
+                  ],
+                ),
+              ))
+            ],
+          ),
+        ),
+
       ],
     );
   }

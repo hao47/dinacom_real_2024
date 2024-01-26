@@ -13,7 +13,6 @@ class ProfileModelTemporary{
 var bios = [
 
   ProfileModelTemporary(iconData: Icons.email, text: "kudus123@gmail.com"),
-  ProfileModelTemporary(iconData: Icons.location_on_sharp, text: "Jawa Tengah, Kudus"),
   ProfileModelTemporary(iconData: Icons.calendar_month, text: "Senin - Jum’at"),
   ProfileModelTemporary(iconData: Icons.access_time_outlined, text: "09:00 - 16:00"),
 
