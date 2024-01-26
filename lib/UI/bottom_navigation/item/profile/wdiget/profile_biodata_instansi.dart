@@ -4,6 +4,7 @@ import 'package:dinacom_2024/common/app_theme.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:dinacom_2024/data/model/profile_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ProfileBioDataAsInstansi extends StatelessWidget {
 
@@ -47,10 +48,15 @@ class ProfileBioDataAsInstansi extends StatelessWidget {
                       shape: BoxShape.circle,
                       color: ColorValue.BaseBlue,
                     ),
-                    child: const Icon(
-                      Icons.notifications,
-                      color: Colors.white,
-                      size: 20,
+                    child: IconButton(
+                      onPressed: (){
+                        Get.toNamed('/kelola');
+                      },
+                      icon: Icon(
+                        Icons.build,
+                        color: Colors.white,
+                        size: 14,
+                      ),
                     ),
                   )),
             ],

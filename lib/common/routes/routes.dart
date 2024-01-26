@@ -16,6 +16,7 @@ import 'package:dinacom_2024/UI/bottom_navigation/item/profile/profile.dart';
 import 'package:dinacom_2024/UI/detail/detail.dart';
 import 'package:dinacom_2024/UI/detail/detail_binding.dart';
 import 'package:dinacom_2024/UI/instansi_profile/profile.dart';
+import 'package:dinacom_2024/UI/kelola/kelola_page.dart';
 import 'package:dinacom_2024/UI/masyarakat_profile/profile.dart';
 import 'package:dinacom_2024/UI/notification/notification_page.dart';
 import 'package:dinacom_2024/UI/setting/changepassword.dart';
@@ -90,6 +91,10 @@ List<GetPage> routes = [
     page: () => ProfileInstansi(),
 
     // binding: SettingBinding(),
+  ),
+  GetPage(
+    name: '/kelola',
+    page: () => KelolaPage(),
   ),
   // GetPage(
   //   name: '/regist',
