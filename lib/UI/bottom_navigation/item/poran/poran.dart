@@ -360,6 +360,7 @@ class _PoranState extends State<Poran> with SingleTickerProviderStateMixin {
                         ),
                       ),
                     ),
+
                   ),
                   _selectedIndex == 1
                       ? SingleChildScrollView(
@@ -482,6 +483,7 @@ class _PoranState extends State<Poran> with SingleTickerProviderStateMixin {
                         )
                 ],
               )),
+
             ],
           )),
     );

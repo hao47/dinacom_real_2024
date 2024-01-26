@@ -345,11 +345,16 @@ class PoranCardItemAll extends GetView<PoranController> {
                               width: 36,
                               child: IconButton(
                                   onPressed: () async {
-                                    // final check = await controller.dislike(
-                                    //     context,  response.id);
+                                    final check = await controller.dislike(
+                                        context,  response.id);
 
+
+
+                                      controller.profileModel.value = PoranAllModel(responseAllModel:  controller.profileModel.value.responseAllModel, status: 200);
+                                    controller.profileModel.value.responseAllModel[index].likeJumlah -= 1;
+                                    controller.profileModel.value.responseAllModel[index].liked = false;
                                     print(response.id);
-                                    // print("s");
+                                    print(check);
                                     // if(check == true){
                                     //   controller.profileModel.value = PoranAllModel(responseAllModel:  controller.profileModel.value.responseAllModel, status: 200);
                                     // controller.profileModel.value.responseAllModel[index].likeJumlah -= 1;
