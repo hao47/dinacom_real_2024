@@ -14,14 +14,11 @@ class Poran extends StatelessWidget {
 
   Poran({super.key, this.newContext});
 
-
-
   @override
   Widget build(BuildContext context) {
     Get.put(PoranController()).profile();
     Get.put(ProfileController()).profilee();
     return Scaffold(
-
         appBar: AppBar(
           backgroundColor: Colors.blue,
           toolbarHeight: 75,
@@ -29,8 +26,7 @@ class Poran extends StatelessWidget {
           actions: [
             SizedBox(width: 25),
             Expanded(
-              child:
-              GetX<ProfileController>(
+              child: GetX<ProfileController>(
                 builder: (controller) {
                   // print(state.categoryResult.response.length);
                   if (controller.state.value == ResultState.loading) {
@@ -38,36 +34,40 @@ class Poran extends StatelessWidget {
                       child: CircularProgressIndicator(),
                     );
                   } else if (controller.state.value == ResultState.hasData) {
-
                     return Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-
-
-
-                     CircleAvatar(
-                            radius: 20,
-                            backgroundImage: NetworkImage(
-                                controller.profileModel.value.responseProfile!.photoProfile
-
-                            ),
+                        CircleAvatar(
+                          radius: 26,
+                          backgroundColor: Colors.white,
+                          child: CircleAvatar(
+                            radius: 24,
+                            backgroundImage: NetworkImage(controller.profileModel
+                                .value.responseProfile!.photoProfile),
                           ),
+                        ),
                         SizedBox(width: 10),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Selamat  datang kembali!',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 12)),
-                            Text( controller.profileModel.value.responseProfile!.username,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 18,
-                                )),
+                            Text('Selamat datang kembali!',
+                                style: CommonAppTheme.textTheme(context)
+                                    .bodyText1!
+                                    .copyWith(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w900,
+                                        fontSize: 12,
+                                        height: 1.2)),
+                            Text(
+                                controller.profileModel.value.responseProfile!
+                                    .username,
+                                style: CommonAppTheme.textTheme(context)
+                                    .headline1!
+                                    .copyWith(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w100,
+                                        fontSize: 18)),
                           ],
                         ),
                         Spacer(),
@@ -75,16 +75,13 @@ class Poran extends StatelessWidget {
                           margin: EdgeInsets.symmetric(horizontal: 20),
                           child: IconButton(
                               onPressed: () {
-
                                 Get.toNamed('/notif');
-
                               },
-                              icon: Icon(Icons.notifications_none_rounded, color: Colors.white, size: 35)),
+                              icon: Icon(Icons.notifications_none_rounded,
+                                  color: Colors.white, size: 35)),
                         )
                       ],
                     );
-
-
                   } else if (controller.state.value == ResultState.noData) {
                     return Center(
                       child: Material(
@@ -119,8 +116,6 @@ class Poran extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
-
                   GetX<PoranController>(
                     builder: (controller) {
                       // print(state.categoryResult.response.length);
