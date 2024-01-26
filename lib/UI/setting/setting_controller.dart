@@ -14,6 +14,7 @@ class SettingController  extends GetxController{
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmpasswordController = TextEditingController();
 
+  String daerah = "Bae";
 
   Rx<XFile?> pickedFile = Rx<XFile?>(null);
 
@@ -27,12 +28,20 @@ class SettingController  extends GetxController{
     }
   }
 
+  void onChangeSetting(String username, String tanggalLahir, String daerah) {
+    print("INI USERNAME : $username");
+    print("INI TANGGAL LAHIR : $tanggalLahir");
+    print("INI DAERAH : $daerah");
+  }
+
   logout() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.clear();
     prefs.remove("token");
     Get.offAllNamed(UrlRoutes.auth_page);
   }
+
+
 
   selectDate(BuildContext context) async {
     DateTime? _picked = await showDatePicker(

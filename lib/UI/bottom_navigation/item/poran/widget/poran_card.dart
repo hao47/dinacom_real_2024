@@ -265,7 +265,7 @@ class PoranCardItemAll extends GetView<PoranController> {
                 ],
               ),
               SizedBox(
-                height: 10,
+                height: 12,
               ),
               Text(
                 response.title,
@@ -273,7 +273,9 @@ class PoranCardItemAll extends GetView<PoranController> {
                 style: CommonAppTheme.textTheme(context).headline1!.copyWith(
                     color: Colors.black,
                     overflow: TextOverflow.ellipsis,
+
                     fontSize: 18
+
                 ),
               ),
               Text(
@@ -344,6 +346,7 @@ class PoranCardItemAll extends GetView<PoranController> {
                       icon: Icon(
                         Icons.favorite,
                         color: Colors.red,
+                        size: 20,
                       )):
 
                   IconButton(
@@ -368,6 +371,7 @@ class PoranCardItemAll extends GetView<PoranController> {
                       icon: Icon(
                         Icons.favorite_border,
                         color: ColorValue.LightGrey,
+                        size: 20,
                       ))),
 
 
@@ -375,7 +379,11 @@ class PoranCardItemAll extends GetView<PoranController> {
 
                     return  Text(
                       controller.profileModel.value.responseAllModel[index].likeJumlah.toString(),
-                      style: CommonAppTheme.textTheme(context).bodyText1!,
+
+                      style: CommonAppTheme.textTheme(context)
+                          .bodyText1!
+                          .copyWith(fontSize: 14),
+
                     );
                   }
                   )
