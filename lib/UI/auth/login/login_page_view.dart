@@ -6,6 +6,7 @@ import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:dinacom_2024/validator/Validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 class LoginPageView extends GetView<LoginPageController> {
@@ -125,4 +126,37 @@ class LoginPageView extends GetView<LoginPageController> {
       ),
     );
   }
+}
+
+showCustom(BuildContext context) {
+  FToast fToast = FToast();
+  fToast.init(context);
+
+  Widget toast = Container(
+    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+    decoration: BoxDecoration(
+      // borderRadius: BorderRadius.circular(5),
+      color: Colors.black.withOpacity(0.85),
+    ),
+    child: const Row(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+
+        Expanded(
+          child: Text(
+            "Email atau Password anda salah",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+  fToast.showToast(
+      child: toast,
+      toastDuration: const Duration(seconds: 3),
+      gravity: ToastGravity.SNACKBAR,
+      isDismissable: true
+  );
 }
