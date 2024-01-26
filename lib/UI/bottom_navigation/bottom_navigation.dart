@@ -76,6 +76,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
     return WillPopScope(
       onWillPop: () => _pagePop(context),
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: _tabs[_currentIndex],
         bottomNavigationBar: BottomNavigationBar(
           items: const [
@@ -158,6 +159,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
           ),
           child: FloatingActionButton(
             onPressed: () {
+              FocusManager.instance.primaryFocus?.unfocus();
               Navigator.of(context).push(PageRouteBuilder(
                 pageBuilder: (context, animation, secondaryAnimation) {
                   return Lapor();
