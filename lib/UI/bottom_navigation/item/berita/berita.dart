@@ -13,7 +13,7 @@ class Berita extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    Get.put(BeritaController());
+    Get.put(BeritaController()).berita();
     var size = MediaQuery.of(context).size;
     final double itemHeight = (size.height - kToolbarHeight - 24) * .3;
     final double itemWidth = size.width / 2;
@@ -69,7 +69,7 @@ class Berita extends StatelessWidget {
                   } else if (controller.state.value == ResultState.hasData) {
 
 
-                    return        GridView.count(
+                    return GridView.count(
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
                       childAspectRatio: (itemWidth / itemHeight),
