@@ -99,7 +99,7 @@ class PoranCardItemAll extends GetView<PoranController> {
           ],
         ),
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.only(top: 5, bottom: 5, left: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -265,7 +265,7 @@ class PoranCardItemAll extends GetView<PoranController> {
                 ],
               ),
               SizedBox(
-                height: 10,
+                height: 12,
               ),
               Text(
                 response.title,
@@ -273,7 +273,7 @@ class PoranCardItemAll extends GetView<PoranController> {
                 style: CommonAppTheme.textTheme(context).headline1!.copyWith(
                     color: Colors.black,
                     overflow: TextOverflow.ellipsis,
-                    fontSize: 18
+                    fontSize: 16
                 ),
               ),
               Text(
@@ -307,13 +307,22 @@ class PoranCardItemAll extends GetView<PoranController> {
               ),
               Row(
                 children: [
-                  Icon(Icons.mode_comment_outlined),
+                  Icon(
+                    Icons.mode_comment_outlined,
+                    color: ColorValue.LightGrey,
+                    size: 19,
+                  ),
                   SizedBox(
-                    width: 5,
+                    width: 12.5,
                   ),
                   Text(
                     response.commentJumlah.toString(),
-                    style: CommonAppTheme.textTheme(context).bodyText1!,
+                    style: CommonAppTheme.textTheme(context)
+                        .bodyText1!
+                        .copyWith(fontSize: 14),
+                  ),
+                  SizedBox(
+                    width: 5,
                   ),
 
                   // Obx(() =>   controller.likeModel.value.responseLike!.id == 0?
@@ -344,6 +353,7 @@ class PoranCardItemAll extends GetView<PoranController> {
                       icon: Icon(
                         Icons.favorite,
                         color: Colors.red,
+                        size: 20,
                       )):
 
                   IconButton(
@@ -368,6 +378,7 @@ class PoranCardItemAll extends GetView<PoranController> {
                       icon: Icon(
                         Icons.favorite_border,
                         color: ColorValue.LightGrey,
+                        size: 20,
                       ))),
 
 
@@ -375,7 +386,9 @@ class PoranCardItemAll extends GetView<PoranController> {
 
                     return  Text(
                       controller.profileModel.value.responseAllModel[index].likeJumlah.toString(),
-                      style: CommonAppTheme.textTheme(context).bodyText1!,
+                      style: CommonAppTheme.textTheme(context)
+                          .bodyText1!
+                          .copyWith(fontSize: 14),
                     );
                   }
                   )
