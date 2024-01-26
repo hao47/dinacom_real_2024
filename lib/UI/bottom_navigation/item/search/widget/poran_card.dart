@@ -340,60 +340,68 @@ class PoranCardItemSearch extends GetView<PoranController> {
                   Obx(() => controller.profileModel.value
                               .responseAllModel[index].liked ==
                           true
-                      ? IconButton(
-                          onPressed: () async {
-                            final check =
-                                await controller.dislike(context, response.id);
+                      ? SizedBox(
+                          height: 36,
+                          width: 36,
+                          child: IconButton(
+                              onPressed: () async {
+                                final check = await controller.dislike(
+                                    context, response.id);
 
-                            if (check == true) {
-                              controller.profileModel.value = PoranAllModel(
-                                  responseAllModel: controller
-                                      .profileModel.value.responseAllModel,
-                                  status: 200);
-                              controller.profileModel.value
-                                  .responseAllModel[index].likeJumlah--;
-                              controller.profileModel.value
-                                  .responseAllModel[index].liked = false;
+                                if (check == true) {
+                                  controller.profileModel.value = PoranAllModel(
+                                      responseAllModel: controller
+                                          .profileModel.value.responseAllModel,
+                                      status: 200);
+                                  controller.profileModel.value
+                                      .responseAllModel[index].likeJumlah--;
+                                  controller.profileModel.value
+                                      .responseAllModel[index].liked = false;
 
-                              //
-                              //   // print(Get.put(PoranController()).profileModel.value.responseAllModel[index].likeJumlah++);
-                              //
-                            }
+                                  //
+                                  //   // print(Get.put(PoranController()).profileModel.value.responseAllModel[index].likeJumlah++);
+                                  //
+                                }
 
-                            // final check  = await controller.dislike(context, 0, response.id);
-                          },
-                          icon: Icon(
-                            Icons.favorite,
-                            color: Colors.red,
-                            size: 20,
-                          ))
-                      : IconButton(
-                          onPressed: () async {
-                            final check = await controller.like(
-                                context, response.id, response.authorId);
+                                // final check  = await controller.dislike(context, 0, response.id);
+                              },
+                              icon: Icon(
+                                Icons.favorite,
+                                color: Colors.red,
+                                size: 20,
+                              )),
+                        )
+                      : SizedBox(
+                          height: 36,
+                          width: 36,
+                          child: IconButton(
+                              onPressed: () async {
+                                final check = await controller.like(
+                                    context, response.id, response.authorId);
 
-                            // print( controller.profileModel.value);
-                            if (check == true) {
-                              controller.profileModel.value = PoranAllModel(
-                                  responseAllModel: controller
-                                      .profileModel.value.responseAllModel,
-                                  status: 200);
-                              controller.profileModel.value
-                                  .responseAllModel[index].likeJumlah++;
+                                // print( controller.profileModel.value);
+                                if (check == true) {
+                                  controller.profileModel.value = PoranAllModel(
+                                      responseAllModel: controller
+                                          .profileModel.value.responseAllModel,
+                                      status: 200);
+                                  controller.profileModel.value
+                                      .responseAllModel[index].likeJumlah++;
 
-                              controller.profileModel.value
-                                  .responseAllModel[index].liked = true;
+                                  controller.profileModel.value
+                                      .responseAllModel[index].liked = true;
 
-                              //
-                              //   // print(Get.put(PoranController()).profileModel.value.responseAllModel[index].likeJumlah++);
-                              //
-                            }
-                          },
-                          icon: Icon(
-                            Icons.favorite_border,
-                            color: ColorValue.LightGrey,
-                            size: 20,
-                          ))),
+                                  //
+                                  //   // print(Get.put(PoranController()).profileModel.value.responseAllModel[index].likeJumlah++);
+                                  //
+                                }
+                              },
+                              icon: Icon(
+                                Icons.favorite_border,
+                                color: ColorValue.LightGrey,
+                                size: 20,
+                              )),
+                        )),
 
                   Obx(() {
                     return Text(
