@@ -18,7 +18,7 @@ class AuthBanner extends StatelessWidget {
 
           SizedBox(height: 30,),
 
-          Image.asset("assets/images/auth_logo.png",width: screenWidth * 0.22,fit: BoxFit.fill),
+          Image.asset("assets/images/new_logo.png",width: screenWidth * 0.30,fit: BoxFit.fill),
         ],
       );
   }

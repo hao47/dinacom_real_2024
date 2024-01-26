@@ -13,6 +13,16 @@ class ProfileBioData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+
+
+
+
+
+    // print(profileModel.responseProfile.)
+
+
     var tahun =  profileModel.responseProfile!.tanggalLahir.year.toString();
     var bulan =  profileModel.responseProfile!.tanggalLahir.month.toString();
     var hari =  profileModel.responseProfile!.tanggalLahir.day.toString();
