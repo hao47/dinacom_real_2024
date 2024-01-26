@@ -9,6 +9,7 @@ import 'package:dinacom_2024/UI/setting/widget/text_setting.dart';
 import 'package:dinacom_2024/UI/widget/custom_textfield.dart';
 import 'package:dinacom_2024/common/app_theme.dart';
 import 'package:dinacom_2024/common/theme/color_value.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -30,8 +31,7 @@ class Setting extends GetView<SettingController> {
           toolbarHeight: 75,
           backgroundColor: ColorValue.secondaryColor,
           leading: IconButton(
-            onPressed:
-            () {
+            onPressed: () {
               Navigator.pop(context);
             },
             icon: const Icon(
@@ -48,7 +48,9 @@ class Setting extends GetView<SettingController> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  controller.onChangeSetting(controller.usernameController.text, controller.tanggaLahirController.text, controller.daerah);
+                },
                 child: Text(
                   "Simpan",
                   style: CommonAppTheme.textTheme(context)
@@ -67,73 +69,69 @@ class Setting extends GetView<SettingController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-
                   margin: const EdgeInsets.symmetric(vertical: 25),
                   width: double.infinity,
                   child: Wrap(
                     alignment: WrapAlignment.center,
                     children: [
-                      Obx(() =>
-                          Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              Container(
-                                  width: 110,
-                                  height: 110,
-                                  decoration: BoxDecoration(
-                                      boxShadow: [
-                                        BoxShadow(
-                                            spreadRadius: 2,
-                                            blurRadius: 10,
-                                            color: Colors.black.withOpacity(0.1),
-                                            offset: const Offset(0, 10))
-                                      ],
+                      Obx(
+                        () => Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Container(
+                                width: 110,
+                                height: 110,
+                                decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                          spreadRadius: 2,
+                                          blurRadius: 10,
+                                          color: Colors.black.withOpacity(0.1),
+                                          offset: const Offset(0, 10))
+                                    ],
+                                    shape: BoxShape.circle,
+                                    image: controller.pickedFile.value != null
+                                        ? DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: FileImage(File(controller
+                                                .pickedFile.value!.path)),
+                                          )
+                                        : DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: NetworkImage(
+                                                Get.put(ProfileController())
+                                                    .profileModel
+                                                    .value
+                                                    .responseProfile!
+                                                    .photoProfile)))),
+                            Positioned(
+                                top: 0,
+                                right: 0,
+                                child: InkWell(
+                                  onTap: () {
+                                    checkPermissions();
+                                  },
+                                  child: Container(
+                                    height: 35,
+                                    width: 35,
+                                    decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      image:  controller.pickedFile.value != null? DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: FileImage(File(controller.pickedFile.value!.path)),
-
-                                      ):
-                                      DecorationImage(
-                                          fit: BoxFit.cover,
-                                          image: NetworkImage(
-
-
-
-                                                    Get.put(ProfileController()).profileModel.value.responseProfile!.photoProfile
-
-
-                                          ))
-
-                                  )
-                              ),
-                              Positioned(
-                                  top: 0,
-                                  right: 0,
-                                  child: InkWell(
-                                    onTap: () {
-                                      checkPermissions();
-                                    },
-                                    child: Container(
-                                      height: 35,
-                                      width: 35,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: ColorValue.BaseGrey.withOpacity(0.8),
-                                      ),
-                                      child: const Icon(
-                                        Icons.edit,
-                                        color: Colors.white,
-                                        size: 20,
-                                      ),
+                                      color:
+                                          ColorValue.BaseGrey.withOpacity(0.8),
                                     ),
-                                  )),
-                            ],
-                          ),)
+                                    child: const Icon(
+                                      Icons.edit,
+                                      color: Colors.white,
+                                      size: 20,
+                                    ),
+                                  ),
+                                )),
+                          ],
+                        ),
+                      )
                     ],
                   ),
                 ),
-          
                 TextSetting(text: "Username"),
                 SizedBox(
                   height: 10,
@@ -142,8 +140,6 @@ class Setting extends GetView<SettingController> {
                   label: "username",
                   controller: controller.usernameController,
                   borderRadius: 20,
-          
-          
                 ),
                 SizedBox(
                   height: 15,
@@ -162,7 +158,6 @@ class Setting extends GetView<SettingController> {
                       controller.selectDate(context);
                     },
                     validator: (value) => Validator.dateValidator(value)),
-          
                 SizedBox(
                   height: 15,
                 ),
@@ -170,60 +165,69 @@ class Setting extends GetView<SettingController> {
                 SizedBox(
                   height: 10,
                 ),
-                CSCPicker(
-                  showStates: true,
-                  showCities: true,
-                  flagState: CountryFlag.DISABLE,
-                  dropdownDecoration: BoxDecoration(
-                      borderRadius:
-                      const BorderRadius.all(Radius.circular(15)),
-                      color: Colors.white,
-                      border: Border.all(
-                        width: 1.5,
-                        color: const Color(0xff666666),
-                      )),
-                  disabledDropdownDecoration: BoxDecoration(
-                      borderRadius:
-                      const BorderRadius.all(Radius.circular(10)),
-                      color: Colors.grey.shade300,
-                      border: Border.all(
-                          color: Colors.grey.shade300, width: 1)),
-                  countrySearchPlaceholder: "Country",
-                  stateSearchPlaceholder: "State",
-                  citySearchPlaceholder: "City",
-                  countryDropdownLabel: "Country",
-                  stateDropdownLabel: "State",
-                  cityDropdownLabel: "City",
-                  countryFilter: const [CscCountry.Indonesia],
-                  selectedItemStyle: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 14,
+                DropdownSearch<String>(
+                  items: const [
+                    "Bae",
+                    "Dawe",
+                    "Gebog",
+                    "Jati",
+                    "Jekulo",
+                    "Kaliwungu",
+                    "Kudus",
+                    "Mejobo",
+                    "Undaan",
+                  ],
+                  popupProps: PopupProps.dialog(
+                    showSelectedItems: true,
+                    containerBuilder: (context, popupWidget) {
+                      return Container(
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: popupWidget);
+                    },
                   ),
-                  dropdownHeadingStyle: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 17,
-                      fontWeight: FontWeight.bold),
-                  dropdownItemStyle: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 14,
+                  dropdownDecoratorProps: DropDownDecoratorProps(
+                    baseStyle: CommonAppTheme.textTheme(context)
+                        .bodyText1!
+                        .copyWith(
+                            color: ColorValue.BaseBlack,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w900),
+                    dropdownSearchDecoration: InputDecoration(
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: const BorderSide(
+                          width: 1.5,
+                          color: Color(0xff666666),
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: const BorderSide(
+                          width: 1.5,
+                          color: Color(0xff666666),
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: const BorderSide(
+                          width: 2,
+                          color: ColorValue.secondaryColor,
+                        ),
+                      ),
+                    ),
                   ),
-                  dropdownDialogRadius: 10.0,
-                  searchBarRadius: 10.0,
-                  onCountryChanged: (value) {
-                    // controller.countryValue!.value = value ?? "";
+                  onChanged: (value) {
+                    // Provider.of<PoranProvider>(context,listen: false).setinstasi(value!);
+                    controller.daerah = value!;
                   },
-                  onStateChanged: (value) {
-                    // controller.stateValue!.value = value ?? "";
-                  },
-                  onCityChanged: (value) {
-                    // controller.cityValue!.value = value ?? "";
-                  },
+                  selectedItem: controller.daerah,
                 ),
-          
-          
-          
-          
-          
               ],
             ),
           ),
