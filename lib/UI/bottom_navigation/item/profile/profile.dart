@@ -12,6 +12,7 @@ import 'package:dinacom_2024/common/theme/color_value.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../common/enums/status.dart';
 
@@ -41,9 +42,102 @@ class Profile extends GetView<ProfileController> {
                     builder: (controller) {
                       // print(state.categoryResult.response.length);
                       if (controller.state.value == ResultState.loading) {
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
+
+                        if(controller.profileModel.value.responseProfile!.role == "Masyarakat"){
+
+                          return Container(
+                            padding: EdgeInsets.all(15),
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 70,
+                                  height: 70,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(100),
+                                    child: Center(
+                                      child: Shimmer.fromColors(
+                                        baseColor: Colors.grey[300]!,
+                                        highlightColor: Colors.grey[100]!,
+                                        child: Container(
+                                          height: double.maxFinite,
+                                          width: double.maxFinite,
+                                          color: Colors.blue,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 20),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: 70,
+                                      height: 20,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(5),
+                                        child: Center(
+                                          child: Shimmer.fromColors(
+                                            baseColor: Colors.grey[300]!,
+                                            highlightColor: Colors.grey[100]!,
+                                            child: Container(
+                                              height: double.maxFinite,
+                                              width: double.maxFinite,
+                                              color: Colors.blue,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 3),
+                                    Container(
+                                      width: 120,
+                                      height: 10,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(3),
+                                        child: Center(
+                                          child: Shimmer.fromColors(
+                                            baseColor: Colors.grey[300]!,
+                                            highlightColor: Colors.grey[100]!,
+                                            child: Container(
+                                              height: double.maxFinite,
+                                              width: double.maxFinite,
+                                              color: Colors.blue,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Container(
+                                      width: 220,
+                                      height: 10,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(3),
+                                        child: Center(
+                                          child: Shimmer.fromColors(
+                                            baseColor: Colors.grey[300]!,
+                                            highlightColor: Colors.grey[100]!,
+                                            child: Container(
+                                              height: double.maxFinite,
+                                              width: double.maxFinite,
+                                              color: Colors.blue,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          );
+
+                        } else{
+
+                          return ProfileBioDataAsInstansi(profileModel: controller.profileModel.value,);
+
+                        }
                       } else if (controller.state.value == ResultState.hasData) {
                         // print("ada data");
 
