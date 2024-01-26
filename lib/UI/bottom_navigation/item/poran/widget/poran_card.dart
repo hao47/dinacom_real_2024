@@ -99,7 +99,7 @@ class PoranCardItemAll extends GetView<PoranController> {
           ],
         ),
         child: Padding(
-          padding: const EdgeInsets.only(top: 5, bottom: 5, left: 20),
+          padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -273,7 +273,9 @@ class PoranCardItemAll extends GetView<PoranController> {
                 style: CommonAppTheme.textTheme(context).headline1!.copyWith(
                     color: Colors.black,
                     overflow: TextOverflow.ellipsis,
-                    fontSize: 16
+
+                    fontSize: 18
+
                 ),
               ),
               Text(
@@ -307,22 +309,13 @@ class PoranCardItemAll extends GetView<PoranController> {
               ),
               Row(
                 children: [
-                  Icon(
-                    Icons.mode_comment_outlined,
-                    color: ColorValue.LightGrey,
-                    size: 19,
-                  ),
+                  Icon(Icons.mode_comment_outlined),
                   SizedBox(
-                    width: 12.5,
+                    width: 5,
                   ),
                   Text(
                     response.commentJumlah.toString(),
-                    style: CommonAppTheme.textTheme(context)
-                        .bodyText1!
-                        .copyWith(fontSize: 14),
-                  ),
-                  SizedBox(
-                    width: 5,
+                    style: CommonAppTheme.textTheme(context).bodyText1!,
                   ),
 
                   // Obx(() =>   controller.likeModel.value.responseLike!.id == 0?
@@ -386,9 +379,11 @@ class PoranCardItemAll extends GetView<PoranController> {
 
                     return  Text(
                       controller.profileModel.value.responseAllModel[index].likeJumlah.toString(),
+
                       style: CommonAppTheme.textTheme(context)
                           .bodyText1!
                           .copyWith(fontSize: 14),
+
                     );
                   }
                   )
