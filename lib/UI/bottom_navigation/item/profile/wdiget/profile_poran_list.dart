@@ -26,7 +26,7 @@ class ProfilePoranList extends StatelessWidget {
 
         // return Container();
 
-      return PoranCardItemProfile(response: result);
+      return PoranCardItemProfile(response: result,index: index,);
     },);
   }
 }

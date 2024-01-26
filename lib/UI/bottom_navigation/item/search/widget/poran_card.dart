@@ -344,11 +344,9 @@ class PoranCardItemSearch extends GetView<PoranController> {
                       onPressed: () async {
 
                         final check = await controller.dislike(
-                            context, 0, response.id);
+                            context,  response.id);
 
 
-
-                        // print( controller.profileModel.value);
                         if(check == true){
                           controller.profileModel.value = PoranAllModel(responseAllModel:  controller.profileModel.value.responseAllModel, status: 200);
                           controller.profileModel.value.responseAllModel[index].likeJumlah--;

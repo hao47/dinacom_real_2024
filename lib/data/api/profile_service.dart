@@ -84,6 +84,29 @@ class ProfileService{
       throw Exception('ada yang salah');
     }
   }
+
+  Future<PoranProfileModel> getporanpuser(int id) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? token = pref.getString('token');
+
+
+    final response =
+    await http.get(Uri.parse("https://urchin-app-hlgon.ondigitalocean.app/api/secured/user_posts/$id"),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': '$token',
+      },
+    );
+
+    // print(response.body);
+
+
+    if (response.statusCode == 200) {
+      return PoranProfileModel.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('ada yang salah');
+    }
+  }
   Future<PoranProfileModel> getporanlike() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String? token = pref.getString('token');
