@@ -24,7 +24,8 @@ class PoranService {
           'Authorization': '$token',
         });
 
-    // print(response.body);
+    print(response.body);
+
 
     if (response.statusCode == 200) {
       return PoranAllModel.fromJson(jsonDecode(response.body));

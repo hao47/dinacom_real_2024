@@ -110,7 +110,7 @@ class PoranController extends GetxController {
         return _profileModel.value = profile;
       }
     } catch (e) {
-      print(e.runtimeType);
+      print(e);
       _state.value = ResultState.error;
 
       return _message.value = "ada yang salah";

@@ -345,8 +345,15 @@ class PoranCardItemAll extends GetView<PoranController> {
                               width: 36,
                               child: IconButton(
                                   onPressed: () async {
+
+                                    print(response
+
+
+
+
+                                    .id);
                                     final check = await controller.dislike(
-                                        context,  response.id);
+                                        context,  1);
 
 
 

@@ -289,12 +289,14 @@ class _PoranState extends State<Poran> with SingleTickerProviderStateMixin {
                                                 .responseAllModel.length !=
                                             0) {
                                           print("masokkkkkkkkkkkkkkkkkkk");
-                                          return PoranList(
-                                              poranAllModel:
-                                                  controller.profileModel.value,
-                                              newContext: widget.newContext);
+                                          // return PoranList(
+                                          //     poranAllModel:
+                                          //         controller.profileModel.value,
+                                          //     newContext: widget.newContext);
 
-                                          // return Container();
+                                          return Container(
+                                            child: Text("halo"),
+                                          );
                                         } else {
                                           return Container();
                                         }

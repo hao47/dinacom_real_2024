@@ -49,7 +49,7 @@ class Setting extends GetView<SettingController> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextButton(
                 onPressed: () {
-                  controller.onChangeSetting(controller.usernameController.text, controller.tanggaLahirController.text, controller.daerah);
+                  controller.onChangeSetting(controller.usernameController.text, controller.tanggaLahirController.text, controller.daerah,controller.pickedFile.value);
                 },
                 child: Text(
                   "Simpan",

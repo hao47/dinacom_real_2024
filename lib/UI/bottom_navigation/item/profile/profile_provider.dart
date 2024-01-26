@@ -53,7 +53,7 @@ class ProfileController extends GetxController {
     super.onInit();
     profilee();
     getporanprofile();
-    getporanprolike();
+    // getporanprolike();
   }
 
 
@@ -79,7 +79,7 @@ class ProfileController extends GetxController {
         return _profileModel.value = profile;
       }
     } catch (e) {
-      print(e.runtimeType);
+      print(e);
       _state.value = ResultState.error;
 
       return _message.value = "ada yang salah";
@@ -119,32 +119,32 @@ class ProfileController extends GetxController {
       return _message.value = "ada yang salah";
     }
   }
-  Future<dynamic> getporanprolike() async {
-    try {
-      _statep.value = ResultState.loading;
-
-
-      final profile = await profileService.getporanlike();
-
-      // print(profile.response.length.toString());
-
-      if (profile.responseProfileModel.isEmpty) {
-        _statep.value = ResultState.noData;
-
-        return _message.value = 'Empty Data';
-      } else {
-        _statep.value = ResultState.hasData;
-
-        // update();
-
-        return _poranModel.value = profile;
-      }
-    } catch (e) {
-      print(e.runtimeType);
-      _statep.value = ResultState.error;
-
-      return _message.value = "ada yang salah";
-    }
-  }
+  // Future<dynamic> getporanprolike() async {
+  //   try {
+  //     _statep.value = ResultState.loading;
+  //
+  //
+  //     final profile = await profileService.getporanlike();
+  //
+  //     // print(profile.response.length.toString());
+  //
+  //     if (profile.responseProfileModel.isEmpty) {
+  //       _statep.value = ResultState.noData;
+  //
+  //       return _message.value = 'Empty Data';
+  //     } else {
+  //       _statep.value = ResultState.hasData;
+  //
+  //       // update();
+  //
+  //       return _poranModel.value = profile;
+  //     }
+  //   } catch (e) {
+  //     print(e.runtimeType);
+  //     _statep.value = ResultState.error;
+  //
+  //     return _message.value = "ada yang salah";
+  //   }
+  // }
 
 }
