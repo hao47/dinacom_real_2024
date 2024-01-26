@@ -115,7 +115,7 @@ class Poran extends StatelessWidget {
           },
           child: SingleChildScrollView(
             child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 20),
+              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

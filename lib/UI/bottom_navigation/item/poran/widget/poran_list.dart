@@ -15,7 +15,7 @@ BuildContext? newContext;
   Widget build(BuildContext context) {
     return ListView.builder(
       physics: NeverScrollableScrollPhysics(),
-      padding: EdgeInsets.symmetric(vertical: 0),
+      padding: EdgeInsets.symmetric(vertical: 10),
       shrinkWrap: true,
       itemCount: poranAllModel.responseAllModel.length,
       itemBuilder: (context, index) {

@@ -22,7 +22,11 @@ class PoranCardItemAll extends GetView<PoranController> {
   ResponseAllModel response;
   BuildContext? newContext;
 
-  PoranCardItemAll({super.key, required this.response, this.newContext,required this.index});
+  PoranCardItemAll(
+      {super.key,
+      required this.response,
+      this.newContext,
+      required this.index});
 
   SampleItem? selectedMenu;
 
@@ -37,8 +41,6 @@ class PoranCardItemAll extends GetView<PoranController> {
   // }
 
   bool waa = false;
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +101,7 @@ class PoranCardItemAll extends GetView<PoranController> {
           ],
         ),
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.only(top: 5, bottom: 5, left: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -212,8 +214,8 @@ class PoranCardItemAll extends GetView<PoranController> {
                           ),
                         )
                       : Container(
-                    width: 40,
-                    height: 40,
+                          width: 40,
+                          height: 40,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             image: DecorationImage(
@@ -268,10 +270,9 @@ class PoranCardItemAll extends GetView<PoranController> {
                 response.title,
                 maxLines: 1,
                 style: CommonAppTheme.textTheme(context).headline1!.copyWith(
-                  color: Colors.black,
-                  overflow: TextOverflow.ellipsis,
-                  fontSize: 18
-                ),
+                    color: Colors.black,
+                    overflow: TextOverflow.ellipsis,
+                    fontSize: 18),
               ),
               Text(
                 response.content,
@@ -279,6 +280,7 @@ class PoranCardItemAll extends GetView<PoranController> {
                 style: CommonAppTheme.textTheme(context).bodyText1!.copyWith(
                       color: Colors.black,
                       overflow: TextOverflow.ellipsis,
+                      height: 1,
                     ),
               ),
               response.gambar == ""
@@ -304,78 +306,95 @@ class PoranCardItemAll extends GetView<PoranController> {
                     ),
               Row(
                 children: [
-                  Icon(Icons.mode_comment_outlined),
+                  Icon(
+                    Icons.mode_comment_outlined,
+                    color: ColorValue.LightGrey,
+                    size: 19,
+                  ),
                   SizedBox(
-                    width: 5,
+                    width: 12.5,
                   ),
                   Text(
                     response.commentJumlah.toString(),
-                    style: CommonAppTheme.textTheme(context).bodyText1!,
+                    style: CommonAppTheme.textTheme(context)
+                        .bodyText1!
+                        .copyWith(fontSize: 14),
+                  ),
+                  SizedBox(
+                    width: 5,
                   ),
 
-                // Obx(() =>   controller.likeModel.value.responseLike!.id == 0?
+                  // Obx(() =>   controller.likeModel.value.responseLike!.id == 0?
 
-                  Obx(() => controller.profileModel.value.responseAllModel[index].liked == true?
-                  IconButton(
-                      onPressed: () async {
+                  Obx(() => controller.profileModel.value
+                              .responseAllModel[index].liked ==
+                          true
+                      ? IconButton(
+                          onPressed: () async {
+                            final check = await controller.dislike(
+                                context, 0, response.id);
 
-                        final check = await controller.dislike(
-                            context, 0, response.id);
+                            // print( controller.profileModel.value);
+                            if (check == true) {
+                              controller.profileModel.value = PoranAllModel(
+                                  responseAllModel: controller
+                                      .profileModel.value.responseAllModel,
+                                  status: 200);
+                              controller.profileModel.value
+                                  .responseAllModel[index].likeJumlah--;
+                              controller.profileModel.value
+                                  .responseAllModel[index].liked = false;
 
+                              //
+                              //   // print(Get.put(PoranController()).profileModel.value.responseAllModel[index].likeJumlah++);
+                              //
+                            }
 
+                            // final check  = await controller.dislike(context, 0, response.id);
+                          },
+                          icon: Icon(
+                            Icons.favorite,
+                            color: Colors.red,
+                            size: 20,
+                          ))
+                      : IconButton(
+                          onPressed: () async {
+                            final check = await controller.like(
+                                context, response.id, response.authorId);
 
-                        // print( controller.profileModel.value);
-                        if(check == true){
-                          controller.profileModel.value = PoranAllModel(responseAllModel:  controller.profileModel.value.responseAllModel, status: 200);
-                          controller.profileModel.value.responseAllModel[index].likeJumlah--;
-                          controller.profileModel.value.responseAllModel[index].liked = false;
+                            // print( controller.profileModel.value);
+                            if (check == true) {
+                              controller.profileModel.value = PoranAllModel(
+                                  responseAllModel: controller
+                                      .profileModel.value.responseAllModel,
+                                  status: 200);
+                              controller.profileModel.value
+                                  .responseAllModel[index].likeJumlah++;
 
-                          //
-                          //   // print(Get.put(PoranController()).profileModel.value.responseAllModel[index].likeJumlah++);
-                          //
-                        }
+                              controller.profileModel.value
+                                  .responseAllModel[index].liked = true;
 
-                        // final check  = await controller.dislike(context, 0, response.id);
-
-                      },
-                      icon: Icon(
-                        Icons.favorite,
-                        color: Colors.red,
-                      )):
-
-                  IconButton(
-                      onPressed: () async {
-                        final check = await controller.like(
-                            context, response.id, response.authorId);
-
-
-
-                        // print( controller.profileModel.value);
-                        if(check == true){
-                          controller.profileModel.value = PoranAllModel(responseAllModel:  controller.profileModel.value.responseAllModel, status: 200);
-                          controller.profileModel.value.responseAllModel[index].likeJumlah++;
-
-                          controller.profileModel.value.responseAllModel[index].liked = true;
-
-                          //
-                          //   // print(Get.put(PoranController()).profileModel.value.responseAllModel[index].likeJumlah++);
-                          //
-                        }
-                      },
-                      icon: Icon(
-                        Icons.favorite_border,
-                        color: ColorValue.LightGrey,
-                      ))),
-
+                              //
+                              //   // print(Get.put(PoranController()).profileModel.value.responseAllModel[index].likeJumlah++);
+                              //
+                            }
+                          },
+                          icon: Icon(
+                            Icons.favorite_border,
+                            color: ColorValue.LightGrey,
+                            size: 20,
+                          ))),
 
                   Obx(() {
-                    
-                    return  Text(
-                      controller.profileModel.value.responseAllModel[index].likeJumlah.toString(),
-                      style: CommonAppTheme.textTheme(context).bodyText1!,
+                    return Text(
+                      controller
+                          .profileModel.value.responseAllModel[index].likeJumlah
+                          .toString(),
+                      style: CommonAppTheme.textTheme(context)
+                          .bodyText1!
+                          .copyWith(fontSize: 14),
                     );
-                  }
-                  )
+                  })
                 ],
               ),
             ],
