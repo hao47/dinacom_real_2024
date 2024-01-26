@@ -1,4 +1,5 @@
 import 'package:dinacom_2024/UI/bottom_navigation/item/profile/wdiget/profile_biodata.dart';
+import 'package:dinacom_2024/UI/bottom_navigation/item/profile/wdiget/profile_biodata_instansi.dart';
 import 'package:dinacom_2024/UI/bottom_navigation/item/profile/wdiget/profile_poran_list.dart';
 import 'package:dinacom_2024/UI/bottom_navigation/item/profile/wdiget/profileporan.dart';
 
@@ -43,8 +44,18 @@ class Profile extends GetView<ProfileController> {
             
                       // return Container();
                       // return Text("halo");
-                      return ProfileBioData(
-                          profileModel: controller.profileModel.value);
+
+
+                      if(controller.profileModel.value.responseProfile!.role == "Masyarakat"){
+
+                        return ProfileBioData(
+                            profileModel: controller.profileModel.value);
+
+                      } else{
+
+                        return ProfileBioDataAsInstansi();
+
+                      }
                     } else if (controller.state.value == ResultState.noData) {
                       return Center(
                         child: Material(
