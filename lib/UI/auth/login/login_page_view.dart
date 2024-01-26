@@ -75,7 +75,7 @@ class LoginPageView extends GetView<LoginPageController> {
                       onPressed: () async {
                         if (formKeyLogin.currentState!.validate()) {
 
-                          controller.login(controller.emailController.text, controller.passwordController.text,context);
+                          controller.login(controller.emailController.text, controller.passwordController.text, context);
                         }
                       },
                       child: const Text('Masuk'),
