@@ -24,7 +24,7 @@ class VerifControlller extends GetxController {
 
 
         print("halo");
-        Get.toNamed(UrlRoutes.auth_page);
+        Get.offAllNamed(UrlRoutes.auth_page);
 
 
         // Get.toNamed(UrlRoutes.verif);

@@ -63,7 +63,7 @@ class Berita extends StatelessWidget {
                           children: List.generate(
                               controller.beritaModel.value.results.length,
                               (index) => Padding(
-                                padding: EdgeInsets.all(15),
+                                padding: EdgeInsets.all(5),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
                                   child: Shimmer.fromColors(
