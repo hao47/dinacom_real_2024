@@ -208,6 +208,7 @@ class _LaporState extends State<Lapor> {
                 InkWell(
                   onTap: () async{
 
+                    uploadService.isLoad.value = true;
                     // _controller.indentSelection();
 
                     FocusScope.of(context).unfocus();
@@ -228,7 +229,19 @@ class _LaporState extends State<Lapor> {
 
                     List<Placemark> placemark = await placemarkFromCoordinates(position.latitude, position.longitude);
 
-                    print(placemark[0].street);
+
+                    if(placemark[0].street != null && placemark[0].street != ""){
+
+                      uploadService.isLoad.value = false;
+
+                        setState(() {
+                          alamat = placemark[0].street as String;
+
+                          _controller = QuillController.basic();
+                        });
+
+                      _controller = QuillController.basic();
+                    }
 
                   },
                   child: Padding(

@@ -13,6 +13,7 @@ class Berita extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     Get.put(BeritaController()).berita();
     var size = MediaQuery.of(context).size;
     final double itemHeight = (size.height - kToolbarHeight - 24) * .3;
@@ -40,6 +41,7 @@ class Berita extends StatelessWidget {
                     .headline1!
                     .copyWith(fontSize: 24),
               ),
+
             ),
 
 
@@ -114,6 +116,10 @@ class Berita extends StatelessWidget {
 
 
           ],
+
+
+
+
         ),
       ),
     );
