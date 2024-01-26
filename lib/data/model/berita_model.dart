@@ -87,7 +87,7 @@ class Result {
     link: json["link"],
     keywords: json["keywords"] == null ? [] : List<String>.from(json["keywords"]!.map((x) => x)),
     creator: json["creator"] == null ? [] : List<String>.from(json["creator"]!.map((x) => x)),
-    videoUrl: json["video_url"],
+    videoUrl: json["video_url"] ?? "",
     description: json["description"],
     content: contentValues.map[json["content"]]!,
     pubDate: DateTime.parse(json["pubDate"]),

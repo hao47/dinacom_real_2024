@@ -29,7 +29,8 @@ class SettingController  extends GetxController{
 
   logout() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString("token", "");
+    prefs.clear();
+    prefs.remove("token");
     Get.offAllNamed(UrlRoutes.auth_page);
   }
 
