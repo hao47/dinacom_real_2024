@@ -38,7 +38,7 @@ class ImageUploadService{
 
       var request = http.MultipartRequest(
         'POST',
-        Uri.parse('https://urchin-app-hlgon.ondigitalocean.app/api/secured/posts'),
+        Uri.parse('http://urchin-app-hlgon.ondigitalocean.app/api/secured/posts'),
       );
 
       request.headers['Content-Type'] = 'multipart/form-data';

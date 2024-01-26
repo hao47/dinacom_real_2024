@@ -65,10 +65,10 @@ class _LaporState extends State<Lapor> {
               final content = _controller1.document.toPlainText();
 
               print(judul.length);
-              // print(judul);
+              print(judul);
 
               uploadService.uploadImage(
-                  pickedFile, context, content, judul, alamat);
+                  pickedFile, context, "content", "judul", alamat);
             }
           },
           child: Text("Unggah",
