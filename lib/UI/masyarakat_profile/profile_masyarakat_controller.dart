@@ -74,7 +74,7 @@ class ProfileMasyarakatController extends GetxController {
   void onInit() async{
     super.onInit();
     profilebyid();
-    getporanprofile();
+    getporanprofileuser();
   }
 
   Future<dynamic> profilebyid() async {
@@ -106,12 +106,12 @@ class ProfileMasyarakatController extends GetxController {
   }
 
 
-  Future<dynamic> getporanprofile() async {
+  Future<dynamic> getporanprofileuser() async {
     try {
       _statep.value = ResultState.loading;
 
 
-      final profile = await profileService.getporanprofile();
+      final profile = await profileService.getporanpuser(one[0]);
 
       // print(profile.response.length.toString());
 

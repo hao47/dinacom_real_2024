@@ -219,16 +219,16 @@ Future<bool> like(BuildContext context, int id, int uslike) async {
   }
 }
 //
-  Future<bool> dislike(BuildContext context, int id,int post_id) async {
+  Future<bool> dislike(BuildContext context,int postid) async {
   // notifyListeners();
 
-  print(id);
+  // print(id);
 
   SharedPreferences pref = await SharedPreferences.getInstance();
   String? token = pref.getString('token');
 
   final response = await http.delete(
-      Uri.parse("https://urchin-app-hlgon.ondigitalocean.app/api/secured/likes/$id/$post_id"),
+      Uri.parse("https://urchin-app-hlgon.ondigitalocean.app/api/secured/likes/$postid"),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Authorization': '$token',

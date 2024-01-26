@@ -30,6 +30,7 @@ class PoranProfileModel {
 
 class ResponseProfileModel {
   int id;
+  String title;
   String content;
   String gambar;
   String ditujukan;
@@ -39,9 +40,11 @@ class ResponseProfileModel {
   int commentJumlah;
   DateTime createdAt;
   DateTime updatedAt;
+  bool liked;
 
   ResponseProfileModel({
     required this.id,
+    required this.title,
     required this.content,
     required this.gambar,
     required this.ditujukan,
@@ -51,10 +54,12 @@ class ResponseProfileModel {
     required this.commentJumlah,
     required this.createdAt,
     required this.updatedAt,
+    required this.liked,
   });
 
   factory ResponseProfileModel.fromJson(Map<String, dynamic> json) => ResponseProfileModel(
     id: json["id"],
+    title: json["title"],
     content: json["content"],
     gambar: json["gambar"],
     ditujukan: json["ditujukan"],
@@ -64,10 +69,12 @@ class ResponseProfileModel {
     commentJumlah: json["comment_jumlah"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
+    liked: json["liked"],
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
+    "title": title,
     "content": content,
     "gambar": gambar,
     "ditujukan": ditujukan,
@@ -77,6 +84,7 @@ class ResponseProfileModel {
     "comment_jumlah": commentJumlah,
     "created_at": createdAt.toIso8601String(),
     "updated_at": updatedAt.toIso8601String(),
+    "liked": liked,
   };
 }
 
