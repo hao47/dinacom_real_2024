@@ -192,10 +192,13 @@ class PoranCardItemAll extends GetView<PoranController> {
                                     .role ==
                                 "Masyarakat") {
                               // Get.toNamed('/detail',arguments: [response.id]);
-                              Get.toNamed('/profilemasyarakat',
+
+                              Get.toNamed('/profileinstansi',
                                   arguments: [response.author.id]);
                             } else {
                               Get.toNamed('/profileinstansi');
+                              Get.toNamed('/profilemasyarakat',
+                                  arguments: [response.author.id]);
                             }
                           },
                           child: Container(
@@ -320,7 +323,7 @@ class PoranCardItemAll extends GetView<PoranController> {
                       onPressed: () async {
 
                         final check = await controller.dislike(
-                            context, 0, response.id);
+                            context,  response.id);
 
 
 

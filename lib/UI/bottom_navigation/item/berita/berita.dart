@@ -52,6 +52,11 @@ class Berita extends StatelessWidget {
                 if (controller.state.value == ResultState.loading) {
                         return GridView.count(
                           shrinkWrap: true,
+
+                          padding: EdgeInsets.symmetric(
+                              vertical: 0,
+                              horizontal: 15
+                          ),
                           physics: NeverScrollableScrollPhysics(),
                           childAspectRatio: (itemWidth / itemHeight),
                           crossAxisCount: 2,
